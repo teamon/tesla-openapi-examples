@@ -10,7 +10,7 @@
     <title>Slack — examples v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-37545fd2f35b96531434.css" />
 
-    <script src="dist/sidebar_items-4c6f3a48c0.js"></script>
+    <script src="dist/sidebar_items-a45beda601.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -1384,12 +1384,16 @@ Slack <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
+    <div class="summary-synopsis"><p>See <a href="#new/2"><code class="inline">new/2</code></a>.</p></div>
+
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#new/2">new(middleware, adapter)</a>
 
   </div>
+
+    <div class="summary-synopsis"><p>Get new API client instance</p></div>
 
 </div>
 <div class="summary-row">
@@ -2808,7 +2812,16 @@ when opt:
       <div class="specs">
 
           <pre>admin_conversations_get_conversation_prefs(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
-  {:ok, %{ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), prefs: Slack.Prefs.t() | nil}}
+  {:ok,
+   %{
+     ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+     prefs:
+       %{
+         can_thread: %{type: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil, user: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil} | nil,
+         who_can_post: %{type: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil, user: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil} | nil
+       }
+       | nil
+   }}
   | {:error, %{error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
 when opt: {:channel_id, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}</pre>
@@ -2847,7 +2860,7 @@ when opt: {:channel_id, <a href="https://hexdocs.pm/elixir/typespecs.html#built-
   {:ok,
    %{
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-     response_metadata: Slack.ResponseMetadata.t() | nil,
+     response_metadata: %{next_cursor: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()} | nil,
      team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()]
    }}
   | {:error, %{error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
@@ -4228,7 +4241,30 @@ when opt: {:event_context, <a href="https://hexdocs.pm/elixir/typespecs.html#bui
       <div class="specs">
 
           <pre>apps_permissions_info(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
-  {:ok, %{info: Slack.Info.t(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
+  {:ok,
+   %{
+     info: %{
+       app_home: %{
+         resources: <a href="Slack.ObjsResources.html#t:t/0">Slack.ObjsResources.t</a>() | nil,
+         scopes: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil
+       },
+       channel: %{
+         resources: <a href="Slack.ObjsResources.html#t:t/0">Slack.ObjsResources.t</a>() | nil,
+         scopes: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil
+       },
+       group: %{
+         resources: <a href="Slack.ObjsResources.html#t:t/0">Slack.ObjsResources.t</a>() | nil,
+         scopes: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil
+       },
+       im: %{resources: <a href="Slack.ObjsResources.html#t:t/0">Slack.ObjsResources.t</a>() | nil, scopes: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil},
+       mpim: %{
+         resources: <a href="Slack.ObjsResources.html#t:t/0">Slack.ObjsResources.t</a>() | nil,
+         scopes: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil
+       },
+       team: %{resources: <a href="Slack.ObjsResources.html#t:t/0">Slack.ObjsResources.t</a>(), scopes: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()]}
+     },
+     ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()
+   }}
   | {:error, %{callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
 when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}</pre>
@@ -4304,7 +4340,7 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
    %{
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
      resources: [%{id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil}],
-     response_metadata: Slack.ResponseMetadata.t() | nil
+     response_metadata: %{next_cursor: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()} | nil
    }}
   | {:error, %{callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
@@ -4341,7 +4377,19 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
       <div class="specs">
 
           <pre>apps_permissions_scopes_list(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
-  {:ok, %{ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), scopes: Slack.Scopes.t()}}
+  {:ok,
+   %{
+     ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+     scopes: %{
+       app_home: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
+       channel: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
+       group: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
+       im: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
+       mpim: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
+       team: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
+       user: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil
+     }
+   }}
   | {:error, %{callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
 when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}</pre>
@@ -4561,7 +4609,19 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
       <div class="specs">
 
           <pre>bots_info(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
-  {:ok, %{bot: Slack.Bot.t(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
+  {:ok,
+   %{
+     bot: %{
+       app_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       deleted: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+       icons: %{image_36: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), image_48: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), image_72: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
+       id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       updated: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
+       user_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil
+     },
+     ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()
+   }}
   | {:error, %{callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
 when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()} | {:bot, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}</pre>
@@ -4954,7 +5014,15 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
   {:ok,
    %{
      channel: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
-     message: Slack.Message.t(),
+     message: %{
+       bot_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       bot_profile: <a href="Slack.ObjsBotProfile.html#t:t/0">Slack.ObjsBotProfile.t</a>() | nil,
+       team: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       text: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       user: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       username: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil
+     },
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
      post_at: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
      scheduled_message_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()
@@ -4992,7 +5060,7 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
   {:ok,
    %{
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-     response_metadata: Slack.ResponseMetadata.t(),
+     response_metadata: %{next_cursor: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
      scheduled_messages: [
        %{
          channel_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
@@ -5073,7 +5141,11 @@ when opt:
   {:ok,
    %{
      channel: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
-     message: Slack.Message.t(),
+     message: %{
+       attachments: [%{}] | nil,
+       blocks: <a href="Slack.Blocks.html#t:t/0">Slack.Blocks.t</a>() | nil,
+       text: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()
+     },
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
      text: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
      ts: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()
@@ -5210,15 +5282,16 @@ when opt:
          is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-         display_counts: Slack.DisplayCounts.t() | nil,
-         purpose: Slack.Purpose.t(),
+         display_counts:
+           %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+         purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-         topic: Slack.Topic.t(),
+         topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -5273,15 +5346,16 @@ when opt:
            is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-           display_counts: Slack.DisplayCounts.t() | nil,
-           purpose: Slack.Purpose.t(),
+           display_counts:
+             %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+           purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-           topic: Slack.Topic.t(),
+           topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
            is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -5385,7 +5459,7 @@ when opt:
   {:ok,
    %{
      channel_actions_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
-     channel_actions_ts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
+     channel_actions_ts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
      has_more: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
      messages: [<a href="Slack.ObjsMessage.html#t:t/0">Slack.ObjsMessage.t</a>()],
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
@@ -5471,15 +5545,16 @@ when opt:
          is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-         display_counts: Slack.DisplayCounts.t() | nil,
-         purpose: Slack.Purpose.t(),
+         display_counts:
+           %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+         purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-         topic: Slack.Topic.t(),
+         topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -5534,15 +5609,16 @@ when opt:
            is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-           display_counts: Slack.DisplayCounts.t() | nil,
-           purpose: Slack.Purpose.t(),
+           display_counts:
+             %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+           purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-           topic: Slack.Topic.t(),
+           topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
            is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -5680,15 +5756,16 @@ when opt:
          is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-         display_counts: Slack.DisplayCounts.t() | nil,
-         purpose: Slack.Purpose.t(),
+         display_counts:
+           %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+         purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-         topic: Slack.Topic.t(),
+         topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -5743,15 +5820,16 @@ when opt:
            is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-           display_counts: Slack.DisplayCounts.t() | nil,
-           purpose: Slack.Purpose.t(),
+           display_counts:
+             %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+           purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-           topic: Slack.Topic.t(),
+           topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
            is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -5881,15 +5959,16 @@ when opt:
          is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-         display_counts: Slack.DisplayCounts.t() | nil,
-         purpose: Slack.Purpose.t(),
+         display_counts:
+           %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+         purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-         topic: Slack.Topic.t(),
+         topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -5944,15 +6023,16 @@ when opt:
            is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-           display_counts: Slack.DisplayCounts.t() | nil,
-           purpose: Slack.Purpose.t(),
+           display_counts:
+             %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+           purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-           topic: Slack.Topic.t(),
+           topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
            is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -6014,7 +6094,7 @@ when opt:
            version: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil
          },
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-     response_metadata: Slack.ResponseMetadata.t() | nil,
+     response_metadata: %{warnings: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil} | nil,
      warning: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil
    }}
   | {:error,
@@ -6157,15 +6237,16 @@ when opt:
          is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-         display_counts: Slack.DisplayCounts.t() | nil,
-         purpose: Slack.Purpose.t(),
+         display_counts:
+           %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+         purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-         topic: Slack.Topic.t(),
+         topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -6220,15 +6301,16 @@ when opt:
            is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-           display_counts: Slack.DisplayCounts.t() | nil,
-           purpose: Slack.Purpose.t(),
+           display_counts:
+             %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+           purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-           topic: Slack.Topic.t(),
+           topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
            is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -6291,7 +6373,7 @@ when opt:
          }
      ],
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-     response_metadata: Slack.ResponseMetadata.t() | nil
+     response_metadata: %{next_cursor: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()} | nil
    }}
   | {:error,
      %{
@@ -6380,7 +6462,7 @@ when opt:
    %{
      members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()],
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-     response_metadata: Slack.ResponseMetadata.t()
+     response_metadata: %{next_cursor: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
    }}
   | {:error, %{callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
@@ -6451,15 +6533,16 @@ when opt:
          is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-         display_counts: Slack.DisplayCounts.t() | nil,
-         purpose: Slack.Purpose.t(),
+         display_counts:
+           %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+         purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-         topic: Slack.Topic.t(),
+         topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -6514,15 +6597,16 @@ when opt:
            is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-           display_counts: Slack.DisplayCounts.t() | nil,
-           purpose: Slack.Purpose.t(),
+           display_counts:
+             %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+           purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-           topic: Slack.Topic.t(),
+           topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
            is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -6656,15 +6740,16 @@ when opt:
          is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-         display_counts: Slack.DisplayCounts.t() | nil,
-         purpose: Slack.Purpose.t(),
+         display_counts:
+           %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+         purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-         topic: Slack.Topic.t(),
+         topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -6719,15 +6804,16 @@ when opt:
            is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-           display_counts: Slack.DisplayCounts.t() | nil,
-           purpose: Slack.Purpose.t(),
+           display_counts:
+             %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+           purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-           topic: Slack.Topic.t(),
+           topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
            is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -6944,15 +7030,16 @@ when opt:
          is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-         display_counts: Slack.DisplayCounts.t() | nil,
-         purpose: Slack.Purpose.t(),
+         display_counts:
+           %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+         purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-         topic: Slack.Topic.t(),
+         topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -7007,15 +7094,16 @@ when opt:
            is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-           display_counts: Slack.DisplayCounts.t() | nil,
-           purpose: Slack.Purpose.t(),
+           display_counts:
+             %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+           purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-           topic: Slack.Topic.t(),
+           topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
            is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -7144,15 +7232,16 @@ when opt:
          is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-         display_counts: Slack.DisplayCounts.t() | nil,
-         purpose: Slack.Purpose.t(),
+         display_counts:
+           %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+         purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-         topic: Slack.Topic.t(),
+         topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -7207,15 +7296,16 @@ when opt:
            is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-           display_counts: Slack.DisplayCounts.t() | nil,
-           purpose: Slack.Purpose.t(),
+           display_counts:
+             %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+           purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-           topic: Slack.Topic.t(),
+           topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
            is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -8045,7 +8135,7 @@ when opt:
      invalid_user_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
      team_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
-     user_id_map: Slack.UserIdMap.t() | nil
+     user_id_map: %{} | nil
    }}
   | {:error, %{callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
@@ -8078,7 +8168,14 @@ when opt:
 
   <section class="docstring">
 
+      <h2>Specs</h2>
+      <div class="specs">
 
+          <pre>new() :: <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()</pre>
+
+      </div>
+
+<p>See <a href="#new/2"><code class="inline">new/2</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="new/2">
@@ -8095,7 +8192,14 @@ when opt:
 
   <section class="docstring">
 
+      <h2>Specs</h2>
+      <div class="specs">
 
+          <pre>new([<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:middleware/0">Tesla.Client.middleware</a>()], <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:adapter/0">Tesla.Client.adapter</a>()) :: <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()</pre>
+
+      </div>
+
+<p>Get new API client instance</p>
   </section>
 </section>
 <section class="detail" id="oauth_access/2">
@@ -8651,7 +8755,12 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
 
           <pre>rtm_connect(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
   {:ok,
-   %{ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), self: Slack.Self.t(), team: Slack.Team.t(), url: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}}
+   %{
+     ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+     self: %{id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
+     team: %{domain: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
+     url: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()
+   }}
   | {:error, %{callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
 when opt:
@@ -8855,12 +8964,12 @@ when opt:
      logins: [
        %{
          count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
-         country: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+         country: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          date_first: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
          date_last: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
-         ip: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-         isp: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-         region: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+         ip: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         isp: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         region: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          user_agent: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          user_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          username: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()
@@ -9040,7 +9149,7 @@ when opt:
       <div class="specs">
 
           <pre>team_profile_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
-  {:ok, %{ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), profile: Slack.Profile.t()}}
+  {:ok, %{ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), profile: %{fields: [<a href="Slack.ObjsTeamProfileField.html#t:t/0">Slack.ObjsTeamProfileField.t</a>()]}}}
   | {:error, %{callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
 when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()} | {:visibility, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}</pre>
@@ -9331,15 +9440,16 @@ when opt:
          is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-         display_counts: Slack.DisplayCounts.t() | nil,
-         purpose: Slack.Purpose.t(),
+         display_counts:
+           %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+         purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
          pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
          conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-         topic: Slack.Topic.t(),
+         topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
          is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
          name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
          is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -9394,15 +9504,16 @@ when opt:
            is_mpim: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            pin_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            unread_count_display: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
-           display_counts: Slack.DisplayCounts.t() | nil,
-           purpose: Slack.Purpose.t(),
+           display_counts:
+             %{display_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), guest_counts: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | nil,
+           purpose: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            members: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            unlinked: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            is_moved: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
            pending_connected_team_ids: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            conversation_host_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            is_private: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-           topic: Slack.Topic.t(),
+           topic: %{creator: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), last_set: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(), value: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
            is_im: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
            name_normalized: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
            is_starred: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>() | nil,
@@ -9465,7 +9576,7 @@ when opt:
          }
      ],
      ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-     response_metadata: Slack.ResponseMetadata.t() | nil
+     response_metadata: %{next_cursor: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()} | nil
    }}
   | {:error, %{callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
@@ -9582,7 +9693,48 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
       <div class="specs">
 
           <pre>users_identity(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
-  {:ok, %{ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), team: Slack.Team.t(), user: Slack.User.t()}}
+  {:ok,
+   %{
+     ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+     team: %{id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
+     user: %{id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
+   }
+   | %{
+       ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+       team: %{id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
+       user: %{email: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
+     }
+   | %{
+       ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+       team: %{id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()},
+       user: %{
+         id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_192: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_24: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_32: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_48: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_512: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_72: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()
+       }
+     }
+   | %{
+       ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+       team: %{
+         domain: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_102: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_132: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_230: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_34: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_44: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_68: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_88: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         image_default: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+         name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()
+       },
+       user: %{id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
+     }}
   | {:error, %{callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil, error: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>()}}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
 when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}</pre>
@@ -9646,9 +9798,9 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
          real_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          team: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          team_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-         team_profile: Slack.TeamProfile.t() | nil,
+         team_profile: %{fields: [<a href="Slack.ObjsTeamProfileField.html#t:t/0">Slack.ObjsTeamProfileField.t</a>()]} | nil,
          two_factor_type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-         tz: nil | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         tz: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          tz_label: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          tz_offset: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>() | nil,
          updated: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>()
@@ -9675,10 +9827,10 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
            profile: <a href="Slack.ObjsUserProfile.html#t:t/0">Slack.ObjsUserProfile.t</a>(),
            real_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            team_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-           team_profile: Slack.TeamProfile.t() | nil,
+           team_profile: %{fields: [<a href="Slack.ObjsTeamProfileField.html#t:t/0">Slack.ObjsTeamProfileField.t</a>()]} | nil,
            teams: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            two_factor_type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-           tz: nil | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+           tz: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            tz_label: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            tz_offset: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>() | nil,
            updated: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>()
@@ -9747,9 +9899,9 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
          real_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          team: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          team_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-         team_profile: Slack.TeamProfile.t() | nil,
+         team_profile: %{fields: [<a href="Slack.ObjsTeamProfileField.html#t:t/0">Slack.ObjsTeamProfileField.t</a>()]} | nil,
          two_factor_type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-         tz: nil | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         tz: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          tz_label: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          tz_offset: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>() | nil,
          updated: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>()
@@ -9776,10 +9928,10 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
            profile: <a href="Slack.ObjsUserProfile.html#t:t/0">Slack.ObjsUserProfile.t</a>(),
            real_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            team_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-           team_profile: Slack.TeamProfile.t() | nil,
+           team_profile: %{fields: [<a href="Slack.ObjsTeamProfileField.html#t:t/0">Slack.ObjsTeamProfileField.t</a>()]} | nil,
            teams: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            two_factor_type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-           tz: nil | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+           tz: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            tz_label: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            tz_offset: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>() | nil,
            updated: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>()
@@ -9859,9 +10011,9 @@ when opt:
          real_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          team: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          team_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-         team_profile: Slack.TeamProfile.t() | nil,
+         team_profile: %{fields: [<a href="Slack.ObjsTeamProfileField.html#t:t/0">Slack.ObjsTeamProfileField.t</a>()]} | nil,
          two_factor_type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-         tz: nil | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+         tz: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          tz_label: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
          tz_offset: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>() | nil,
          updated: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>()
@@ -9888,10 +10040,10 @@ when opt:
            profile: <a href="Slack.ObjsUserProfile.html#t:t/0">Slack.ObjsUserProfile.t</a>(),
            real_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            team_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-           team_profile: Slack.TeamProfile.t() | nil,
+           team_profile: %{fields: [<a href="Slack.ObjsTeamProfileField.html#t:t/0">Slack.ObjsTeamProfileField.t</a>()]} | nil,
            teams: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
            two_factor_type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
-           tz: nil | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+           tz: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            tz_label: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
            tz_offset: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>() | nil,
            updated: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">number</a>()
@@ -10030,7 +10182,21 @@ when opt: {:token, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-ty
       <div class="specs">
 
           <pre>users_set_photo(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
-  {:ok, %{ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(), profile: Slack.Profile.t()}}
+  {:ok,
+   %{
+     ok: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
+     profile: %{
+       avatar_hash: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       image_1024: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       image_192: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       image_24: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       image_32: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       image_48: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       image_512: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       image_72: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+       image_original: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()
+     }
+   }}
   | {:error,
      %{
        callstack: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,

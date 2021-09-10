@@ -119,8 +119,14 @@ defmodule(Petstore) do
     "
     @spec show_pet_by_id(Tesla.Client.t(), binary) ::
             {:ok, [Petstore.Pet.t()]} | {:error, Petstore.Error.t()} | {:error, any}
-    def(show_pet_by_id(client \\ new(), petId)) do
-      case(Tesla.request(client, method: :get, url: "/pets/#{petId}")) do
+    def(show_pet_by_id(client \\ new(), pet_id)) do
+      case(
+        Tesla.request(client,
+          method: :get,
+          url: "/pets/:pet_id",
+          opts: [path_params: [pet_id: pet_id]]
+        )
+      ) do
         {:ok, %{status: 200, body: body}} when is_list(body) ->
           {:ok, Enum.map(body, fn item -> Petstore.Pet.decode(item) end)}
 
@@ -138,6 +144,7 @@ defmodule(Petstore) do
   (
     @middleware [
       {Tesla.Middleware.BaseUrl, "http://petstore.swagger.io/v1"},
+      Tesla.Middleware.PathParams,
       Tesla.Middleware.EncodeJson,
       Tesla.Middleware.DecodeJson,
       Tesla.Middleware.DecodeFormUrlencoded

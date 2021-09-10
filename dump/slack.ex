@@ -10660,6 +10660,7 @@ defmodule(Slack) do
   (
     @middleware [
       {Tesla.Middleware.BaseUrl, "https://slack.com/api"},
+      Tesla.Middleware.PathParams,
       Tesla.Middleware.DecodeJson,
       Tesla.Middleware.DecodeFormUrlencoded
     ]

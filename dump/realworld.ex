@@ -718,7 +718,13 @@ defmodule(Realworld) do
     @spec delete_article(Tesla.Client.t(), binary) ::
             :ok | {:error, integer} | {:error, Realworld.GenericErrorModel.t()} | {:error, any}
     def(delete_article(client \\ new(), slug)) do
-      case(Tesla.request(client, method: :delete, url: "/articles/#{slug}")) do
+      case(
+        Tesla.request(client,
+          method: :delete,
+          url: "/articles/:slug",
+          opts: [path_params: [slug: slug]]
+        )
+      ) do
         {:ok, %{status: 200, body: _any}} ->
           :ok
 
@@ -750,7 +756,13 @@ defmodule(Realworld) do
             | {:error, Realworld.GenericErrorModel.t()}
             | {:error, any}
     def(get_article(client \\ new(), slug)) do
-      case(Tesla.request(client, method: :get, url: "/articles/#{slug}")) do
+      case(
+        Tesla.request(client,
+          method: :get,
+          url: "/articles/:slug",
+          opts: [path_params: [slug: slug]]
+        )
+      ) do
         {:ok, %{status: 200, body: body}} ->
           {:ok, Realworld.SingleArticleResponse.decode(body)}
 
@@ -783,7 +795,8 @@ defmodule(Realworld) do
       case(
         Tesla.request(client,
           method: :put,
-          url: "/articles/#{slug}",
+          url: "/articles/:slug",
+          opts: [path_params: [slug: slug]],
           body: Realworld.UpdateArticleRequest.encode(article)
         )
       ) do
@@ -819,7 +832,13 @@ defmodule(Realworld) do
             | {:error, Realworld.GenericErrorModel.t()}
             | {:error, any}
     def(get_article_comments(client \\ new(), slug)) do
-      case(Tesla.request(client, method: :get, url: "/articles/#{slug}/comments")) do
+      case(
+        Tesla.request(client,
+          method: :get,
+          url: "/articles/:slug/comments",
+          opts: [path_params: [slug: slug]]
+        )
+      ) do
         {:ok, %{status: 200, body: body}} ->
           {:ok, Realworld.MultipleCommentsResponse.decode(body)}
 
@@ -855,7 +874,8 @@ defmodule(Realworld) do
       case(
         Tesla.request(client,
           method: :post,
-          url: "/articles/#{slug}/comments",
+          url: "/articles/:slug/comments",
+          opts: [path_params: [slug: slug]],
           body: Realworld.NewCommentRequest.encode(comment)
         )
       ) do
@@ -888,7 +908,13 @@ defmodule(Realworld) do
     @spec delete_article_comment(Tesla.Client.t(), binary, integer) ::
             :ok | {:error, integer} | {:error, Realworld.GenericErrorModel.t()} | {:error, any}
     def(delete_article_comment(client \\ new(), slug, id)) do
-      case(Tesla.request(client, method: :delete, url: "/articles/#{slug}/comments/#{id}")) do
+      case(
+        Tesla.request(client,
+          method: :delete,
+          url: "/articles/:slug/comments/:id",
+          opts: [path_params: [slug: slug, id: id]]
+        )
+      ) do
         {:ok, %{status: 200, body: _any}} ->
           :ok
 
@@ -921,7 +947,13 @@ defmodule(Realworld) do
             | {:error, Realworld.GenericErrorModel.t()}
             | {:error, any}
     def(delete_article_favorite(client \\ new(), slug)) do
-      case(Tesla.request(client, method: :delete, url: "/articles/#{slug}/favorite")) do
+      case(
+        Tesla.request(client,
+          method: :delete,
+          url: "/articles/:slug/favorite",
+          opts: [path_params: [slug: slug]]
+        )
+      ) do
         {:ok, %{status: 200, body: body}} ->
           {:ok, Realworld.SingleArticleResponse.decode(body)}
 
@@ -954,7 +986,13 @@ defmodule(Realworld) do
             | {:error, Realworld.GenericErrorModel.t()}
             | {:error, any}
     def(create_article_favorite(client \\ new(), slug)) do
-      case(Tesla.request(client, method: :post, url: "/articles/#{slug}/favorite")) do
+      case(
+        Tesla.request(client,
+          method: :post,
+          url: "/articles/:slug/favorite",
+          opts: [path_params: [slug: slug]]
+        )
+      ) do
         {:ok, %{status: 200, body: body}} ->
           {:ok, Realworld.SingleArticleResponse.decode(body)}
 
@@ -987,7 +1025,13 @@ defmodule(Realworld) do
             | {:error, Realworld.GenericErrorModel.t()}
             | {:error, any}
     def(get_profile_by_username(client \\ new(), username)) do
-      case(Tesla.request(client, method: :get, url: "/profiles/#{username}")) do
+      case(
+        Tesla.request(client,
+          method: :get,
+          url: "/profiles/:username",
+          opts: [path_params: [username: username]]
+        )
+      ) do
         {:ok, %{status: 200, body: body}} ->
           {:ok, Realworld.ProfileResponse.decode(body)}
 
@@ -1020,7 +1064,13 @@ defmodule(Realworld) do
             | {:error, Realworld.GenericErrorModel.t()}
             | {:error, any}
     def(unfollow_user_by_username(client \\ new(), username)) do
-      case(Tesla.request(client, method: :delete, url: "/profiles/#{username}/follow")) do
+      case(
+        Tesla.request(client,
+          method: :delete,
+          url: "/profiles/:username/follow",
+          opts: [path_params: [username: username]]
+        )
+      ) do
         {:ok, %{status: 200, body: body}} ->
           {:ok, Realworld.ProfileResponse.decode(body)}
 
@@ -1053,7 +1103,13 @@ defmodule(Realworld) do
             | {:error, Realworld.GenericErrorModel.t()}
             | {:error, any}
     def(follow_user_by_username(client \\ new(), username)) do
-      case(Tesla.request(client, method: :post, url: "/profiles/#{username}/follow")) do
+      case(
+        Tesla.request(client,
+          method: :post,
+          url: "/profiles/:username/follow",
+          opts: [path_params: [username: username]]
+        )
+      ) do
         {:ok, %{status: 200, body: body}} ->
           {:ok, Realworld.ProfileResponse.decode(body)}
 
@@ -1220,6 +1276,7 @@ defmodule(Realworld) do
   (
     @middleware [
       {Tesla.Middleware.BaseUrl, "/api"},
+      Tesla.Middleware.PathParams,
       Tesla.Middleware.EncodeJson,
       Tesla.Middleware.DecodeJson,
       Tesla.Middleware.DecodeFormUrlencoded

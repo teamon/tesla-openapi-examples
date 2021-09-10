@@ -10,7 +10,7 @@
     <title>Slack.ObjsSubteam — examples v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-37545fd2f35b96531434.css" />
 
-    <script src="dist/sidebar_items-4c6f3a48c0.js"></script>
+    <script src="dist/sidebar_items-a45beda601.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -113,27 +113,6 @@ Slack.ObjsSubteam <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-  <div class="summary-functions summary">
-    <h2>
-      <a href="#functions">Functions</a>
-    </h2>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#decode/1">decode(data)</a>
-
-  </div>
-
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#encode/1">encode(data)</a>
-
-  </div>
-
-</div>
-
-  </div>
-
         </section>
 
 
@@ -165,13 +144,13 @@ Types
 
           <pre>t() :: %Slack.ObjsSubteam{
   auto_provision: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
-  auto_type: nil | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+  auto_type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
   channel_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
   created_by: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
   date_create: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
   date_delete: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
   date_update: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>(),
-  deleted_by: nil | <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+  deleted_by: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
   description: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
   enterprise_subteam_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
   handle: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
@@ -180,7 +159,7 @@ Types
   is_subteam: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
   is_usergroup: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">boolean</a>(),
   name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
-  prefs: Slack.Prefs.t(),
+  prefs: %{channels: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()], groups: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()]},
   team_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
   updated_by: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
   user_count: <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>() | nil,
@@ -188,53 +167,6 @@ Types
 }</pre>
 
       </div>
-
-
-  </section>
-</section>
-
-          </div>
-        </section>
-
-        <section id="functions" class="details-list">
-          <h1 class="section-heading">
-            <a class="hover-link" href="#functions">
-              <span class="icon-link" aria-hidden="true"></span>
-              <span class="sr-only">Link to this section</span>
-            </a>
-Functions
-          </h1>
-          <div class="functions-list">
-<section class="detail" id="decode/1">
-
-  <div class="detail-header">
-    <a href="#decode/1" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature">decode(data)</h1>
-
-
-  </div>
-
-  <section class="docstring">
-
-
-  </section>
-</section>
-<section class="detail" id="encode/1">
-
-  <div class="detail-header">
-    <a href="#encode/1" class="detail-link" title="Link to this function">
-      <span class="icon-link" aria-hidden="true"></span>
-      <span class="sr-only">Link to this function</span>
-    </a>
-    <h1 class="signature">encode(data)</h1>
-
-
-  </div>
-
-  <section class="docstring">
 
 
   </section>
