@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.25.2">
+    <meta name="project" content="examples v0.1.0">
+
+    <title>Realworld — examples v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-37545fd2f35b96531434.css" />
+
+    <script src="dist/sidebar_items-a45beda601.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/app-f97730d45ef67f3e6188.js"></script>
+
+
+  </head>
+  <body data-type="modules">
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <span class="icon-search" aria-hidden="true" title="Submit search"></span>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
+    </button>
+    <label class="search-label">
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectDetails">
+      <a href="api-reference.html" class="sidebar-projectName">
+examples
+      </a>
+      <strong class="sidebar-projectVersion">
+        v0.1.0
+      </strong>
+    </div>
+
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+      <h1>
+Realworld <small class="app-vsn">(examples v0.1.0)</small>
+
+      </h1>
+
+
+        <section id="moduledoc">
+<p>Conduit API</p><p>Conduit API</p><p>Version 1.0.0</p>
+        </section>
+
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_article/2">create_article(client \\ new(), article)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create an article</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_article_comment/3">create_article_comment(client \\ new(), slug, comment)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a comment for an article</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_article_favorite/2">create_article_favorite(client \\ new(), slug)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Favorite an article</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_user/2">create_user(client \\ new(), body)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Register a new user</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_article/2">delete_article(client \\ new(), slug)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Delete an article</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_article_comment/3">delete_article_comment(client \\ new(), slug, id)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Delete a comment for an article</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#delete_article_favorite/2">delete_article_favorite(client \\ new(), slug)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Unfavorite an article</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#follow_user_by_username/2">follow_user_by_username(client \\ new(), username)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Follow a user</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_article/2">get_article(client \\ new(), slug)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get an article</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_article_comments/2">get_article_comments(client \\ new(), slug)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get comments for an article</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_articles/2">get_articles(client \\ new(), query \\ [])</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get recent articles globally</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_articles_feed/2">get_articles_feed(client \\ new(), query \\ [])</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get recent articles from users you follow</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_current_user/1">get_current_user(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get current user</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_profile_by_username/2">get_profile_by_username(client \\ new(), username)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get a profile</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#login/2">login(client \\ new(), body)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Existing user login</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/0">new()</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>See <a href="#new/2"><code class="inline">new/2</code></a>.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/2">new(middleware, adapter)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get new API client instance</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#unfollow_user_by_username/2">unfollow_user_by_username(client \\ new(), username)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Unfollow a user</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#update_article/3">update_article(client \\ new(), slug, article)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Update an article</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#update_current_user/2">update_current_user(client \\ new(), body)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Update current user</p></div>
+
+</div>
+
+  </div>
+
+        </section>
+
+
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+Functions
+          </h1>
+          <div class="functions-list">
+<section class="detail" id="create_article/2">
+
+    <span id="create_article/1"></span>
+
+  <div class="detail-header">
+    <a href="#create_article/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">create_article(client \\ new(), article)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>create_article(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="Realworld.NewArticleRequest.html#t:t/0">Realworld.NewArticleRequest.t</a>()) ::
+  {:ok, <a href="Realworld.SingleArticleResponse.html#t:t/0">Realworld.SingleArticleResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create an article</p><p>Create an article. Auth is required</p>
+  </section>
+</section>
+<section class="detail" id="create_article_comment/3">
+
+    <span id="create_article_comment/2"></span>
+
+  <div class="detail-header">
+    <a href="#create_article_comment/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">create_article_comment(client \\ new(), slug, comment)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>create_article_comment(
+  <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+  <a href="Realworld.NewCommentRequest.html#t:t/0">Realworld.NewCommentRequest.t</a>()
+) ::
+  {:ok, <a href="Realworld.SingleCommentResponse.html#t:t/0">Realworld.SingleCommentResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a comment for an article</p><p>Create a comment for an article. Auth is required</p>
+  </section>
+</section>
+<section class="detail" id="create_article_favorite/2">
+
+    <span id="create_article_favorite/1"></span>
+
+  <div class="detail-header">
+    <a href="#create_article_favorite/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">create_article_favorite(client \\ new(), slug)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>create_article_favorite(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
+  {:ok, <a href="Realworld.SingleArticleResponse.html#t:t/0">Realworld.SingleArticleResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Favorite an article</p><p>Favorite an article. Auth is required</p>
+  </section>
+</section>
+<section class="detail" id="create_user/2">
+
+    <span id="create_user/1"></span>
+
+  <div class="detail-header">
+    <a href="#create_user/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">create_user(client \\ new(), body)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>create_user(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="Realworld.NewUserRequest.html#t:t/0">Realworld.NewUserRequest.t</a>()) ::
+  {:ok, <a href="Realworld.UserResponse.html#t:t/0">Realworld.UserResponse.t</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Register a new user</p><p>Register a new user</p>
+  </section>
+</section>
+<section class="detail" id="delete_article/2">
+
+    <span id="delete_article/1"></span>
+
+  <div class="detail-header">
+    <a href="#delete_article/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">delete_article(client \\ new(), slug)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>delete_article(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
+  :ok
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Delete an article</p><p>Delete an article. Auth is required</p>
+  </section>
+</section>
+<section class="detail" id="delete_article_comment/3">
+
+    <span id="delete_article_comment/2"></span>
+
+  <div class="detail-header">
+    <a href="#delete_article_comment/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">delete_article_comment(client \\ new(), slug, id)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>delete_article_comment(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()) ::
+  :ok
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Delete a comment for an article</p><p>Delete a comment for an article. Auth is required</p>
+  </section>
+</section>
+<section class="detail" id="delete_article_favorite/2">
+
+    <span id="delete_article_favorite/1"></span>
+
+  <div class="detail-header">
+    <a href="#delete_article_favorite/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">delete_article_favorite(client \\ new(), slug)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>delete_article_favorite(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
+  {:ok, <a href="Realworld.SingleArticleResponse.html#t:t/0">Realworld.SingleArticleResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Unfavorite an article</p><p>Unfavorite an article. Auth is required</p>
+  </section>
+</section>
+<section class="detail" id="follow_user_by_username/2">
+
+    <span id="follow_user_by_username/1"></span>
+
+  <div class="detail-header">
+    <a href="#follow_user_by_username/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">follow_user_by_username(client \\ new(), username)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>follow_user_by_username(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
+  {:ok, <a href="Realworld.ProfileResponse.html#t:t/0">Realworld.ProfileResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Follow a user</p><p>Follow a user by username</p>
+  </section>
+</section>
+<section class="detail" id="get_article/2">
+
+    <span id="get_article/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_article/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get_article(client \\ new(), slug)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>get_article(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
+  {:ok, <a href="Realworld.SingleArticleResponse.html#t:t/0">Realworld.SingleArticleResponse.t</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get an article</p><p>Get an article. Auth not required</p>
+  </section>
+</section>
+<section class="detail" id="get_article_comments/2">
+
+    <span id="get_article_comments/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_article_comments/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get_article_comments(client \\ new(), slug)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>get_article_comments(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
+  {:ok, <a href="Realworld.MultipleCommentsResponse.html#t:t/0">Realworld.MultipleCommentsResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get comments for an article</p><p>Get the comments for an article. Auth is optional</p>
+  </section>
+</section>
+<section class="detail" id="get_articles/2">
+
+    <span id="get_articles/0"></span>
+
+    <span id="get_articles/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_articles/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get_articles(client \\ new(), query \\ [])</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>get_articles(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
+  {:ok, <a href="Realworld.MultipleArticlesResponse.html#t:t/0">Realworld.MultipleArticlesResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
+when opt:
+       {:tag, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
+       | {:author, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
+       | {:favorited, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
+       | {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+       | {:offset, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}</pre>
+
+      </div>
+
+<p>Get recent articles globally</p><p>Get most recent articles globally. Use query parameters to filter results. Auth is optional</p><h3 id="get_articles/2-query-parameters" class="section-heading">
+  <a href="#get_articles/2-query-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Query parameters
+</h3>
+<ul><li><code class="inline">tag</code>: Filter by tag</li><li><code class="inline">author</code>: Filter by author (username)</li><li><code class="inline">favorited</code>: Filter by favorites of a user (username)</li><li><code class="inline">limit</code>: Limit number of articles returned (default is 20)</li><li><code class="inline">offset</code>: Offset/skip number of articles (default is 0)</li></ul>
+  </section>
+</section>
+<section class="detail" id="get_articles_feed/2">
+
+    <span id="get_articles_feed/0"></span>
+
+    <span id="get_articles_feed/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_articles_feed/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get_articles_feed(client \\ new(), query \\ [])</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>get_articles_feed(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
+  {:ok, <a href="Realworld.MultipleArticlesResponse.html#t:t/0">Realworld.MultipleArticlesResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
+when opt: {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | {:offset, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}</pre>
+
+      </div>
+
+<p>Get recent articles from users you follow</p><p>Get most recent articles from users you follow. Use query parameters to limit. Auth is required</p><h3 id="get_articles_feed/2-query-parameters" class="section-heading">
+  <a href="#get_articles_feed/2-query-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Query parameters
+</h3>
+<ul><li><code class="inline">limit</code>: Limit number of articles returned (default is 20)</li><li><code class="inline">offset</code>: Offset/skip number of articles (default is 0)</li></ul>
+  </section>
+</section>
+<section class="detail" id="get_current_user/1">
+
+    <span id="get_current_user/0"></span>
+
+  <div class="detail-header">
+    <a href="#get_current_user/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get_current_user(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>get_current_user(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  {:ok, <a href="Realworld.UserResponse.html#t:t/0">Realworld.UserResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get current user</p><p>Gets the currently logged-in user</p>
+  </section>
+</section>
+<section class="detail" id="get_profile_by_username/2">
+
+    <span id="get_profile_by_username/1"></span>
+
+  <div class="detail-header">
+    <a href="#get_profile_by_username/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">get_profile_by_username(client \\ new(), username)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>get_profile_by_username(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
+  {:ok, <a href="Realworld.ProfileResponse.html#t:t/0">Realworld.ProfileResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get a profile</p><p>Get a profile of a user of the system. Auth is optional</p>
+  </section>
+</section>
+<section class="detail" id="login/2">
+
+    <span id="login/1"></span>
+
+  <div class="detail-header">
+    <a href="#login/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">login(client \\ new(), body)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>login(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="Realworld.LoginUserRequest.html#t:t/0">Realworld.LoginUserRequest.t</a>()) ::
+  {:ok, <a href="Realworld.UserResponse.html#t:t/0">Realworld.UserResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Existing user login</p><p>Login for existing user</p>
+  </section>
+</section>
+<section class="detail" id="new/0">
+
+  <div class="detail-header">
+    <a href="#new/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">new()</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>new() :: <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()</pre>
+
+      </div>
+
+<p>See <a href="#new/2"><code class="inline">new/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="new/2">
+
+  <div class="detail-header">
+    <a href="#new/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">new(middleware, adapter)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>new([<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:middleware/0">Tesla.Client.middleware</a>()], <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:adapter/0">Tesla.Client.adapter</a>()) :: <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()</pre>
+
+      </div>
+
+<p>Get new API client instance</p>
+  </section>
+</section>
+<section class="detail" id="unfollow_user_by_username/2">
+
+    <span id="unfollow_user_by_username/1"></span>
+
+  <div class="detail-header">
+    <a href="#unfollow_user_by_username/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">unfollow_user_by_username(client \\ new(), username)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>unfollow_user_by_username(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
+  {:ok, <a href="Realworld.ProfileResponse.html#t:t/0">Realworld.ProfileResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Unfollow a user</p><p>Unfollow a user by username</p>
+  </section>
+</section>
+<section class="detail" id="update_article/3">
+
+    <span id="update_article/2"></span>
+
+  <div class="detail-header">
+    <a href="#update_article/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">update_article(client \\ new(), slug, article)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>update_article(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), <a href="Realworld.UpdateArticleRequest.html#t:t/0">Realworld.UpdateArticleRequest.t</a>()) ::
+  {:ok, <a href="Realworld.SingleArticleResponse.html#t:t/0">Realworld.SingleArticleResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Update an article</p><p>Update an article. Auth is required</p>
+  </section>
+</section>
+<section class="detail" id="update_current_user/2">
+
+    <span id="update_current_user/1"></span>
+
+  <div class="detail-header">
+    <a href="#update_current_user/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">update_current_user(client \\ new(), body)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>update_current_user(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="Realworld.UpdateUserRequest.html#t:t/0">Realworld.UpdateUserRequest.t</a>()) ::
+  {:ok, <a href="Realworld.UserResponse.html#t:t/0">Realworld.UserResponse.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
+  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Update current user</p><p>Updated user information for current user</p>
+  </section>
+</section>
+
+          </div>
+        </section>
+
+      <footer class="footer">
+
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.25.2) for the
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
+          </span>
+          <span class="line">
+            Designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+        </p>
+        <p>
+
+            <a href="api-reference.html" title="API reference" class="line footer-button">API Reference</a>
+
+          <button class="line footer-button display-shortcuts-help">
+            Display keyboard shortcuts
+          </button>
+          <button class="line footer-button night-mode-toggle">
+            Toggle night mode
+          </button>
+          <button class="line footer-button display-quick-switch">
+            Go to a HexDocs package
+          </button>
+          <button class="line footer-button tooltips-toggle">
+            <span class="tooltips-option-disable">Disable tooltips</span>
+            <span class="tooltips-option-enable">Enable tooltips</span>
+          </button>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>
