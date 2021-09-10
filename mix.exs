@@ -24,8 +24,8 @@ defmodule Examples.MixProject do
   defp deps do
     [
       {:jason, "~> 1.0"},
-      {:tesla, path: "../tesla"},
-      # {:tesla, github: "teamon/tesla", branch: "tt/open-api"},
+      # {:tesla, path: "../tesla"},
+      {:tesla, github: "teamon/tesla", branch: "tt/open-api"},
       {:ex_doc, "~> 0.2", only: :dev, runtime: false},
       {:dialyxir, "~> 1.1", only: [:dev, :test], runtime: false}
     ]

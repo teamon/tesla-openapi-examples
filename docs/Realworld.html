@@ -10,7 +10,7 @@
     <title>Realworld — examples v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-37545fd2f35b96531434.css" />
 
-    <script src="dist/sidebar_items-a45beda601.js"></script>
+    <script src="dist/sidebar_items-4c6f3a48c0.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -109,7 +109,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Create an article</p></div>
+    <div class="summary-synopsis"><p>Create an article. Auth is required</p></div>
 
 </div>
 <div class="summary-row">
@@ -118,7 +118,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Create a comment for an article</p></div>
+    <div class="summary-synopsis"><p>Create a comment for an article. Auth is required</p></div>
 
 </div>
 <div class="summary-row">
@@ -127,7 +127,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Favorite an article</p></div>
+    <div class="summary-synopsis"><p>Favorite an article. Auth is required</p></div>
 
 </div>
 <div class="summary-row">
@@ -145,7 +145,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Delete an article</p></div>
+    <div class="summary-synopsis"><p>Delete an article. Auth is required</p></div>
 
 </div>
 <div class="summary-row">
@@ -154,7 +154,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Delete a comment for an article</p></div>
+    <div class="summary-synopsis"><p>Delete a comment for an article. Auth is required</p></div>
 
 </div>
 <div class="summary-row">
@@ -163,7 +163,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Unfavorite an article</p></div>
+    <div class="summary-synopsis"><p>Unfavorite an article. Auth is required</p></div>
 
 </div>
 <div class="summary-row">
@@ -172,7 +172,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Follow a user</p></div>
+    <div class="summary-synopsis"><p>Follow a user by username</p></div>
 
 </div>
 <div class="summary-row">
@@ -181,7 +181,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Get an article</p></div>
+    <div class="summary-synopsis"><p>Get an article. Auth not required</p></div>
 
 </div>
 <div class="summary-row">
@@ -190,7 +190,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Get comments for an article</p></div>
+    <div class="summary-synopsis"><p>Get the comments for an article. Auth is optional</p></div>
 
 </div>
 <div class="summary-row">
@@ -199,7 +199,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Get recent articles globally</p></div>
+    <div class="summary-synopsis"><p>Get most recent articles globally. Use query parameters to filter results. Auth is optional</p></div>
 
 </div>
 <div class="summary-row">
@@ -208,7 +208,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Get recent articles from users you follow</p></div>
+    <div class="summary-synopsis"><p>Get most recent articles from users you follow. Use query parameters to limit. Auth is required</p></div>
 
 </div>
 <div class="summary-row">
@@ -217,7 +217,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Get current user</p></div>
+    <div class="summary-synopsis"><p>Gets the currently logged-in user</p></div>
 
 </div>
 <div class="summary-row">
@@ -226,7 +226,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Get a profile</p></div>
+    <div class="summary-synopsis"><p>Get a profile of a user of the system. Auth is optional</p></div>
 
 </div>
 <div class="summary-row">
@@ -235,7 +235,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Existing user login</p></div>
+    <div class="summary-synopsis"><p>Login for existing user</p></div>
 
 </div>
 <div class="summary-row">
@@ -244,16 +244,12 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>See <a href="#new/2"><code class="inline">new/2</code></a>.</p></div>
-
 </div>
 <div class="summary-row">
   <div class="summary-signature">
     <a href="#new/2">new(middleware, adapter)</a>
 
   </div>
-
-    <div class="summary-synopsis"><p>Get new API client instance</p></div>
 
 </div>
 <div class="summary-row">
@@ -262,7 +258,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Unfollow a user</p></div>
+    <div class="summary-synopsis"><p>Unfollow a user by username</p></div>
 
 </div>
 <div class="summary-row">
@@ -271,7 +267,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Update an article</p></div>
+    <div class="summary-synopsis"><p>Update an article. Auth is required</p></div>
 
 </div>
 <div class="summary-row">
@@ -280,7 +276,7 @@ Realworld <small class="app-vsn">(examples v0.1.0)</small>
 
   </div>
 
-    <div class="summary-synopsis"><p>Update current user</p></div>
+    <div class="summary-synopsis"><p>Updated user information for current user</p></div>
 
 </div>
 
@@ -319,13 +315,13 @@ Functions
 
           <pre>create_article(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="Realworld.NewArticleRequest.html#t:t/0">Realworld.NewArticleRequest.t</a>()) ::
   {:ok, <a href="Realworld.SingleArticleResponse.html#t:t/0">Realworld.SingleArticleResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Create an article</p><p>Create an article. Auth is required</p>
+<p>Create an article. Auth is required</p>
   </section>
 </section>
 <section class="detail" id="create_article_comment/3">
@@ -353,13 +349,13 @@ Functions
   <a href="Realworld.NewCommentRequest.html#t:t/0">Realworld.NewCommentRequest.t</a>()
 ) ::
   {:ok, <a href="Realworld.SingleCommentResponse.html#t:t/0">Realworld.SingleCommentResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Create a comment for an article</p><p>Create a comment for an article. Auth is required</p>
+<p>Create a comment for an article. Auth is required</p>
   </section>
 </section>
 <section class="detail" id="create_article_favorite/2">
@@ -383,13 +379,13 @@ Functions
 
           <pre>create_article_favorite(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
   {:ok, <a href="Realworld.SingleArticleResponse.html#t:t/0">Realworld.SingleArticleResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Favorite an article</p><p>Favorite an article. Auth is required</p>
+<p>Favorite an article. Auth is required</p>
   </section>
 </section>
 <section class="detail" id="create_user/2">
@@ -413,12 +409,12 @@ Functions
 
           <pre>create_user(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="Realworld.NewUserRequest.html#t:t/0">Realworld.NewUserRequest.t</a>()) ::
   {:ok, <a href="Realworld.UserResponse.html#t:t/0">Realworld.UserResponse.t</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Register a new user</p><p>Register a new user</p>
+<p>Register a new user</p>
   </section>
 </section>
 <section class="detail" id="delete_article/2">
@@ -441,14 +437,11 @@ Functions
       <div class="specs">
 
           <pre>delete_article(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
-  :ok
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+  :ok | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Delete an article</p><p>Delete an article. Auth is required</p>
+<p>Delete an article. Auth is required</p>
   </section>
 </section>
 <section class="detail" id="delete_article_comment/3">
@@ -471,14 +464,11 @@ Functions
       <div class="specs">
 
           <pre>delete_article_comment(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()) ::
-  :ok
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+  :ok | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()} | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Delete a comment for an article</p><p>Delete a comment for an article. Auth is required</p>
+<p>Delete a comment for an article. Auth is required</p>
   </section>
 </section>
 <section class="detail" id="delete_article_favorite/2">
@@ -502,13 +492,13 @@ Functions
 
           <pre>delete_article_favorite(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
   {:ok, <a href="Realworld.SingleArticleResponse.html#t:t/0">Realworld.SingleArticleResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Unfavorite an article</p><p>Unfavorite an article. Auth is required</p>
+<p>Unfavorite an article. Auth is required</p>
   </section>
 </section>
 <section class="detail" id="follow_user_by_username/2">
@@ -532,13 +522,13 @@ Functions
 
           <pre>follow_user_by_username(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
   {:ok, <a href="Realworld.ProfileResponse.html#t:t/0">Realworld.ProfileResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Follow a user</p><p>Follow a user by username</p>
+<p>Follow a user by username</p>
   </section>
 </section>
 <section class="detail" id="get_article/2">
@@ -562,12 +552,12 @@ Functions
 
           <pre>get_article(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
   {:ok, <a href="Realworld.SingleArticleResponse.html#t:t/0">Realworld.SingleArticleResponse.t</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Get an article</p><p>Get an article. Auth not required</p>
+<p>Get an article. Auth not required</p>
   </section>
 </section>
 <section class="detail" id="get_article_comments/2">
@@ -591,13 +581,13 @@ Functions
 
           <pre>get_article_comments(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
   {:ok, <a href="Realworld.MultipleCommentsResponse.html#t:t/0">Realworld.MultipleCommentsResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Get comments for an article</p><p>Get the comments for an article. Auth is optional</p>
+<p>Get the comments for an article. Auth is optional</p>
   </section>
 </section>
 <section class="detail" id="get_articles/2">
@@ -623,8 +613,8 @@ Functions
 
           <pre>get_articles(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
   {:ok, <a href="Realworld.MultipleArticlesResponse.html#t:t/0">Realworld.MultipleArticlesResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
 when opt:
        {:tag, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
@@ -635,7 +625,7 @@ when opt:
 
       </div>
 
-<p>Get recent articles globally</p><p>Get most recent articles globally. Use query parameters to filter results. Auth is optional</p><h3 id="get_articles/2-query-parameters" class="section-heading">
+<p>Get most recent articles globally. Use query parameters to filter results. Auth is optional</p><h3 id="get_articles/2-query-parameters" class="section-heading">
   <a href="#get_articles/2-query-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Query parameters
 </h3>
@@ -665,14 +655,14 @@ when opt:
 
           <pre>get_articles_feed(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), [opt]) ::
   {:ok, <a href="Realworld.MultipleArticlesResponse.html#t:t/0">Realworld.MultipleArticlesResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
 when opt: {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()} | {:offset, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}</pre>
 
       </div>
 
-<p>Get recent articles from users you follow</p><p>Get most recent articles from users you follow. Use query parameters to limit. Auth is required</p><h3 id="get_articles_feed/2-query-parameters" class="section-heading">
+<p>Get most recent articles from users you follow. Use query parameters to limit. Auth is required</p><h3 id="get_articles_feed/2-query-parameters" class="section-heading">
   <a href="#get_articles_feed/2-query-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Query parameters
 </h3>
@@ -700,13 +690,13 @@ when opt: {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types
 
           <pre>get_current_user(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
   {:ok, <a href="Realworld.UserResponse.html#t:t/0">Realworld.UserResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Get current user</p><p>Gets the currently logged-in user</p>
+<p>Gets the currently logged-in user</p>
   </section>
 </section>
 <section class="detail" id="get_profile_by_username/2">
@@ -730,13 +720,13 @@ when opt: {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types
 
           <pre>get_profile_by_username(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
   {:ok, <a href="Realworld.ProfileResponse.html#t:t/0">Realworld.ProfileResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Get a profile</p><p>Get a profile of a user of the system. Auth is optional</p>
+<p>Get a profile of a user of the system. Auth is optional</p>
   </section>
 </section>
 <section class="detail" id="login/2">
@@ -760,13 +750,13 @@ when opt: {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types
 
           <pre>login(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="Realworld.LoginUserRequest.html#t:t/0">Realworld.LoginUserRequest.t</a>()) ::
   {:ok, <a href="Realworld.UserResponse.html#t:t/0">Realworld.UserResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Existing user login</p><p>Login for existing user</p>
+<p>Login for existing user</p>
   </section>
 </section>
 <section class="detail" id="new/0">
@@ -783,14 +773,7 @@ when opt: {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types
 
   <section class="docstring">
 
-      <h2>Specs</h2>
-      <div class="specs">
 
-          <pre>new() :: <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()</pre>
-
-      </div>
-
-<p>See <a href="#new/2"><code class="inline">new/2</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="new/2">
@@ -807,14 +790,7 @@ when opt: {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types
 
   <section class="docstring">
 
-      <h2>Specs</h2>
-      <div class="specs">
 
-          <pre>new([<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:middleware/0">Tesla.Client.middleware</a>()], <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:adapter/0">Tesla.Client.adapter</a>()) :: <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()</pre>
-
-      </div>
-
-<p>Get new API client instance</p>
   </section>
 </section>
 <section class="detail" id="unfollow_user_by_username/2">
@@ -838,13 +814,13 @@ when opt: {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types
 
           <pre>unfollow_user_by_username(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()) ::
   {:ok, <a href="Realworld.ProfileResponse.html#t:t/0">Realworld.ProfileResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Unfollow a user</p><p>Unfollow a user by username</p>
+<p>Unfollow a user by username</p>
   </section>
 </section>
 <section class="detail" id="update_article/3">
@@ -868,13 +844,13 @@ when opt: {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types
 
           <pre>update_article(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), <a href="Realworld.UpdateArticleRequest.html#t:t/0">Realworld.UpdateArticleRequest.t</a>()) ::
   {:ok, <a href="Realworld.SingleArticleResponse.html#t:t/0">Realworld.SingleArticleResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Update an article</p><p>Update an article. Auth is required</p>
+<p>Update an article. Auth is required</p>
   </section>
 </section>
 <section class="detail" id="update_current_user/2">
@@ -898,13 +874,13 @@ when opt: {:limit, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types
 
           <pre>update_current_user(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="Realworld.UpdateUserRequest.html#t:t/0">Realworld.UpdateUserRequest.t</a>()) ::
   {:ok, <a href="Realworld.UserResponse.html#t:t/0">Realworld.UserResponse.t</a>()}
-  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">integer</a>()}
-  | {:error, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
+  | :ok
+  | {:ok, <a href="Realworld.GenericErrorModel.html#t:t/0">Realworld.GenericErrorModel.t</a>()}
   | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
 
       </div>
 
-<p>Update current user</p><p>Updated user information for current user</p>
+<p>Updated user information for current user</p>
   </section>
 </section>
 
