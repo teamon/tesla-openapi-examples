@@ -16,7 +16,32 @@ defmodule(Petstore) do
     @type t :: %__MODULE__{code: integer, message: binary}
     @doc false
     def(decode(data)) do
-      %__MODULE__{code: data["code"], message: data["message"]}
+      with(
+        {:ok, code} <-
+          case(data["code"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["code"]}}
+          end,
+        {:ok, message} <-
+          case(data["message"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["message"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{code: code, message: message}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["Error" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -32,7 +57,40 @@ defmodule(Petstore) do
     @type t :: %__MODULE__{id: integer, name: binary, tag: binary | nil}
     @doc false
     def(decode(data)) do
-      %__MODULE__{id: data["id"], name: data["name"], tag: data["tag"]}
+      with(
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["id"]}}
+          end,
+        {:ok, name} <-
+          case(data["name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name"]}}
+          end,
+        {:ok, tag} <-
+          case(data["tag"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["tag"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{id: id, name: name, tag: tag}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["Pet" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -44,7 +102,17 @@ defmodule(Petstore) do
   defmodule(Pets) do
     @type t :: [Petstore.Pet.t()]
     def(decode(items)) do
-      Enum.map(items, fn item -> Petstore.Pet.decode(item) end)
+      items
+      |> Enum.reverse()
+      |> Enum.reduce({:ok, []}, fn
+        data, {:ok, items} ->
+          with({:ok, item} <- Petstore.Pet.decode(data)) do
+            {:ok, [item | items]}
+          end
+
+        _, error ->
+          error
+      end)
     end
   end
 
@@ -69,10 +137,22 @@ defmodule(Petstore) do
         )
       ) do
         {:ok, %{status: 200, body: body}} when is_list(body) ->
-          {:ok, Enum.map(body, fn item -> Petstore.Pet.decode(item) end)}
+          body
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with({:ok, item} <- Petstore.Pet.decode(data)) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end)
 
         {:ok, %{body: body}} ->
-          {:error, Petstore.Error.decode(body)}
+          with({:ok, data} <- Petstore.Error.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -95,10 +175,12 @@ defmodule(Petstore) do
     def(create_pets(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/pets")) do
         {:ok, %{status: 201, body: _any}} ->
-          :ok
+          {:ok, nil}
 
         {:ok, %{body: body}} ->
-          {:error, Petstore.Error.decode(body)}
+          with({:ok, data} <- Petstore.Error.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -128,10 +210,22 @@ defmodule(Petstore) do
         )
       ) do
         {:ok, %{status: 200, body: body}} when is_list(body) ->
-          {:ok, Enum.map(body, fn item -> Petstore.Pet.decode(item) end)}
+          body
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with({:ok, item} <- Petstore.Pet.decode(data)) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end)
 
         {:ok, %{body: body}} ->
-          {:error, Petstore.Error.decode(body)}
+          with({:ok, data} <- Petstore.Error.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}

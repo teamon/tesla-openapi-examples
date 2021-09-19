@@ -27,14 +27,72 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        count: data["count"],
-        page: data["page"],
-        pages: data["pages"],
-        per_page: data["per_page"],
-        spill: data["spill"],
-        total: data["total"]
-      }
+      with(
+        {:ok, count} <-
+          case(data["count"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["count"]}}
+          end,
+        {:ok, page} <-
+          case(data["page"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["page"]}}
+          end,
+        {:ok, pages} <-
+          case(data["pages"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["pages"]}}
+          end,
+        {:ok, per_page} <-
+          case(data["per_page"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["per_page"]}}
+          end,
+        {:ok, spill} <-
+          case(data["spill"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["spill"]}}
+          end,
+        {:ok, total} <-
+          case(data["total"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["total"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           count: count,
+           page: page,
+           pages: pages,
+           per_page: per_page,
+           spill: spill,
+           total: total
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_paging" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -149,52 +207,407 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        guest_invited_by: data["guest_invited_by"],
-        pronouns: data["pronouns"],
-        last_name: data["last_name"],
-        name: data["name"],
-        image_1024: data["image_1024"],
-        bot_id: data["bot_id"],
-        first_name: data["first_name"],
-        status_text: data["status_text"],
-        status_default_text: data["status_default_text"],
-        email: data["email"],
-        display_name: data["display_name"],
-        real_name_normalized: data["real_name_normalized"],
-        image_original: data["image_original"],
-        image_32: data["image_32"],
-        image_48: data["image_48"],
-        fields: data["fields"],
-        image_72: data["image_72"],
-        updated: data["updated"],
-        username: data["username"],
-        team: data["team"],
-        image_192: data["image_192"],
-        memberships_count: data["memberships_count"],
-        user_id: data["user_id"],
-        is_custom_image: data["is_custom_image"],
-        image_24: data["image_24"],
-        phone: data["phone"],
-        api_app_id: data["api_app_id"],
-        display_name_normalized: data["display_name_normalized"],
-        last_avatar_image_hash: data["last_avatar_image_hash"],
-        status_expiration: data["status_expiration"],
-        image_512: data["image_512"],
-        skype: data["skype"],
-        is_app_user: data["is_app_user"],
-        status_default_text_canonical: data["status_default_text_canonical"],
-        avatar_hash: data["avatar_hash"],
-        is_ultra_restricted: data["is_ultra_restricted"],
-        status_emoji: data["status_emoji"],
-        always_active: data["always_active"],
-        real_name: data["real_name"],
-        status_default_emoji: data["status_default_emoji"],
-        is_restricted: data["is_restricted"],
-        status_text_canonical: data["status_text_canonical"],
-        title: data["title"],
-        guest_expiration_ts: data["guest_expiration_ts"]
-      }
+      with(
+        {:ok, guest_invited_by} <-
+          case(data["guest_invited_by"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["guest_invited_by"]}}
+          end,
+        {:ok, pronouns} <-
+          case(data["pronouns"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["pronouns"]}}
+          end,
+        {:ok, last_name} <-
+          case(data["last_name"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["last_name"]}}
+          end,
+        {:ok, name} <-
+          case(data["name"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name"]}}
+          end,
+        {:ok, image_1024} <-
+          case(data["image_1024"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_1024"]}}
+          end,
+        {:ok, bot_id} <-
+          case(data["bot_id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_bot_id"]}}
+          end,
+        {:ok, first_name} <-
+          case(data["first_name"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["first_name"]}}
+          end,
+        {:ok, status_text} <-
+          case(data["status_text"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["status_text"]}}
+          end,
+        {:ok, status_default_text} <-
+          case(data["status_default_text"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["status_default_text"]}}
+          end,
+        {:ok, email} <-
+          case(data["email"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["email"]}}
+          end,
+        {:ok, display_name} <-
+          case(data["display_name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["display_name"]}}
+          end,
+        {:ok, real_name_normalized} <-
+          case(data["real_name_normalized"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["real_name_normalized"]}}
+          end,
+        {:ok, image_original} <-
+          case(data["image_original"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_original"]}}
+          end,
+        {:ok, image_32} <-
+          case(data["image_32"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_32"]}}
+          end,
+        {:ok, image_48} <-
+          case(data["image_48"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_48"]}}
+          end,
+        {:ok, fields} <- {:ok, data["fields"]},
+        {:ok, image_72} <-
+          case(data["image_72"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_72"]}}
+          end,
+        {:ok, updated} <-
+          case(data["updated"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["updated"]}}
+          end,
+        {:ok, username} <-
+          case(data["username"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["username"]}}
+          end,
+        {:ok, team} <-
+          case(data["team"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_workspace_id"]}}
+          end,
+        {:ok, image_192} <-
+          case(data["image_192"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_192"]}}
+          end,
+        {:ok, memberships_count} <-
+          case(data["memberships_count"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["memberships_count"]}}
+          end,
+        {:ok, user_id} <-
+          case(data["user_id"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["user_id"]}}
+          end,
+        {:ok, is_custom_image} <-
+          case(data["is_custom_image"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_custom_image"]}}
+          end,
+        {:ok, image_24} <-
+          case(data["image_24"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_24"]}}
+          end,
+        {:ok, phone} <-
+          case(data["phone"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["phone"]}}
+          end,
+        {:ok, api_app_id} <-
+          case(data["api_app_id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_optional_app_id"]}}
+          end,
+        {:ok, display_name_normalized} <-
+          case(data["display_name_normalized"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["display_name_normalized"]}}
+          end,
+        {:ok, last_avatar_image_hash} <-
+          case(data["last_avatar_image_hash"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["last_avatar_image_hash"]}}
+          end,
+        {:ok, status_expiration} <-
+          case(data["status_expiration"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["status_expiration"]}}
+          end,
+        {:ok, image_512} <-
+          case(data["image_512"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_512"]}}
+          end,
+        {:ok, skype} <-
+          case(data["skype"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["skype"]}}
+          end,
+        {:ok, is_app_user} <-
+          case(data["is_app_user"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_app_user"]}}
+          end,
+        {:ok, status_default_text_canonical} <-
+          case(data["status_default_text_canonical"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["status_default_text_canonical"]}}
+          end,
+        {:ok, avatar_hash} <-
+          case(data["avatar_hash"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["avatar_hash"]}}
+          end,
+        {:ok, is_ultra_restricted} <-
+          case(data["is_ultra_restricted"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_ultra_restricted"]}}
+          end,
+        {:ok, status_emoji} <-
+          case(data["status_emoji"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["status_emoji"]}}
+          end,
+        {:ok, always_active} <-
+          case(data["always_active"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["always_active"]}}
+          end,
+        {:ok, real_name} <-
+          case(data["real_name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["real_name"]}}
+          end,
+        {:ok, status_default_emoji} <-
+          case(data["status_default_emoji"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["status_default_emoji"]}}
+          end,
+        {:ok, is_restricted} <-
+          case(data["is_restricted"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_restricted"]}}
+          end,
+        {:ok, status_text_canonical} <-
+          case(data["status_text_canonical"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["status_text_canonical"]}}
+          end,
+        {:ok, title} <-
+          case(data["title"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["title"]}}
+          end,
+        {:ok, guest_expiration_ts} <-
+          case(data["guest_expiration_ts"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["guest_expiration_ts"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           guest_invited_by: guest_invited_by,
+           pronouns: pronouns,
+           last_name: last_name,
+           name: name,
+           image_1024: image_1024,
+           bot_id: bot_id,
+           first_name: first_name,
+           status_text: status_text,
+           status_default_text: status_default_text,
+           email: email,
+           display_name: display_name,
+           real_name_normalized: real_name_normalized,
+           image_original: image_original,
+           image_32: image_32,
+           image_48: image_48,
+           fields: fields,
+           image_72: image_72,
+           updated: updated,
+           username: username,
+           team: team,
+           image_192: image_192,
+           memberships_count: memberships_count,
+           user_id: user_id,
+           is_custom_image: is_custom_image,
+           image_24: image_24,
+           phone: phone,
+           api_app_id: api_app_id,
+           display_name_normalized: display_name_normalized,
+           last_avatar_image_hash: last_avatar_image_hash,
+           status_expiration: status_expiration,
+           image_512: image_512,
+           skype: skype,
+           is_app_user: is_app_user,
+           status_default_text_canonical: status_default_text_canonical,
+           avatar_hash: avatar_hash,
+           is_ultra_restricted: is_ultra_restricted,
+           status_emoji: status_emoji,
+           always_active: always_active,
+           real_name: real_name,
+           status_default_emoji: status_default_emoji,
+           is_restricted: is_restricted,
+           status_text_canonical: status_text_canonical,
+           title: title,
+           guest_expiration_ts: guest_expiration_ts
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_user_profile" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -302,39 +715,265 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        auto_provision: data["auto_provision"],
-        auto_type: data["auto_type"],
-        channel_count: data["channel_count"],
-        created_by: data["created_by"],
-        date_create: data["date_create"],
-        date_delete: data["date_delete"],
-        date_update: data["date_update"],
-        deleted_by: data["deleted_by"],
-        description: data["description"],
-        enterprise_subteam_id: data["enterprise_subteam_id"],
-        handle: data["handle"],
-        id: data["id"],
-        is_external: data["is_external"],
-        is_subteam: data["is_subteam"],
-        is_usergroup: data["is_usergroup"],
-        name: data["name"],
-        prefs: %{
-          channels: Enum.map(data["prefs"]["channels"], fn item -> item end),
-          groups: Enum.map(data["prefs"]["groups"], fn item -> item end)
-        },
-        team_id: data["team_id"],
-        updated_by: data["updated_by"],
-        user_count: data["user_count"],
-        users:
+      with(
+        {:ok, auto_provision} <-
+          case(data["auto_provision"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["auto_provision"]}}
+          end,
+        {:ok, auto_type} <-
+          case(data["auto_type"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["auto_type"]}}
+          end,
+        {:ok, channel_count} <-
+          case(data["channel_count"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["channel_count"]}}
+          end,
+        {:ok, created_by} <-
+          case(data["created_by"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, date_create} <-
+          case(data["date_create"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["date_create"]}}
+          end,
+        {:ok, date_delete} <-
+          case(data["date_delete"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["date_delete"]}}
+          end,
+        {:ok, date_update} <-
+          case(data["date_update"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["date_update"]}}
+          end,
+        {:ok, deleted_by} <-
+          case(data["deleted_by"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, description} <-
+          case(data["description"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["description"]}}
+          end,
+        {:ok, enterprise_subteam_id} <-
+          case(data["enterprise_subteam_id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["enterprise_subteam_id"]}}
+          end,
+        {:ok, handle} <-
+          case(data["handle"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["handle"]}}
+          end,
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_subteam_id"]}}
+          end,
+        {:ok, is_external} <-
+          case(data["is_external"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_external"]}}
+          end,
+        {:ok, is_subteam} <-
+          case(data["is_subteam"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_subteam"]}}
+          end,
+        {:ok, is_usergroup} <-
+          case(data["is_usergroup"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_usergroup"]}}
+          end,
+        {:ok, name} <-
+          case(data["name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name"]}}
+          end,
+        {:ok, prefs} <-
+          with(
+            {:ok, channels} <-
+              data["prefs"]["channels"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_channel_id"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, groups} <-
+              data["prefs"]["groups"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_group_id"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
+          ) do
+            {:ok, %{channels: channels, groups: groups}}
+          end,
+        {:ok, team_id} <-
+          case(data["team_id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+          end,
+        {:ok, updated_by} <-
+          case(data["updated_by"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, user_count} <-
+          case(data["user_count"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["user_count"]}}
+          end,
+        {:ok, users} <-
           case(data["users"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["users"], fn item -> item end)
+              data["users"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end
-      }
+      ) do
+        {:ok,
+         %__MODULE__{
+           auto_provision: auto_provision,
+           auto_type: auto_type,
+           channel_count: channel_count,
+           created_by: created_by,
+           date_create: date_create,
+           date_delete: date_delete,
+           date_update: date_update,
+           deleted_by: deleted_by,
+           description: description,
+           enterprise_subteam_id: enterprise_subteam_id,
+           handle: handle,
+           id: id,
+           is_external: is_external,
+           is_subteam: is_subteam,
+           is_usergroup: is_usergroup,
+           name: name,
+           prefs: prefs,
+           team_id: team_id,
+           updated_by: updated_by,
+           user_count: user_count,
+           users: users
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_subteam" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -357,8 +996,22 @@ defmodule(Slack) do
         "is_usergroup" => data.is_usergroup,
         "name" => data.name,
         "prefs" => %{
-          channels: Enum.map(data.prefs["channels"], fn item -> item end),
-          groups: Enum.map(data.prefs["groups"], fn item -> item end)
+          "channels" =>
+            case(data.prefs.channels) do
+              nil ->
+                nil
+
+              _ ->
+                Enum.map(data.prefs.channels, fn item -> item end)
+            end,
+          "groups" =>
+            case(data.prefs.groups) do
+              nil ->
+                nil
+
+              _ ->
+                Enum.map(data.prefs.groups, fn item -> item end)
+            end
         },
         "team_id" => data.team_id,
         "updated_by" => data.updated_by,
@@ -378,7 +1031,31 @@ defmodule(Slack) do
   defmodule(Blocks) do
     @type t :: [%{type: binary}]
     def(decode(items)) do
-      Enum.map(items, fn item -> %{type: item["type"]} end)
+      items
+      |> Enum.reverse()
+      |> Enum.reduce({:ok, []}, fn
+        data, {:ok, items} ->
+          with(
+            {:ok, item} <-
+              with(
+                {:ok, type} <-
+                  case(data["type"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["type"]}}
+                  end
+              ) do
+                {:ok, %{type: type}}
+              end
+          ) do
+            {:ok, [item | items]}
+          end
+
+        _, error ->
+          error
+      end)
     end
   end
 
@@ -409,15 +1086,81 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        complete_ts: data["complete_ts"],
-        creator: data["creator"],
-        id: data["id"],
-        recurring: data["recurring"],
-        text: data["text"],
-        time: data["time"],
-        user: data["user"]
-      }
+      with(
+        {:ok, complete_ts} <-
+          case(data["complete_ts"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["complete_ts"]}}
+          end,
+        {:ok, creator} <-
+          case(data["creator"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_reminder_id"]}}
+          end,
+        {:ok, recurring} <-
+          case(data["recurring"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["recurring"]}}
+          end,
+        {:ok, text} <-
+          case(data["text"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["text"]}}
+          end,
+        {:ok, time} <-
+          case(data["time"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["time"]}}
+          end,
+        {:ok, user} <-
+          case(data["user"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           complete_ts: complete_ts,
+           creator: creator,
+           id: id,
+           recurring: recurring,
+           text: text,
+           time: time,
+           user: user
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_reminder" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -466,19 +1209,117 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        avatar_hash: data["avatar_hash"],
-        display_name: data["display_name"],
-        display_name_normalized: data["display_name_normalized"],
-        first_name: data["first_name"],
-        image_72: data["image_72"],
-        is_restricted: data["is_restricted"],
-        is_ultra_restricted: data["is_ultra_restricted"],
-        name: data["name"],
-        real_name: data["real_name"],
-        real_name_normalized: data["real_name_normalized"],
-        team: data["team"]
-      }
+      with(
+        {:ok, avatar_hash} <-
+          case(data["avatar_hash"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["avatar_hash"]}}
+          end,
+        {:ok, display_name} <-
+          case(data["display_name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["display_name"]}}
+          end,
+        {:ok, display_name_normalized} <-
+          case(data["display_name_normalized"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["display_name_normalized"]}}
+          end,
+        {:ok, first_name} <-
+          case(data["first_name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["first_name"]}}
+          end,
+        {:ok, image_72} <-
+          case(data["image_72"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_72"]}}
+          end,
+        {:ok, is_restricted} <-
+          case(data["is_restricted"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_restricted"]}}
+          end,
+        {:ok, is_ultra_restricted} <-
+          case(data["is_ultra_restricted"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_ultra_restricted"]}}
+          end,
+        {:ok, name} <-
+          case(data["name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name"]}}
+          end,
+        {:ok, real_name} <-
+          case(data["real_name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["real_name"]}}
+          end,
+        {:ok, real_name_normalized} <-
+          case(data["real_name_normalized"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["real_name_normalized"]}}
+          end,
+        {:ok, team} <-
+          case(data["team"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_workspace_id"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           avatar_hash: avatar_hash,
+           display_name: display_name,
+           display_name_normalized: display_name_normalized,
+           first_name: first_name,
+           image_72: image_72,
+           is_restricted: is_restricted,
+           is_ultra_restricted: is_ultra_restricted,
+           name: name,
+           real_name: real_name,
+           real_name_normalized: real_name_normalized,
+           team: team
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_user_profile_short" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -502,7 +1343,26 @@ defmodule(Slack) do
   defmodule(ObjsScopes) do
     @type t :: [binary]
     def(decode(items)) do
-      Enum.map(items, fn item -> item end)
+      items
+      |> Enum.reverse()
+      |> Enum.reduce({:ok, []}, fn
+        data, {:ok, items} ->
+          with(
+            {:ok, item} <-
+              case(data) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, [nil]}}
+              end
+          ) do
+            {:ok, [item | items]}
+          end
+
+        _, error ->
+          error
+      end)
     end
   end
 
@@ -530,19 +1390,102 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        app_id: data["app_id"],
-        deleted: data["deleted"],
-        icons: %{
-          image_36: data["icons"]["image_36"],
-          image_48: data["icons"]["image_48"],
-          image_72: data["icons"]["image_72"]
-        },
-        id: data["id"],
-        name: data["name"],
-        team_id: data["team_id"],
-        updated: data["updated"]
-      }
+      with(
+        {:ok, app_id} <-
+          case(data["app_id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_app_id"]}}
+          end,
+        {:ok, deleted} <-
+          case(data["deleted"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["deleted"]}}
+          end,
+        {:ok, icons} <-
+          with(
+            {:ok, image_36} <-
+              case(data["icons"]["image_36"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["image_36"]}}
+              end,
+            {:ok, image_48} <-
+              case(data["icons"]["image_48"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["image_48"]}}
+              end,
+            {:ok, image_72} <-
+              case(data["icons"]["image_72"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["image_72"]}}
+              end
+          ) do
+            {:ok, %{image_36: image_36, image_48: image_48, image_72: image_72}}
+          end,
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_bot_id"]}}
+          end,
+        {:ok, name} <-
+          case(data["name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name"]}}
+          end,
+        {:ok, team_id} <-
+          case(data["team_id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+          end,
+        {:ok, updated} <-
+          case(data["updated"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["updated"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           app_id: app_id,
+           deleted: deleted,
+           icons: icons,
+           id: id,
+           name: name,
+           team_id: team_id,
+           updated: updated
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_bot_profile" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -551,9 +1494,9 @@ defmodule(Slack) do
         "app_id" => data.app_id,
         "deleted" => data.deleted,
         "icons" => %{
-          image_36: data.icons["image_36"],
-          image_48: data.icons["image_48"],
-          image_72: data.icons["image_72"]
+          "image_36" => data.icons.image_36,
+          "image_48" => data.icons.image_48,
+          "image_72" => data.icons.image_72
         },
         "id" => data.id,
         "name" => data.name,
@@ -591,24 +1534,111 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        field_name: data["field_name"],
-        hint: data["hint"],
-        id: data["id"],
-        is_hidden: data["is_hidden"],
-        label: data["label"],
-        options: Slack.ObjsTeamProfileFieldOption.decode(data["options"]),
-        ordering: data["ordering"],
-        possible_values:
+      with(
+        {:ok, field_name} <-
+          case(data["field_name"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["field_name"]}}
+          end,
+        {:ok, hint} <-
+          case(data["hint"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["hint"]}}
+          end,
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["id"]}}
+          end,
+        {:ok, is_hidden} <-
+          case(data["is_hidden"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_hidden"]}}
+          end,
+        {:ok, label} <-
+          case(data["label"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["label"]}}
+          end,
+        {:ok, options} <- Slack.ObjsTeamProfileFieldOption.decode(data["options"]),
+        {:ok, ordering} <-
+          case(data["ordering"]) do
+            x when is_number(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_number, x}, ["ordering"]}}
+          end,
+        {:ok, possible_values} <-
           case(data["possible_values"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["possible_values"], fn item -> item end)
+              data["possible_values"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, [nil]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        type: data["type"]
-      }
+        {:ok, type} <-
+          case(data["type"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["type"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           field_name: field_name,
+           hint: hint,
+           id: id,
+           is_hidden: is_hidden,
+           label: label,
+           options: options,
+           ordering: ordering,
+           possible_values: possible_values,
+           type: type
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_team_profile_field" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -646,7 +1676,32 @@ defmodule(Slack) do
     @type t :: %__MODULE__{email: binary, id: binary}
     @doc false
     def(decode(data)) do
-      %__MODULE__{email: data["email"], id: data["id"]}
+      with(
+        {:ok, email} <-
+          case(data["email"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["email"]}}
+          end,
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["id"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{email: email, id: id}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_primary_owner" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -666,13 +1721,58 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        current:
-          Enum.map(data["current"], fn item ->
-            %{date_started: item["date_started"], team_id: item["team_id"]}
+      with(
+        {:ok, current} <-
+          data["current"]
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with(
+                {:ok, item} <-
+                  with(
+                    {:ok, date_started} <-
+                      case(data["date_started"]) do
+                        x when is_integer(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_integer, x}, ["date_started"]}}
+                      end,
+                    {:ok, team_id} <-
+                      case(data["team_id"]) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["team_id"]}}
+                      end
+                  ) do
+                    {:ok, %{date_started: date_started, team_id: team_id}}
+                  end
+              ) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
           end),
-        date_updated: data["date_updated"]
-      }
+        {:ok, date_updated} <-
+          case(data["date_updated"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["date_updated"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{current: current, date_updated: date_updated}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_external_org_migrations" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -685,7 +1785,7 @@ defmodule(Slack) do
 
             _ ->
               Enum.map(data.current, fn item ->
-                %{date_started: item["date_started"], team_id: item["team_id"]}
+                %{"date_started" => item.date_started, "team_id" => item.team_id}
               end)
           end,
         "date_updated" => data.date_updated
@@ -763,42 +1863,280 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        archived: data["archived"],
-        avatar_base_url: data["avatar_base_url"],
-        created: data["created"],
-        date_create: data["date_create"],
-        deleted: data["deleted"],
-        description: data["description"],
-        discoverable: data["discoverable"],
-        domain: data["domain"],
-        email_domain: data["email_domain"],
-        enterprise_id: data["enterprise_id"],
-        enterprise_name: data["enterprise_name"],
-        external_org_migrations:
+      with(
+        {:ok, archived} <-
+          case(data["archived"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["archived"]}}
+          end,
+        {:ok, avatar_base_url} <-
+          case(data["avatar_base_url"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["avatar_base_url"]}}
+          end,
+        {:ok, created} <-
+          case(data["created"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["created"]}}
+          end,
+        {:ok, date_create} <-
+          case(data["date_create"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["date_create"]}}
+          end,
+        {:ok, deleted} <-
+          case(data["deleted"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["deleted"]}}
+          end,
+        {:ok, description} <-
+          case(data["description"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["description"]}}
+          end,
+        {:ok, discoverable} <-
+          case(data["discoverable"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["discoverable"]}}
+          end,
+        {:ok, domain} <-
+          case(data["domain"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["domain"]}}
+          end,
+        {:ok, email_domain} <-
+          case(data["email_domain"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["email_domain"]}}
+          end,
+        {:ok, enterprise_id} <-
+          case(data["enterprise_id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_enterprise_id"]}}
+          end,
+        {:ok, enterprise_name} <-
+          case(data["enterprise_name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_enterprise_name"]}}
+          end,
+        {:ok, external_org_migrations} <-
           Slack.ObjsExternalOrgMigrations.decode(data["external_org_migrations"]),
-        has_compliance_export: data["has_compliance_export"],
-        icon: Slack.ObjsIcon.decode(data["icon"]),
-        id: data["id"],
-        is_assigned: data["is_assigned"],
-        is_enterprise: data["is_enterprise"],
-        is_over_storage_limit: data["is_over_storage_limit"],
-        limit_ts: data["limit_ts"],
-        locale: data["locale"],
-        messages_count: data["messages_count"],
-        msg_edit_window_mins: data["msg_edit_window_mins"],
-        name: data["name"],
-        over_integrations_limit: data["over_integrations_limit"],
-        over_storage_limit: data["over_storage_limit"],
-        pay_prod_cur: data["pay_prod_cur"],
-        plan: data["plan"],
-        primary_owner: Slack.ObjsPrimaryOwner.decode(data["primary_owner"]),
-        sso_provider: %{
-          label: data["sso_provider"]["label"],
-          name: data["sso_provider"]["name"],
-          type: data["sso_provider"]["type"]
-        }
-      }
+        {:ok, has_compliance_export} <-
+          case(data["has_compliance_export"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["has_compliance_export"]}}
+          end,
+        {:ok, icon} <- Slack.ObjsIcon.decode(data["icon"]),
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_workspace_id"]}}
+          end,
+        {:ok, is_assigned} <-
+          case(data["is_assigned"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_assigned"]}}
+          end,
+        {:ok, is_enterprise} <-
+          case(data["is_enterprise"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["is_enterprise"]}}
+          end,
+        {:ok, is_over_storage_limit} <-
+          case(data["is_over_storage_limit"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_over_storage_limit"]}}
+          end,
+        {:ok, limit_ts} <-
+          case(data["limit_ts"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["limit_ts"]}}
+          end,
+        {:ok, locale} <-
+          case(data["locale"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["locale"]}}
+          end,
+        {:ok, messages_count} <-
+          case(data["messages_count"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["messages_count"]}}
+          end,
+        {:ok, msg_edit_window_mins} <-
+          case(data["msg_edit_window_mins"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["msg_edit_window_mins"]}}
+          end,
+        {:ok, name} <-
+          case(data["name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name"]}}
+          end,
+        {:ok, over_integrations_limit} <-
+          case(data["over_integrations_limit"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["over_integrations_limit"]}}
+          end,
+        {:ok, over_storage_limit} <-
+          case(data["over_storage_limit"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["over_storage_limit"]}}
+          end,
+        {:ok, pay_prod_cur} <-
+          case(data["pay_prod_cur"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["pay_prod_cur"]}}
+          end,
+        {:ok, plan} <-
+          case(data["plan"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["plan"]}}
+          end,
+        {:ok, primary_owner} <- Slack.ObjsPrimaryOwner.decode(data["primary_owner"]),
+        {:ok, sso_provider} <-
+          with(
+            {:ok, label} <-
+              case(data["sso_provider"]["label"]) do
+                x when is_nil(x) or is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["label"]}}
+              end,
+            {:ok, name} <-
+              case(data["sso_provider"]["name"]) do
+                x when is_nil(x) or is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["name"]}}
+              end,
+            {:ok, type} <-
+              case(data["sso_provider"]["type"]) do
+                x when is_nil(x) or is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["type"]}}
+              end
+          ) do
+            {:ok, %{label: label, name: name, type: type}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           archived: archived,
+           avatar_base_url: avatar_base_url,
+           created: created,
+           date_create: date_create,
+           deleted: deleted,
+           description: description,
+           discoverable: discoverable,
+           domain: domain,
+           email_domain: email_domain,
+           enterprise_id: enterprise_id,
+           enterprise_name: enterprise_name,
+           external_org_migrations: external_org_migrations,
+           has_compliance_export: has_compliance_export,
+           icon: icon,
+           id: id,
+           is_assigned: is_assigned,
+           is_enterprise: is_enterprise,
+           is_over_storage_limit: is_over_storage_limit,
+           limit_ts: limit_ts,
+           locale: locale,
+           messages_count: messages_count,
+           msg_edit_window_mins: msg_edit_window_mins,
+           name: name,
+           over_integrations_limit: over_integrations_limit,
+           over_storage_limit: over_storage_limit,
+           pay_prod_cur: pay_prod_cur,
+           plan: plan,
+           primary_owner: primary_owner,
+           sso_provider: sso_provider
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_team" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -834,9 +2172,9 @@ defmodule(Slack) do
         "plan" => data.plan,
         "primary_owner" => Slack.ObjsPrimaryOwner.encode(data.primary_owner),
         "sso_provider" => %{
-          label: data.sso_provider["label"],
-          name: data.sso_provider["name"],
-          type: data.sso_provider["type"]
+          "label" => data.sso_provider.label,
+          "name" => data.sso_provider.name,
+          "type" => data.sso_provider.type
         }
       }
     end
@@ -849,11 +2187,53 @@ defmodule(Slack) do
     @type t :: %__MODULE__{count: integer, name: binary, users: [binary]}
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        count: data["count"],
-        name: data["name"],
-        users: Enum.map(data["users"], fn item -> item end)
-      }
+      with(
+        {:ok, count} <-
+          case(data["count"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["count"]}}
+          end,
+        {:ok, name} <-
+          case(data["name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name"]}}
+          end,
+        {:ok, users} <-
+          data["users"]
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with(
+                {:ok, item} <-
+                  case(data) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                  end
+              ) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end)
+      ) do
+        {:ok, %__MODULE__{count: count, name: name, users: users}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_reaction" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -886,12 +2266,54 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        is_custom: data["is_custom"],
-        is_multiple_entry: data["is_multiple_entry"],
-        is_protected: data["is_protected"],
-        is_scim: data["is_scim"]
-      }
+      with(
+        {:ok, is_custom} <-
+          case(data["is_custom"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_custom"]}}
+          end,
+        {:ok, is_multiple_entry} <-
+          case(data["is_multiple_entry"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_multiple_entry"]}}
+          end,
+        {:ok, is_protected} <-
+          case(data["is_protected"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_protected"]}}
+          end,
+        {:ok, is_scim} <-
+          case(data["is_scim"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_scim"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           is_custom: is_custom,
+           is_multiple_entry: is_multiple_entry,
+           is_protected: is_protected,
+           is_scim: is_scim
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_team_profile_field_option" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -932,16 +2354,90 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        image_102: data["image_102"],
-        image_132: data["image_132"],
-        image_230: data["image_230"],
-        image_34: data["image_34"],
-        image_44: data["image_44"],
-        image_68: data["image_68"],
-        image_88: data["image_88"],
-        image_default: data["image_default"]
-      }
+      with(
+        {:ok, image_102} <-
+          case(data["image_102"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_102"]}}
+          end,
+        {:ok, image_132} <-
+          case(data["image_132"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_132"]}}
+          end,
+        {:ok, image_230} <-
+          case(data["image_230"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_230"]}}
+          end,
+        {:ok, image_34} <-
+          case(data["image_34"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_34"]}}
+          end,
+        {:ok, image_44} <-
+          case(data["image_44"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_44"]}}
+          end,
+        {:ok, image_68} <-
+          case(data["image_68"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_68"]}}
+          end,
+        {:ok, image_88} <-
+          case(data["image_88"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image_88"]}}
+          end,
+        {:ok, image_default} <-
+          case(data["image_default"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["image_default"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           image_102: image_102,
+           image_132: image_132,
+           image_230: image_230,
+           image_34: image_34,
+           image_44: image_44,
+           image_68: image_68,
+           image_88: image_88,
+           image_default: image_default
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_icon" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -1110,113 +2606,726 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        is_external: data["is_external"],
-        state: data["state"],
-        external_id: data["external_id"],
-        is_tombstoned: data["is_tombstoned"],
-        name: data["name"],
-        thumb_480_h: data["thumb_480_h"],
-        source_team: data["source_team"],
-        shares: %{private: data["shares"]["private"], public: data["shares"]["public"]},
-        non_owner_editable: data["non_owner_editable"],
-        url_private: data["url_private"],
-        pinned_to:
+      with(
+        {:ok, is_external} <-
+          case(data["is_external"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_external"]}}
+          end,
+        {:ok, state} <-
+          case(data["state"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["state"]}}
+          end,
+        {:ok, external_id} <-
+          case(data["external_id"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["external_id"]}}
+          end,
+        {:ok, is_tombstoned} <-
+          case(data["is_tombstoned"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_tombstoned"]}}
+          end,
+        {:ok, name} <-
+          case(data["name"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name"]}}
+          end,
+        {:ok, thumb_480_h} <-
+          case(data["thumb_480_h"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_480_h"]}}
+          end,
+        {:ok, source_team} <-
+          case(data["source_team"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+          end,
+        {:ok, shares} <-
+          with(
+            {:ok, private} <- {:ok, data["shares"]["private"]},
+            {:ok, public} <- {:ok, data["shares"]["public"]}
+          ) do
+            {:ok, %{private: private, public: public}}
+          end,
+        {:ok, non_owner_editable} <-
+          case(data["non_owner_editable"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["non_owner_editable"]}}
+          end,
+        {:ok, url_private} <-
+          case(data["url_private"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["url_private"]}}
+          end,
+        {:ok, pinned_to} <-
           case(data["pinned_to"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["pinned_to"], fn item -> item end)
+              data["pinned_to"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_channel"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        thumb_960: data["thumb_960"],
-        permalink: data["permalink"],
-        thumb_1024_w: data["thumb_1024_w"],
-        image_exif_rotation: data["image_exif_rotation"],
-        thumb_80: data["thumb_80"],
-        thumb_1024: data["thumb_1024"],
-        has_rich_preview: data["has_rich_preview"],
-        display_as_bot: data["display_as_bot"],
-        num_stars: data["num_stars"],
-        thumb_1024_h: data["thumb_1024_h"],
-        thumb_960_w: data["thumb_960_w"],
-        public_url_shared: data["public_url_shared"],
-        url_private_download: data["url_private_download"],
-        updated: data["updated"],
-        username: data["username"],
-        pinned_info: Slack.DefsPinnedInfo.decode(data["pinned_info"]),
-        thumb_800: data["thumb_800"],
-        size: data["size"],
-        thumb_360_w: data["thumb_360_w"],
-        mode: data["mode"],
-        external_url: data["external_url"],
-        date_delete: data["date_delete"],
-        thumb_tiny: data["thumb_tiny"],
-        filetype: data["filetype"],
-        editor: data["editor"],
-        groups:
+        {:ok, thumb_960} <-
+          case(data["thumb_960"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["thumb_960"]}}
+          end,
+        {:ok, permalink} <-
+          case(data["permalink"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["permalink"]}}
+          end,
+        {:ok, thumb_1024_w} <-
+          case(data["thumb_1024_w"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_1024_w"]}}
+          end,
+        {:ok, image_exif_rotation} <-
+          case(data["image_exif_rotation"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["image_exif_rotation"]}}
+          end,
+        {:ok, thumb_80} <-
+          case(data["thumb_80"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["thumb_80"]}}
+          end,
+        {:ok, thumb_1024} <-
+          case(data["thumb_1024"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["thumb_1024"]}}
+          end,
+        {:ok, has_rich_preview} <-
+          case(data["has_rich_preview"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["has_rich_preview"]}}
+          end,
+        {:ok, display_as_bot} <-
+          case(data["display_as_bot"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["display_as_bot"]}}
+          end,
+        {:ok, num_stars} <-
+          case(data["num_stars"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["num_stars"]}}
+          end,
+        {:ok, thumb_1024_h} <-
+          case(data["thumb_1024_h"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_1024_h"]}}
+          end,
+        {:ok, thumb_960_w} <-
+          case(data["thumb_960_w"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_960_w"]}}
+          end,
+        {:ok, public_url_shared} <-
+          case(data["public_url_shared"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["public_url_shared"]}}
+          end,
+        {:ok, url_private_download} <-
+          case(data["url_private_download"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["url_private_download"]}}
+          end,
+        {:ok, updated} <-
+          case(data["updated"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["updated"]}}
+          end,
+        {:ok, username} <-
+          case(data["username"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["username"]}}
+          end,
+        {:ok, pinned_info} <- Slack.DefsPinnedInfo.decode(data["pinned_info"]),
+        {:ok, thumb_800} <-
+          case(data["thumb_800"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["thumb_800"]}}
+          end,
+        {:ok, size} <-
+          case(data["size"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["size"]}}
+          end,
+        {:ok, thumb_360_w} <-
+          case(data["thumb_360_w"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_360_w"]}}
+          end,
+        {:ok, mode} <-
+          case(data["mode"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["mode"]}}
+          end,
+        {:ok, external_url} <-
+          case(data["external_url"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["external_url"]}}
+          end,
+        {:ok, date_delete} <-
+          case(data["date_delete"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["date_delete"]}}
+          end,
+        {:ok, thumb_tiny} <-
+          case(data["thumb_tiny"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["thumb_tiny"]}}
+          end,
+        {:ok, filetype} <-
+          case(data["filetype"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["filetype"]}}
+          end,
+        {:ok, editor} <-
+          case(data["editor"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, groups} <-
           case(data["groups"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["groups"], fn item -> item end)
+              data["groups"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_group_id"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        last_editor: data["last_editor"],
-        original_h: data["original_h"],
-        is_starred: data["is_starred"],
-        is_public: data["is_public"],
-        thumb_160: data["thumb_160"],
-        thumb_480_w: data["thumb_480_w"],
-        thumb_480: data["thumb_480"],
-        preview: data["preview"],
-        ims:
+        {:ok, last_editor} <-
+          case(data["last_editor"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, original_h} <-
+          case(data["original_h"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["original_h"]}}
+          end,
+        {:ok, is_starred} <-
+          case(data["is_starred"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_starred"]}}
+          end,
+        {:ok, is_public} <-
+          case(data["is_public"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_public"]}}
+          end,
+        {:ok, thumb_160} <-
+          case(data["thumb_160"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["thumb_160"]}}
+          end,
+        {:ok, thumb_480_w} <-
+          case(data["thumb_480_w"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_480_w"]}}
+          end,
+        {:ok, thumb_480} <-
+          case(data["thumb_480"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["thumb_480"]}}
+          end,
+        {:ok, preview} <-
+          case(data["preview"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["preview"]}}
+          end,
+        {:ok, ims} <-
           case(data["ims"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["ims"], fn item -> item end)
+              data["ims"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_dm_id"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        thumb_360_h: data["thumb_360_h"],
-        thumb_360: data["thumb_360"],
-        created: data["created"],
-        comments_count: data["comments_count"],
-        pretty_type: data["pretty_type"],
-        thumb_720_w: data["thumb_720_w"],
-        editable: data["editable"],
-        thumb_64: data["thumb_64"],
-        user: data["user"],
-        thumb_800_h: data["thumb_800_h"],
-        thumb_960_h: data["thumb_960_h"],
-        thumb_800_w: data["thumb_800_w"],
-        thumb_720_h: data["thumb_720_h"],
-        permalink_public: data["permalink_public"],
-        reactions:
+        {:ok, thumb_360_h} <-
+          case(data["thumb_360_h"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_360_h"]}}
+          end,
+        {:ok, thumb_360} <-
+          case(data["thumb_360"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["thumb_360"]}}
+          end,
+        {:ok, created} <-
+          case(data["created"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["created"]}}
+          end,
+        {:ok, comments_count} <-
+          case(data["comments_count"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["comments_count"]}}
+          end,
+        {:ok, pretty_type} <-
+          case(data["pretty_type"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["pretty_type"]}}
+          end,
+        {:ok, thumb_720_w} <-
+          case(data["thumb_720_w"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_720_w"]}}
+          end,
+        {:ok, editable} <-
+          case(data["editable"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["editable"]}}
+          end,
+        {:ok, thumb_64} <-
+          case(data["thumb_64"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["thumb_64"]}}
+          end,
+        {:ok, user} <-
+          case(data["user"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["user"]}}
+          end,
+        {:ok, thumb_800_h} <-
+          case(data["thumb_800_h"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_800_h"]}}
+          end,
+        {:ok, thumb_960_h} <-
+          case(data["thumb_960_h"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_960_h"]}}
+          end,
+        {:ok, thumb_800_w} <-
+          case(data["thumb_800_w"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_800_w"]}}
+          end,
+        {:ok, thumb_720_h} <-
+          case(data["thumb_720_h"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["thumb_720_h"]}}
+          end,
+        {:ok, permalink_public} <-
+          case(data["permalink_public"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["permalink_public"]}}
+          end,
+        {:ok, reactions} <-
           case(data["reactions"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["reactions"], fn item -> Slack.ObjsReaction.decode(item) end)
+              data["reactions"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- Slack.ObjsReaction.decode(data)) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        user_team: data["user_team"],
-        id: data["id"],
-        channels:
+        {:ok, user_team} <-
+          case(data["user_team"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+          end,
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_file_id"]}}
+          end,
+        {:ok, channels} <-
           case(data["channels"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["channels"], fn item -> item end)
+              data["channels"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_channel_id"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        original_w: data["original_w"],
-        title: data["title"],
-        mimetype: data["mimetype"],
-        thumb_720: data["thumb_720"],
-        external_type: data["external_type"],
-        timestamp: data["timestamp"]
-      }
+        {:ok, original_w} <-
+          case(data["original_w"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["original_w"]}}
+          end,
+        {:ok, title} <-
+          case(data["title"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["title"]}}
+          end,
+        {:ok, mimetype} <-
+          case(data["mimetype"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["mimetype"]}}
+          end,
+        {:ok, thumb_720} <-
+          case(data["thumb_720"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["thumb_720"]}}
+          end,
+        {:ok, external_type} <-
+          case(data["external_type"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["external_type"]}}
+          end,
+        {:ok, timestamp} <-
+          case(data["timestamp"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["timestamp"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           is_external: is_external,
+           state: state,
+           external_id: external_id,
+           is_tombstoned: is_tombstoned,
+           name: name,
+           thumb_480_h: thumb_480_h,
+           source_team: source_team,
+           shares: shares,
+           non_owner_editable: non_owner_editable,
+           url_private: url_private,
+           pinned_to: pinned_to,
+           thumb_960: thumb_960,
+           permalink: permalink,
+           thumb_1024_w: thumb_1024_w,
+           image_exif_rotation: image_exif_rotation,
+           thumb_80: thumb_80,
+           thumb_1024: thumb_1024,
+           has_rich_preview: has_rich_preview,
+           display_as_bot: display_as_bot,
+           num_stars: num_stars,
+           thumb_1024_h: thumb_1024_h,
+           thumb_960_w: thumb_960_w,
+           public_url_shared: public_url_shared,
+           url_private_download: url_private_download,
+           updated: updated,
+           username: username,
+           pinned_info: pinned_info,
+           thumb_800: thumb_800,
+           size: size,
+           thumb_360_w: thumb_360_w,
+           mode: mode,
+           external_url: external_url,
+           date_delete: date_delete,
+           thumb_tiny: thumb_tiny,
+           filetype: filetype,
+           editor: editor,
+           groups: groups,
+           last_editor: last_editor,
+           original_h: original_h,
+           is_starred: is_starred,
+           is_public: is_public,
+           thumb_160: thumb_160,
+           thumb_480_w: thumb_480_w,
+           thumb_480: thumb_480,
+           preview: preview,
+           ims: ims,
+           thumb_360_h: thumb_360_h,
+           thumb_360: thumb_360,
+           created: created,
+           comments_count: comments_count,
+           pretty_type: pretty_type,
+           thumb_720_w: thumb_720_w,
+           editable: editable,
+           thumb_64: thumb_64,
+           user: user,
+           thumb_800_h: thumb_800_h,
+           thumb_960_h: thumb_960_h,
+           thumb_800_w: thumb_800_w,
+           thumb_720_h: thumb_720_h,
+           permalink_public: permalink_public,
+           reactions: reactions,
+           user_team: user_team,
+           id: id,
+           channels: channels,
+           original_w: original_w,
+           title: title,
+           mimetype: mimetype,
+           thumb_720: thumb_720,
+           external_type: external_type,
+           timestamp: timestamp
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_file" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -1229,7 +3338,7 @@ defmodule(Slack) do
         "name" => data.name,
         "thumb_480_h" => data.thumb_480_h,
         "source_team" => data.source_team,
-        "shares" => %{private: data.shares["private"], public: data.shares["public"]},
+        "shares" => %{"private" => data.shares.private, "public" => data.shares.public},
         "non_owner_editable" => data.non_owner_editable,
         "url_private" => data.url_private,
         "pinned_to" =>
@@ -1355,14 +3464,85 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        enterprise_id: data["enterprise_id"],
-        enterprise_name: data["enterprise_name"],
-        id: data["id"],
-        is_admin: data["is_admin"],
-        is_owner: data["is_owner"],
-        teams: Enum.map(data["teams"], fn item -> item end)
-      }
+      with(
+        {:ok, enterprise_id} <-
+          case(data["enterprise_id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_enterprise_id"]}}
+          end,
+        {:ok, enterprise_name} <-
+          case(data["enterprise_name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_enterprise_name"]}}
+          end,
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_enterprise_user_id"]}}
+          end,
+        {:ok, is_admin} <-
+          case(data["is_admin"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_admin"]}}
+          end,
+        {:ok, is_owner} <-
+          case(data["is_owner"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_owner"]}}
+          end,
+        {:ok, teams} <-
+          data["teams"]
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with(
+                {:ok, item} <-
+                  case(data) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+                  end
+              ) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end)
+      ) do
+        {:ok,
+         %__MODULE__{
+           enterprise_id: enterprise_id,
+           enterprise_name: enterprise_name,
+           id: id,
+           is_admin: is_admin,
+           is_owner: is_owner,
+           teams: teams
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_enterprise_user" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -1391,12 +3571,12 @@ defmodule(Slack) do
     defstruct([])
     @type t :: %__MODULE__{}
     @doc false
-    def(decode(data)) do
-      %__MODULE__{}
+    def(decode(_)) do
+      {:ok, %__MODULE__{}}
     end
 
     @doc false
-    def(encode(data)) do
+    def(encode(_)) do
       %{}
     end
   end
@@ -1411,18 +3591,54 @@ defmodule(Slack) do
     @type t :: %__MODULE__{excluded_ids: [binary] | nil, ids: [binary], wildcard: boolean | nil}
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        excluded_ids:
+      with(
+        {:ok, excluded_ids} <-
           case(data["excluded_ids"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["excluded_ids"], fn item -> {:TODO, :OneOfDecode} end)
+              data["excluded_ids"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- {:TODO, :OneOfDecode}) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        ids: Enum.map(data["ids"], fn item -> {:TODO, :OneOfDecode} end),
-        wildcard: data["wildcard"]
-      }
+        {:ok, ids} <-
+          data["ids"]
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with({:ok, item} <- {:TODO, :OneOfDecode}) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end),
+        {:ok, wildcard} <-
+          case(data["wildcard"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["wildcard"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{excluded_ids: excluded_ids, ids: ids, wildcard: wildcard}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_resources" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -1481,33 +3697,139 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        comment: data["comment"],
-        created: data["created"],
-        id: data["id"],
-        is_intro: data["is_intro"],
-        is_starred: data["is_starred"],
-        num_stars: data["num_stars"],
-        pinned_info: Slack.DefsPinnedInfo.decode(data["pinned_info"]),
-        pinned_to:
+      with(
+        {:ok, comment} <-
+          case(data["comment"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["comment"]}}
+          end,
+        {:ok, created} <-
+          case(data["created"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["created"]}}
+          end,
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_comment_id"]}}
+          end,
+        {:ok, is_intro} <-
+          case(data["is_intro"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_intro"]}}
+          end,
+        {:ok, is_starred} <-
+          case(data["is_starred"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_starred"]}}
+          end,
+        {:ok, num_stars} <-
+          case(data["num_stars"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["num_stars"]}}
+          end,
+        {:ok, pinned_info} <- Slack.DefsPinnedInfo.decode(data["pinned_info"]),
+        {:ok, pinned_to} <-
           case(data["pinned_to"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["pinned_to"], fn item -> item end)
+              data["pinned_to"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_channel"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        reactions:
+        {:ok, reactions} <-
           case(data["reactions"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["reactions"], fn item -> Slack.ObjsReaction.decode(item) end)
+              data["reactions"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- Slack.ObjsReaction.decode(data)) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        timestamp: data["timestamp"],
-        user: data["user"]
-      }
+        {:ok, timestamp} <-
+          case(data["timestamp"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["timestamp"]}}
+          end,
+        {:ok, user} <-
+          case(data["user"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           comment: comment,
+           created: created,
+           id: id,
+           is_intro: is_intro,
+           is_starred: is_starred,
+           num_stars: num_stars,
+           pinned_info: pinned_info,
+           pinned_to: pinned_to,
+           reactions: reactions,
+           timestamp: timestamp,
+           user: user
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_comment" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -1620,62 +3942,392 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        accepted_user: data["accepted_user"],
-        created: data["created"],
-        creator: data["creator"],
-        id: data["id"],
-        is_archived: data["is_archived"],
-        is_channel: data["is_channel"],
-        is_frozen: data["is_frozen"],
-        is_general: data["is_general"],
-        is_member: data["is_member"],
-        is_moved: data["is_moved"],
-        is_mpim: data["is_mpim"],
-        is_non_threadable: data["is_non_threadable"],
-        is_org_shared: data["is_org_shared"],
-        is_pending_ext_shared: data["is_pending_ext_shared"],
-        is_private: data["is_private"],
-        is_read_only: data["is_read_only"],
-        is_shared: data["is_shared"],
-        is_thread_only: data["is_thread_only"],
-        last_read: data["last_read"],
-        latest: Slack.ObjsMessage.decode(data["latest"]),
-        members: Enum.map(data["members"], fn item -> item end),
-        name: data["name"],
-        name_normalized: data["name_normalized"],
-        num_members: data["num_members"],
-        pending_shared:
+      with(
+        {:ok, accepted_user} <-
+          case(data["accepted_user"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, created} <-
+          case(data["created"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["created"]}}
+          end,
+        {:ok, creator} <-
+          case(data["creator"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_channel_id"]}}
+          end,
+        {:ok, is_archived} <-
+          case(data["is_archived"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_archived"]}}
+          end,
+        {:ok, is_channel} <-
+          case(data["is_channel"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_channel"]}}
+          end,
+        {:ok, is_frozen} <-
+          case(data["is_frozen"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_frozen"]}}
+          end,
+        {:ok, is_general} <-
+          case(data["is_general"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_general"]}}
+          end,
+        {:ok, is_member} <-
+          case(data["is_member"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_member"]}}
+          end,
+        {:ok, is_moved} <-
+          case(data["is_moved"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["is_moved"]}}
+          end,
+        {:ok, is_mpim} <-
+          case(data["is_mpim"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_mpim"]}}
+          end,
+        {:ok, is_non_threadable} <-
+          case(data["is_non_threadable"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_non_threadable"]}}
+          end,
+        {:ok, is_org_shared} <-
+          case(data["is_org_shared"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_org_shared"]}}
+          end,
+        {:ok, is_pending_ext_shared} <-
+          case(data["is_pending_ext_shared"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_pending_ext_shared"]}}
+          end,
+        {:ok, is_private} <-
+          case(data["is_private"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_private"]}}
+          end,
+        {:ok, is_read_only} <-
+          case(data["is_read_only"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_read_only"]}}
+          end,
+        {:ok, is_shared} <-
+          case(data["is_shared"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_shared"]}}
+          end,
+        {:ok, is_thread_only} <-
+          case(data["is_thread_only"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_thread_only"]}}
+          end,
+        {:ok, last_read} <-
+          case(data["last_read"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_ts"]}}
+          end,
+        {:ok, latest} <- Slack.ObjsMessage.decode(data["latest"]),
+        {:ok, members} <-
+          data["members"]
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with(
+                {:ok, item} <-
+                  case(data) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                  end
+              ) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end),
+        {:ok, name} <-
+          case(data["name"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name"]}}
+          end,
+        {:ok, name_normalized} <-
+          case(data["name_normalized"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name_normalized"]}}
+          end,
+        {:ok, num_members} <-
+          case(data["num_members"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["num_members"]}}
+          end,
+        {:ok, pending_shared} <-
           case(data["pending_shared"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["pending_shared"], fn item -> item end)
+              data["pending_shared"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        previous_names:
+        {:ok, previous_names} <-
           case(data["previous_names"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["previous_names"], fn item -> item end)
+              data["previous_names"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_channel_name"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        priority: data["priority"],
-        purpose: %{
-          creator: data["purpose"]["creator"],
-          last_set: data["purpose"]["last_set"],
-          value: data["purpose"]["value"]
-        },
-        topic: %{
-          creator: data["topic"]["creator"],
-          last_set: data["topic"]["last_set"],
-          value: data["topic"]["value"]
-        },
-        unlinked: data["unlinked"],
-        unread_count: data["unread_count"],
-        unread_count_display: data["unread_count_display"]
-      }
+        {:ok, priority} <-
+          case(data["priority"]) do
+            x when is_nil(x) or is_number(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_number, x}, ["priority"]}}
+          end,
+        {:ok, purpose} <-
+          with(
+            {:ok, creator} <-
+              case(data["purpose"]["creator"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_topic_purpose_creator"]}}
+              end,
+            {:ok, last_set} <-
+              case(data["purpose"]["last_set"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["last_set"]}}
+              end,
+            {:ok, value} <-
+              case(data["purpose"]["value"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["value"]}}
+              end
+          ) do
+            {:ok, %{creator: creator, last_set: last_set, value: value}}
+          end,
+        {:ok, topic} <-
+          with(
+            {:ok, creator} <-
+              case(data["topic"]["creator"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_topic_purpose_creator"]}}
+              end,
+            {:ok, last_set} <-
+              case(data["topic"]["last_set"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["last_set"]}}
+              end,
+            {:ok, value} <-
+              case(data["topic"]["value"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["value"]}}
+              end
+          ) do
+            {:ok, %{creator: creator, last_set: last_set, value: value}}
+          end,
+        {:ok, unlinked} <-
+          case(data["unlinked"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["unlinked"]}}
+          end,
+        {:ok, unread_count} <-
+          case(data["unread_count"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["unread_count"]}}
+          end,
+        {:ok, unread_count_display} <-
+          case(data["unread_count_display"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["unread_count_display"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           accepted_user: accepted_user,
+           created: created,
+           creator: creator,
+           id: id,
+           is_archived: is_archived,
+           is_channel: is_channel,
+           is_frozen: is_frozen,
+           is_general: is_general,
+           is_member: is_member,
+           is_moved: is_moved,
+           is_mpim: is_mpim,
+           is_non_threadable: is_non_threadable,
+           is_org_shared: is_org_shared,
+           is_pending_ext_shared: is_pending_ext_shared,
+           is_private: is_private,
+           is_read_only: is_read_only,
+           is_shared: is_shared,
+           is_thread_only: is_thread_only,
+           last_read: last_read,
+           latest: latest,
+           members: members,
+           name: name,
+           name_normalized: name_normalized,
+           num_members: num_members,
+           pending_shared: pending_shared,
+           previous_names: previous_names,
+           priority: priority,
+           purpose: purpose,
+           topic: topic,
+           unlinked: unlinked,
+           unread_count: unread_count,
+           unread_count_display: unread_count_display
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_channel" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -1730,14 +4382,14 @@ defmodule(Slack) do
           end,
         "priority" => data.priority,
         "purpose" => %{
-          creator: data.purpose["creator"],
-          last_set: data.purpose["last_set"],
-          value: data.purpose["value"]
+          "creator" => data.purpose.creator,
+          "last_set" => data.purpose.last_set,
+          "value" => data.purpose.value
         },
         "topic" => %{
-          creator: data.topic["creator"],
-          last_set: data.topic["last_set"],
-          value: data.topic["value"]
+          "creator" => data.topic.creator,
+          "last_set" => data.topic.last_set,
+          "value" => data.topic.value
         },
         "unlinked" => data.unlinked,
         "unread_count" => data.unread_count,
@@ -1850,93 +4502,520 @@ defmodule(Slack) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        user_profile: Slack.ObjsUserProfileShort.decode(data["user_profile"]),
-        subtype: data["subtype"],
-        name: data["name"],
-        bot_id: data["bot_id"],
-        source_team: data["source_team"],
-        thread_ts: data["thread_ts"],
-        pinned_to:
+      with(
+        {:ok, user_profile} <- Slack.ObjsUserProfileShort.decode(data["user_profile"]),
+        {:ok, subtype} <-
+          case(data["subtype"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["subtype"]}}
+          end,
+        {:ok, name} <-
+          case(data["name"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["name"]}}
+          end,
+        {:ok, bot_id} <-
+          case(data["bot_id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_bot_id"]}}
+          end,
+        {:ok, source_team} <-
+          case(data["source_team"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_workspace_id"]}}
+          end,
+        {:ok, thread_ts} <-
+          case(data["thread_ts"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_ts"]}}
+          end,
+        {:ok, pinned_to} <-
           case(data["pinned_to"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["pinned_to"], fn item -> item end)
+              data["pinned_to"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_channel"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        old_name: data["old_name"],
-        permalink: data["permalink"],
-        reply_users:
+        {:ok, old_name} <-
+          case(data["old_name"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["old_name"]}}
+          end,
+        {:ok, permalink} <-
+          case(data["permalink"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["permalink"]}}
+          end,
+        {:ok, reply_users} <-
           case(data["reply_users"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["reply_users"], fn item -> item end)
+              data["reply_users"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        last_read: data["last_read"],
-        blocks: Enum.map(data["blocks"], fn item -> %{type: item["type"]} end),
-        file: Slack.ObjsFile.decode(data["file"]),
-        display_as_bot: data["display_as_bot"],
-        is_delayed_message: data["is_delayed_message"],
-        upload: data["upload"],
-        parent_user_id: data["parent_user_id"],
-        username: data["username"],
-        team: data["team"],
-        latest_reply: data["latest_reply"],
-        purpose: data["purpose"],
-        client_msg_id: data["client_msg_id"],
-        comment: Slack.ObjsComment.decode(data["comment"]),
-        topic: data["topic"],
-        files:
+        {:ok, last_read} <-
+          case(data["last_read"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_ts"]}}
+          end,
+        {:ok, blocks} <-
+          data["blocks"]
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with(
+                {:ok, item} <-
+                  with(
+                    {:ok, type} <-
+                      case(data["type"]) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["type"]}}
+                      end
+                  ) do
+                    {:ok, %{type: type}}
+                  end
+              ) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end),
+        {:ok, file} <- Slack.ObjsFile.decode(data["file"]),
+        {:ok, display_as_bot} <-
+          case(data["display_as_bot"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["display_as_bot"]}}
+          end,
+        {:ok, is_delayed_message} <-
+          case(data["is_delayed_message"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_delayed_message"]}}
+          end,
+        {:ok, upload} <-
+          case(data["upload"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["upload"]}}
+          end,
+        {:ok, parent_user_id} <-
+          case(data["parent_user_id"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, username} <-
+          case(data["username"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["username"]}}
+          end,
+        {:ok, team} <-
+          case(data["team"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_workspace_id"]}}
+          end,
+        {:ok, latest_reply} <-
+          case(data["latest_reply"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_ts"]}}
+          end,
+        {:ok, purpose} <-
+          case(data["purpose"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["purpose"]}}
+          end,
+        {:ok, client_msg_id} <-
+          case(data["client_msg_id"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["client_msg_id"]}}
+          end,
+        {:ok, comment} <- Slack.ObjsComment.decode(data["comment"]),
+        {:ok, topic} <-
+          case(data["topic"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["topic"]}}
+          end,
+        {:ok, files} <-
           case(data["files"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["files"], fn item -> Slack.ObjsFile.decode(item) end)
+              data["files"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- Slack.ObjsFile.decode(data)) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        is_starred: data["is_starred"],
-        text: data["text"],
-        attachments:
+        {:ok, is_starred} <-
+          case(data["is_starred"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_starred"]}}
+          end,
+        {:ok, text} <-
+          case(data["text"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["text"]}}
+          end,
+        {:ok, attachments} <-
           case(data["attachments"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["attachments"], fn item ->
-                %{
-                  fallback: item["fallback"],
-                  id: item["id"],
-                  image_bytes: item["image_bytes"],
-                  image_height: item["image_height"],
-                  image_url: item["image_url"],
-                  image_width: item["image_width"]
-                }
+              data["attachments"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      with(
+                        {:ok, fallback} <-
+                          case(data["fallback"]) do
+                            x when is_nil(x) or is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["fallback"]}}
+                          end,
+                        {:ok, id} <-
+                          case(data["id"]) do
+                            x when is_integer(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_integer, x}, ["id"]}}
+                          end,
+                        {:ok, image_bytes} <-
+                          case(data["image_bytes"]) do
+                            x when is_nil(x) or is_integer(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_integer, x}, ["image_bytes"]}}
+                          end,
+                        {:ok, image_height} <-
+                          case(data["image_height"]) do
+                            x when is_nil(x) or is_integer(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_integer, x}, ["image_height"]}}
+                          end,
+                        {:ok, image_url} <-
+                          case(data["image_url"]) do
+                            x when is_nil(x) or is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["image_url"]}}
+                          end,
+                        {:ok, image_width} <-
+                          case(data["image_width"]) do
+                            x when is_nil(x) or is_integer(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_integer, x}, ["image_width"]}}
+                          end
+                      ) do
+                        {:ok,
+                         %{
+                           fallback: fallback,
+                           id: id,
+                           image_bytes: image_bytes,
+                           image_height: image_height,
+                           image_url: image_url,
+                           image_width: image_width
+                         }}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
               end)
           end,
-        unread_count: data["unread_count"],
-        reply_users_count: data["reply_users_count"],
-        reply_count: data["reply_count"],
-        user: data["user"],
-        ts: data["ts"],
-        type: data["type"],
-        inviter: data["inviter"],
-        reactions:
+        {:ok, unread_count} <-
+          case(data["unread_count"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["unread_count"]}}
+          end,
+        {:ok, reply_users_count} <-
+          case(data["reply_users_count"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["reply_users_count"]}}
+          end,
+        {:ok, reply_count} <-
+          case(data["reply_count"]) do
+            x when is_nil(x) or is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["reply_count"]}}
+          end,
+        {:ok, user} <-
+          case(data["user"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, ts} <-
+          case(data["ts"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_ts"]}}
+          end,
+        {:ok, type} <-
+          case(data["type"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["type"]}}
+          end,
+        {:ok, inviter} <-
+          case(data["inviter"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+          end,
+        {:ok, reactions} <-
           case(data["reactions"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["reactions"], fn item -> Slack.ObjsReaction.decode(item) end)
+              data["reactions"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- Slack.ObjsReaction.decode(data)) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        subscribed: data["subscribed"],
-        bot_profile: Slack.ObjsBotProfile.decode(data["bot_profile"]),
-        is_intro: data["is_intro"],
-        user_team: data["user_team"],
-        icons: %{emoji: data["icons"]["emoji"], image_64: data["icons"]["image_64"]}
-      }
+        {:ok, subscribed} <-
+          case(data["subscribed"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["subscribed"]}}
+          end,
+        {:ok, bot_profile} <- Slack.ObjsBotProfile.decode(data["bot_profile"]),
+        {:ok, is_intro} <-
+          case(data["is_intro"]) do
+            x when is_nil(x) or is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["is_intro"]}}
+          end,
+        {:ok, user_team} <-
+          case(data["user_team"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["defs_workspace_id"]}}
+          end,
+        {:ok, icons} <-
+          with(
+            {:ok, emoji} <-
+              case(data["icons"]["emoji"]) do
+                x when is_nil(x) or is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["emoji"]}}
+              end,
+            {:ok, image_64} <-
+              case(data["icons"]["image_64"]) do
+                x when is_nil(x) or is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["image_64"]}}
+              end
+          ) do
+            {:ok, %{emoji: emoji, image_64: image_64}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           user_profile: user_profile,
+           subtype: subtype,
+           name: name,
+           bot_id: bot_id,
+           source_team: source_team,
+           thread_ts: thread_ts,
+           pinned_to: pinned_to,
+           old_name: old_name,
+           permalink: permalink,
+           reply_users: reply_users,
+           last_read: last_read,
+           blocks: blocks,
+           file: file,
+           display_as_bot: display_as_bot,
+           is_delayed_message: is_delayed_message,
+           upload: upload,
+           parent_user_id: parent_user_id,
+           username: username,
+           team: team,
+           latest_reply: latest_reply,
+           purpose: purpose,
+           client_msg_id: client_msg_id,
+           comment: comment,
+           topic: topic,
+           files: files,
+           is_starred: is_starred,
+           text: text,
+           attachments: attachments,
+           unread_count: unread_count,
+           reply_users_count: reply_users_count,
+           reply_count: reply_count,
+           user: user,
+           ts: ts,
+           type: type,
+           inviter: inviter,
+           reactions: reactions,
+           subscribed: subscribed,
+           bot_profile: bot_profile,
+           is_intro: is_intro,
+           user_team: user_team,
+           icons: icons
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["objs_message" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -1973,7 +5052,7 @@ defmodule(Slack) do
               nil
 
             _ ->
-              Enum.map(data.blocks, fn item -> %{type: item["type"]} end)
+              Enum.map(data.blocks, fn item -> %{"type" => item.type} end)
           end,
         "file" => Slack.ObjsFile.encode(data.file),
         "display_as_bot" => data.display_as_bot,
@@ -2005,12 +5084,12 @@ defmodule(Slack) do
             _ ->
               Enum.map(data.attachments, fn item ->
                 %{
-                  fallback: item["fallback"],
-                  id: item["id"],
-                  image_bytes: item["image_bytes"],
-                  image_height: item["image_height"],
-                  image_url: item["image_url"],
-                  image_width: item["image_width"]
+                  "fallback" => item.fallback,
+                  "id" => item.id,
+                  "image_bytes" => item.image_bytes,
+                  "image_height" => item.image_height,
+                  "image_url" => item.image_url,
+                  "image_width" => item.image_width
                 }
               end)
           end,
@@ -2033,7 +5112,7 @@ defmodule(Slack) do
         "bot_profile" => Slack.ObjsBotProfile.encode(data.bot_profile),
         "is_intro" => data.is_intro,
         "user_team" => data.user_team,
-        "icons" => %{emoji: data.icons["emoji"], image_64: data.icons["image_64"]}
+        "icons" => %{"emoji" => data.icons.emoji, "image_64" => data.icons.image_64}
       }
     end
   end
@@ -2054,10 +5133,69 @@ defmodule(Slack) do
     def(chat_delete(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/chat.delete")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{channel: body["channel"], ok: body["ok"], ts: body["ts"]}}
+          with(
+            {:ok, channel} <-
+              case(body["channel"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_channel"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, ts} <-
+              case(body["ts"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_ts"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, ok: ok, ts: ts}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2090,17 +5228,78 @@ defmodule(Slack) do
     def(conversations_leave(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.leave")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{not_in_channel: body["not_in_channel"], ok: body["ok"]}}
+          with(
+            {:ok, not_in_channel} <-
+              case(body["not_in_channel"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["not_in_channel"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{not_in_channel: not_in_channel, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2298,27 +5497,127 @@ defmodule(Slack) do
     def(conversations_invite(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.invite")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{channel: {:TODO, :OneOfDecode}, ok: body["ok"]}}
+          with(
+            {:ok, channel} <- {:TODO, :OneOfDecode},
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             errors:
-               case(body["errors"]) do
-                 nil ->
-                   nil
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
 
-                 _ ->
-                   Enum.map(body["errors"], fn item ->
-                     %{error: item["error"], ok: item["ok"], user: item["user"]}
-                   end)
-               end,
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, errors} <-
+                  case(body["errors"]) do
+                    nil ->
+                      nil
+
+                    _ ->
+                      body["errors"]
+                      |> Enum.reverse()
+                      |> Enum.reduce({:ok, []}, fn
+                        data, {:ok, items} ->
+                          with(
+                            {:ok, item} <-
+                              with(
+                                {:ok, error} <-
+                                  case(data["error"]) do
+                                    x when is_binary(x) ->
+                                      {:ok, x}
+
+                                    x ->
+                                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                                  end,
+                                {:ok, ok} <-
+                                  case(data["ok"]) do
+                                    x when is_boolean(x) ->
+                                      {:ok, x}
+
+                                    x ->
+                                      {:error,
+                                       {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                                  end,
+                                {:ok, user} <-
+                                  case(data["user"]) do
+                                    x when is_binary(x) ->
+                                      {:ok, x}
+
+                                    x ->
+                                      {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                                  end
+                              ) do
+                                {:ok, %{error: error, ok: ok, user: user}}
+                              end
+                          ) do
+                            {:ok, [item | items]}
+                          end
+
+                        _, error ->
+                          error
+                      end)
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{
+                   callstack: callstack,
+                   error: error,
+                   errors: errors,
+                   needed: needed,
+                   ok: ok,
+                   provided: provided
+                 }}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2359,25 +5658,147 @@ defmodule(Slack) do
     def(chat_schedule_message(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/chat.scheduleMessage")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             channel: body["channel"],
-             message: %{
-               bot_id: body["message"]["bot_id"],
-               bot_profile: Slack.ObjsBotProfile.decode(body["message"]["bot_profile"]),
-               team: body["message"]["team"],
-               text: body["message"]["text"],
-               type: body["message"]["type"],
-               user: body["message"]["user"],
-               username: body["message"]["username"]
-             },
-             ok: body["ok"],
-             post_at: body["post_at"],
-             scheduled_message_id: body["scheduled_message_id"]
-           }}
+          with(
+            {:ok, channel} <-
+              case(body["channel"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_channel"]}}
+              end,
+            {:ok, message} <-
+              with(
+                {:ok, bot_id} <-
+                  case(body["message"]["bot_id"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_bot_id"]}}
+                  end,
+                {:ok, bot_profile} <- Slack.ObjsBotProfile.decode(body["message"]["bot_profile"]),
+                {:ok, team} <-
+                  case(body["message"]["team"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+                  end,
+                {:ok, text} <-
+                  case(body["message"]["text"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["text"]}}
+                  end,
+                {:ok, type} <-
+                  case(body["message"]["type"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["type"]}}
+                  end,
+                {:ok, user} <-
+                  case(body["message"]["user"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                  end,
+                {:ok, username} <-
+                  case(body["message"]["username"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["username"]}}
+                  end
+              ) do
+                {:ok,
+                 %{
+                   bot_id: bot_id,
+                   bot_profile: bot_profile,
+                   team: team,
+                   text: text,
+                   type: type,
+                   user: user,
+                   username: username
+                 }}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, post_at} <-
+              case(body["post_at"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["post_at"]}}
+              end,
+            {:ok, scheduled_message_id} <-
+              case(body["scheduled_message_id"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["scheduled_message_id"]}}
+              end
+          ) do
+            {:ok,
+             %{
+               channel: channel,
+               message: message,
+               ok: ok,
+               post_at: post_at,
+               scheduled_message_id: scheduled_message_id
+             }}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2576,32 +5997,112 @@ defmodule(Slack) do
     def(conversations_join(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.join")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             channel: {:TODO, :OneOfDecode},
-             ok: body["ok"],
-             response_metadata: %{
-               warnings:
-                 case(body["response_metadata"]["warnings"]) do
-                   nil ->
-                     nil
+          with(
+            {:ok, channel} <- {:TODO, :OneOfDecode},
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
 
-                   _ ->
-                     Enum.map(body["response_metadata"]["warnings"], fn item -> item end)
-                 end
-             },
-             warning: body["warning"]
-           }}
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, response_metadata} <-
+              with(
+                {:ok, warnings} <-
+                  case(body["response_metadata"]["warnings"]) do
+                    nil ->
+                      nil
+
+                    _ ->
+                      body["response_metadata"]["warnings"]
+                      |> Enum.reverse()
+                      |> Enum.reduce({:ok, []}, fn
+                        data, {:ok, items} ->
+                          with(
+                            {:ok, item} <-
+                              case(data) do
+                                x when is_binary(x) ->
+                                  {:ok, x}
+
+                                x ->
+                                  {:error, {:decode, {:invalid_string, x}, [nil]}}
+                              end
+                          ) do
+                            {:ok, [item | items]}
+                          end
+
+                        _, error ->
+                          error
+                      end)
+                  end
+              ) do
+                {:ok, %{warnings: warnings}}
+              end,
+            {:ok, warning} <-
+              case(body["warning"]) do
+                x when is_nil(x) or is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["warning"]}}
+              end
+          ) do
+            {:ok,
+             %{channel: channel, ok: ok, response_metadata: response_metadata, warning: warning}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2666,15 +6167,66 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             items: Enum.map(body["items"], fn item -> {:TODO, :OneOfDecode} end),
-             ok: body["ok"],
-             paging: Slack.ObjsPaging.decode(body["paging"])
-           }}
+          with(
+            {:ok, items} <-
+              body["items"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- {:TODO, :OneOfDecode}) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, paging} <- Slack.ObjsPaging.decode(body["paging"])
+          ) do
+            {:ok, %{items: items, ok: ok, paging: paging}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2700,10 +6252,53 @@ defmodule(Slack) do
     def(admin_conversations_create(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.conversations.create")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{channel_id: body["channel_id"], ok: body["ok"]}}
+          with(
+            {:ok, channel_id} <-
+              case(body["channel_id"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_channel_id"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{channel_id: channel_id, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2729,10 +6324,61 @@ defmodule(Slack) do
     def(chat_post_ephemeral(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/chat.postEphemeral")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{message_ts: body["message_ts"], ok: body["ok"]}}
+          with(
+            {:ok, message_ts} <-
+              case(body["message_ts"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_ts"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{message_ts: message_ts, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2765,10 +6411,54 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], profile: Slack.ObjsUserProfile.decode(body["profile"])}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, profile} <- Slack.ObjsUserProfile.decode(body["profile"])
+          ) do
+            {:ok, %{ok: ok, profile: profile}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2801,17 +6491,86 @@ defmodule(Slack) do
     def(conversations_close(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.close")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{already_closed: body["already_closed"], no_op: body["no_op"], ok: body["ok"]}}
+          with(
+            {:ok, already_closed} <-
+              case(body["already_closed"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["already_closed"]}}
+              end,
+            {:ok, no_op} <-
+              case(body["no_op"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["no_op"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{already_closed: already_closed, no_op: no_op, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2854,10 +6613,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -2952,22 +6738,90 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             has_more: body["has_more"],
-             messages: Enum.map(body["messages"], fn item -> {:TODO, :OneOfDecode} end),
-             ok: body["ok"]
-           }}
+          with(
+            {:ok, has_more} <-
+              case(body["has_more"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["has_more"]}}
+              end,
+            {:ok, messages} <-
+              body["messages"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- {:TODO, :OneOfDecode}) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{has_more: has_more, messages: messages, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3000,17 +6854,70 @@ defmodule(Slack) do
     def(conversations_mark(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.mark")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3041,10 +6948,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3112,30 +7046,173 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             logs:
-               Enum.map(body["logs"], fn item ->
-                 %{
-                   admin_app_id: item["admin_app_id"],
-                   app_id: item["app_id"],
-                   app_type: item["app_type"],
-                   change_type: item["change_type"],
-                   channel: item["channel"],
-                   date: item["date"],
-                   scope: item["scope"],
-                   service_id: item["service_id"],
-                   service_type: item["service_type"],
-                   user_id: item["user_id"],
-                   user_name: item["user_name"]
-                 }
-               end),
-             ok: body["ok"],
-             paging: Slack.ObjsPaging.decode(body["paging"])
-           }}
+          with(
+            {:ok, logs} <-
+              body["logs"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      with(
+                        {:ok, admin_app_id} <-
+                          case(data["admin_app_id"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["defs_app_id"]}}
+                          end,
+                        {:ok, app_id} <-
+                          case(data["app_id"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["defs_app_id"]}}
+                          end,
+                        {:ok, app_type} <-
+                          case(data["app_type"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["app_type"]}}
+                          end,
+                        {:ok, change_type} <-
+                          case(data["change_type"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["change_type"]}}
+                          end,
+                        {:ok, channel} <-
+                          case(data["channel"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["defs_channel"]}}
+                          end,
+                        {:ok, date} <-
+                          case(data["date"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["date"]}}
+                          end,
+                        {:ok, scope} <-
+                          case(data["scope"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["scope"]}}
+                          end,
+                        {:ok, service_id} <-
+                          case(data["service_id"]) do
+                            x when is_nil(x) or is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["service_id"]}}
+                          end,
+                        {:ok, service_type} <-
+                          case(data["service_type"]) do
+                            x when is_nil(x) or is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["service_type"]}}
+                          end,
+                        {:ok, user_id} <-
+                          case(data["user_id"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                          end,
+                        {:ok, user_name} <-
+                          case(data["user_name"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["user_name"]}}
+                          end
+                      ) do
+                        {:ok,
+                         %{
+                           admin_app_id: admin_app_id,
+                           app_id: app_id,
+                           app_type: app_type,
+                           change_type: change_type,
+                           channel: channel,
+                           date: date,
+                           scope: scope,
+                           service_id: service_id,
+                           service_type: service_type,
+                           user_id: user_id,
+                           user_name: user_name
+                         }}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, paging} <- Slack.ObjsPaging.decode(body["paging"])
+          ) do
+            {:ok, %{logs: logs, ok: ok, paging: paging}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3164,10 +7241,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3191,10 +7295,37 @@ defmodule(Slack) do
     def(admin_teams_settings_set_name(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.teams.settings.setName")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3228,15 +7359,79 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             response_metadata: %{next_cursor: body["response_metadata"]["next_cursor"]},
-             team_ids: Enum.map(body["team_ids"], fn item -> item end)
-           }}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, response_metadata} <-
+              with(
+                {:ok, next_cursor} <-
+                  case(body["response_metadata"]["next_cursor"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["next_cursor"]}}
+                  end
+              ) do
+                {:ok, %{next_cursor: next_cursor}}
+              end,
+            {:ok, team_ids} <-
+              body["team_ids"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
+          ) do
+            {:ok, %{ok: ok, response_metadata: response_metadata, team_ids: team_ids}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3262,10 +7457,37 @@ defmodule(Slack) do
         Tesla.request(client, method: :post, url: "/admin.teams.settings.setDefaultChannels")
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3298,17 +7520,70 @@ defmodule(Slack) do
     def(conversations_unarchive(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.unarchive")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3334,10 +7609,53 @@ defmodule(Slack) do
     def(pins_remove(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/pins.remove")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3361,10 +7679,37 @@ defmodule(Slack) do
     def(admin_users_set_regular(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.users.setRegular")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3390,10 +7735,53 @@ defmodule(Slack) do
     def(chat_unfurl(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/chat.unfurl")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3424,10 +7812,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3460,10 +7875,54 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], team: Slack.ObjsTeam.decode(body["team"])}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, team} <- Slack.ObjsTeam.decode(body["team"])
+          ) do
+            {:ok, %{ok: ok, team: team}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3496,10 +7955,69 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{channel: body["channel"], ok: body["ok"], permalink: body["permalink"]}}
+          with(
+            {:ok, channel} <-
+              case(body["channel"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_channel"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, permalink} <-
+              case(body["permalink"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["permalink"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, ok: ok, permalink: permalink}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3523,10 +8041,45 @@ defmodule(Slack) do
     def(admin_conversations_rename(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.conversations.rename")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3723,17 +8276,71 @@ defmodule(Slack) do
     def(conversations_rename(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.rename")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{channel: {:TODO, :OneOfDecode}, ok: body["ok"]}}
+          with(
+            {:ok, channel} <- {:TODO, :OneOfDecode},
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3764,10 +8371,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3800,17 +8434,92 @@ defmodule(Slack) do
     def(dnd_end_snooze(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/dnd.endSnooze")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             dnd_enabled: body["dnd_enabled"],
-             next_dnd_end_ts: body["next_dnd_end_ts"],
-             next_dnd_start_ts: body["next_dnd_start_ts"],
-             ok: body["ok"],
-             snooze_enabled: body["snooze_enabled"]
-           }}
+          with(
+            {:ok, dnd_enabled} <-
+              case(body["dnd_enabled"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["dnd_enabled"]}}
+              end,
+            {:ok, next_dnd_end_ts} <-
+              case(body["next_dnd_end_ts"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["next_dnd_end_ts"]}}
+              end,
+            {:ok, next_dnd_start_ts} <-
+              case(body["next_dnd_start_ts"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["next_dnd_start_ts"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, snooze_enabled} <-
+              case(body["snooze_enabled"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["snooze_enabled"]}}
+              end
+          ) do
+            {:ok,
+             %{
+               dnd_enabled: dnd_enabled,
+               next_dnd_end_ts: next_dnd_end_ts,
+               next_dnd_start_ts: next_dnd_start_ts,
+               ok: ok,
+               snooze_enabled: snooze_enabled
+             }}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3836,10 +8545,53 @@ defmodule(Slack) do
     def(reactions_add(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/reactions.add")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3884,26 +8636,144 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             bot: %{
-               app_id: body["bot"]["app_id"],
-               deleted: body["bot"]["deleted"],
-               icons: %{
-                 image_36: body["bot"]["icons"]["image_36"],
-                 image_48: body["bot"]["icons"]["image_48"],
-                 image_72: body["bot"]["icons"]["image_72"]
-               },
-               id: body["bot"]["id"],
-               name: body["bot"]["name"],
-               updated: body["bot"]["updated"],
-               user_id: body["bot"]["user_id"]
-             },
-             ok: body["ok"]
-           }}
+          with(
+            {:ok, bot} <-
+              with(
+                {:ok, app_id} <-
+                  case(body["bot"]["app_id"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_app_id"]}}
+                  end,
+                {:ok, deleted} <-
+                  case(body["bot"]["deleted"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["deleted"]}}
+                  end,
+                {:ok, icons} <-
+                  with(
+                    {:ok, image_36} <-
+                      case(body["bot"]["icons"]["image_36"]) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["image_36"]}}
+                      end,
+                    {:ok, image_48} <-
+                      case(body["bot"]["icons"]["image_48"]) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["image_48"]}}
+                      end,
+                    {:ok, image_72} <-
+                      case(body["bot"]["icons"]["image_72"]) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["image_72"]}}
+                      end
+                  ) do
+                    {:ok, %{image_36: image_36, image_48: image_48, image_72: image_72}}
+                  end,
+                {:ok, id} <-
+                  case(body["bot"]["id"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_bot_id"]}}
+                  end,
+                {:ok, name} <-
+                  case(body["bot"]["name"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["name"]}}
+                  end,
+                {:ok, updated} <-
+                  case(body["bot"]["updated"]) do
+                    x when is_integer(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_integer, x}, ["updated"]}}
+                  end,
+                {:ok, user_id} <-
+                  case(body["bot"]["user_id"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                  end
+              ) do
+                {:ok,
+                 %{
+                   app_id: app_id,
+                   deleted: deleted,
+                   icons: icons,
+                   id: id,
+                   name: name,
+                   updated: updated,
+                   user_id: user_id
+                 }}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{bot: bot, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3937,15 +8807,87 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             members: Enum.map(body["members"], fn item -> item end),
-             ok: body["ok"],
-             response_metadata: %{next_cursor: body["response_metadata"]["next_cursor"]}
-           }}
+          with(
+            {:ok, members} <-
+              body["members"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, response_metadata} <-
+              with(
+                {:ok, next_cursor} <-
+                  case(body["response_metadata"]["next_cursor"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["next_cursor"]}}
+                  end
+              ) do
+                {:ok, %{next_cursor: next_cursor}}
+              end
+          ) do
+            {:ok, %{members: members, ok: ok, response_metadata: response_metadata}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -3978,10 +8920,54 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], reminder: Slack.ObjsReminder.decode(body["reminder"])}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, reminder} <- Slack.ObjsReminder.decode(body["reminder"])
+          ) do
+            {:ok, %{ok: ok, reminder: reminder}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4007,10 +8993,53 @@ defmodule(Slack) do
     def(reminders_delete(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/reminders.delete")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4043,10 +9072,61 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], revoked: body["revoked"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, revoked} <-
+              case(body["revoked"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["revoked"]}}
+              end
+          ) do
+            {:ok, %{ok: ok, revoked: revoked}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4091,22 +9171,214 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             scopes: %{
-               app_home: Enum.map(body["scopes"]["app_home"], fn item -> item end),
-               channel: Enum.map(body["scopes"]["channel"], fn item -> item end),
-               group: Enum.map(body["scopes"]["group"], fn item -> item end),
-               im: Enum.map(body["scopes"]["im"], fn item -> item end),
-               mpim: Enum.map(body["scopes"]["mpim"], fn item -> item end),
-               team: Enum.map(body["scopes"]["team"], fn item -> item end),
-               user: Enum.map(body["scopes"]["user"], fn item -> item end)
-             }
-           }}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, scopes} <-
+              with(
+                {:ok, app_home} <-
+                  body["scopes"]["app_home"]
+                  |> Enum.reverse()
+                  |> Enum.reduce({:ok, []}, fn
+                    data, {:ok, items} ->
+                      with(
+                        {:ok, item} <-
+                          case(data) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, [nil]}}
+                          end
+                      ) do
+                        {:ok, [item | items]}
+                      end
+
+                    _, error ->
+                      error
+                  end),
+                {:ok, channel} <-
+                  body["scopes"]["channel"]
+                  |> Enum.reverse()
+                  |> Enum.reduce({:ok, []}, fn
+                    data, {:ok, items} ->
+                      with(
+                        {:ok, item} <-
+                          case(data) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, [nil]}}
+                          end
+                      ) do
+                        {:ok, [item | items]}
+                      end
+
+                    _, error ->
+                      error
+                  end),
+                {:ok, group} <-
+                  body["scopes"]["group"]
+                  |> Enum.reverse()
+                  |> Enum.reduce({:ok, []}, fn
+                    data, {:ok, items} ->
+                      with(
+                        {:ok, item} <-
+                          case(data) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, [nil]}}
+                          end
+                      ) do
+                        {:ok, [item | items]}
+                      end
+
+                    _, error ->
+                      error
+                  end),
+                {:ok, im} <-
+                  body["scopes"]["im"]
+                  |> Enum.reverse()
+                  |> Enum.reduce({:ok, []}, fn
+                    data, {:ok, items} ->
+                      with(
+                        {:ok, item} <-
+                          case(data) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, [nil]}}
+                          end
+                      ) do
+                        {:ok, [item | items]}
+                      end
+
+                    _, error ->
+                      error
+                  end),
+                {:ok, mpim} <-
+                  body["scopes"]["mpim"]
+                  |> Enum.reverse()
+                  |> Enum.reduce({:ok, []}, fn
+                    data, {:ok, items} ->
+                      with(
+                        {:ok, item} <-
+                          case(data) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, [nil]}}
+                          end
+                      ) do
+                        {:ok, [item | items]}
+                      end
+
+                    _, error ->
+                      error
+                  end),
+                {:ok, team} <-
+                  body["scopes"]["team"]
+                  |> Enum.reverse()
+                  |> Enum.reduce({:ok, []}, fn
+                    data, {:ok, items} ->
+                      with(
+                        {:ok, item} <-
+                          case(data) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, [nil]}}
+                          end
+                      ) do
+                        {:ok, [item | items]}
+                      end
+
+                    _, error ->
+                      error
+                  end),
+                {:ok, user} <-
+                  body["scopes"]["user"]
+                  |> Enum.reverse()
+                  |> Enum.reduce({:ok, []}, fn
+                    data, {:ok, items} ->
+                      with(
+                        {:ok, item} <-
+                          case(data) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, [nil]}}
+                          end
+                      ) do
+                        {:ok, [item | items]}
+                      end
+
+                    _, error ->
+                      error
+                  end)
+              ) do
+                {:ok,
+                 %{
+                   app_home: app_home,
+                   channel: channel,
+                   group: group,
+                   im: im,
+                   mpim: mpim,
+                   team: team,
+                   user: user
+                 }}
+              end
+          ) do
+            {:ok, %{ok: ok, scopes: scopes}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4137,10 +9409,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4181,10 +9480,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4231,10 +9557,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4270,20 +9623,119 @@ defmodule(Slack) do
     def(auth_test(client \\ new())) do
       case(Tesla.request(client, method: :get, url: "/auth.test")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             bot_id: body["bot_id"],
-             is_enterprise_install: body["is_enterprise_install"],
-             ok: body["ok"],
-             team: body["team"],
-             team_id: body["team_id"],
-             url: body["url"],
-             user: body["user"],
-             user_id: body["user_id"]
-           }}
+          with(
+            {:ok, bot_id} <-
+              case(body["bot_id"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_bot_id"]}}
+              end,
+            {:ok, is_enterprise_install} <-
+              case(body["is_enterprise_install"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["is_enterprise_install"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, team} <-
+              case(body["team"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["team"]}}
+              end,
+            {:ok, team_id} <-
+              case(body["team_id"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+              end,
+            {:ok, url} <-
+              case(body["url"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["url"]}}
+              end,
+            {:ok, user} <-
+              case(body["user"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["user"]}}
+              end,
+            {:ok, user_id} <-
+              case(body["user_id"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+              end
+          ) do
+            {:ok,
+             %{
+               bot_id: bot_id,
+               is_enterprise_install: is_enterprise_install,
+               ok: ok,
+               team: team,
+               team_id: team_id,
+               url: url,
+               user: user,
+               user_id: user_id
+             }}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4309,10 +9761,37 @@ defmodule(Slack) do
         Tesla.request(client, method: :post, url: "/admin.teams.settings.setDiscoverability")
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4376,25 +9855,122 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             channel_actions_count: body["channel_actions_count"],
-             channel_actions_ts: body["channel_actions_ts"],
-             has_more: body["has_more"],
-             messages: Enum.map(body["messages"], fn item -> Slack.ObjsMessage.decode(item) end),
-             ok: body["ok"],
-             pin_count: body["pin_count"]
-           }}
+          with(
+            {:ok, channel_actions_count} <-
+              case(body["channel_actions_count"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["channel_actions_count"]}}
+              end,
+            {:ok, channel_actions_ts} <-
+              case(body["channel_actions_ts"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["channel_actions_ts"]}}
+              end,
+            {:ok, has_more} <-
+              case(body["has_more"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["has_more"]}}
+              end,
+            {:ok, messages} <-
+              body["messages"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- Slack.ObjsMessage.decode(data)) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, pin_count} <-
+              case(body["pin_count"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["pin_count"]}}
+              end
+          ) do
+            {:ok,
+             %{
+               channel_actions_count: channel_actions_count,
+               channel_actions_ts: channel_actions_ts,
+               has_more: has_more,
+               messages: messages,
+               ok: ok,
+               pin_count: pin_count
+             }}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4464,10 +10040,42 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, {:TODO, :OneOfDecode}}
+          {:TODO, :OneOfDecode}
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4493,10 +10101,69 @@ defmodule(Slack) do
     def(chat_me_message(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/chat.meMessage")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{channel: body["channel"], ok: body["ok"], ts: body["ts"]}}
+          with(
+            {:ok, channel} <-
+              case(body["channel"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_channel"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, ts} <-
+              case(body["ts"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_ts"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, ok: ok, ts: ts}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4693,17 +10360,71 @@ defmodule(Slack) do
     def(conversations_set_purpose(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.setPurpose")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{channel: {:TODO, :OneOfDecode}, ok: body["ok"]}}
+          with(
+            {:ok, channel} <- {:TODO, :OneOfDecode},
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4747,39 +10468,234 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             info: %{
-               app_home: %{
-                 resources: Slack.ObjsResources.decode(body["info"]["app_home"]["resources"]),
-                 scopes: Enum.map(body["info"]["app_home"]["scopes"], fn item -> item end)
-               },
-               channel: %{
-                 resources: Slack.ObjsResources.decode(body["info"]["channel"]["resources"]),
-                 scopes: Enum.map(body["info"]["channel"]["scopes"], fn item -> item end)
-               },
-               group: %{
-                 resources: Slack.ObjsResources.decode(body["info"]["group"]["resources"]),
-                 scopes: Enum.map(body["info"]["group"]["scopes"], fn item -> item end)
-               },
-               im: %{
-                 resources: Slack.ObjsResources.decode(body["info"]["im"]["resources"]),
-                 scopes: Enum.map(body["info"]["im"]["scopes"], fn item -> item end)
-               },
-               mpim: %{
-                 resources: Slack.ObjsResources.decode(body["info"]["mpim"]["resources"]),
-                 scopes: Enum.map(body["info"]["mpim"]["scopes"], fn item -> item end)
-               },
-               team: %{
-                 resources: Slack.ObjsResources.decode(body["info"]["team"]["resources"]),
-                 scopes: Enum.map(body["info"]["team"]["scopes"], fn item -> item end)
-               }
-             },
-             ok: body["ok"]
-           }}
+          with(
+            {:ok, info} <-
+              with(
+                {:ok, app_home} <-
+                  with(
+                    {:ok, resources} <-
+                      Slack.ObjsResources.decode(body["info"]["app_home"]["resources"]),
+                    {:ok, scopes} <-
+                      body["info"]["app_home"]["scopes"]
+                      |> Enum.reverse()
+                      |> Enum.reduce({:ok, []}, fn
+                        data, {:ok, items} ->
+                          with(
+                            {:ok, item} <-
+                              case(data) do
+                                x when is_binary(x) ->
+                                  {:ok, x}
+
+                                x ->
+                                  {:error, {:decode, {:invalid_string, x}, [nil]}}
+                              end
+                          ) do
+                            {:ok, [item | items]}
+                          end
+
+                        _, error ->
+                          error
+                      end)
+                  ) do
+                    {:ok, %{resources: resources, scopes: scopes}}
+                  end,
+                {:ok, channel} <-
+                  with(
+                    {:ok, resources} <-
+                      Slack.ObjsResources.decode(body["info"]["channel"]["resources"]),
+                    {:ok, scopes} <-
+                      body["info"]["channel"]["scopes"]
+                      |> Enum.reverse()
+                      |> Enum.reduce({:ok, []}, fn
+                        data, {:ok, items} ->
+                          with(
+                            {:ok, item} <-
+                              case(data) do
+                                x when is_binary(x) ->
+                                  {:ok, x}
+
+                                x ->
+                                  {:error, {:decode, {:invalid_string, x}, [nil]}}
+                              end
+                          ) do
+                            {:ok, [item | items]}
+                          end
+
+                        _, error ->
+                          error
+                      end)
+                  ) do
+                    {:ok, %{resources: resources, scopes: scopes}}
+                  end,
+                {:ok, group} <-
+                  with(
+                    {:ok, resources} <-
+                      Slack.ObjsResources.decode(body["info"]["group"]["resources"]),
+                    {:ok, scopes} <-
+                      body["info"]["group"]["scopes"]
+                      |> Enum.reverse()
+                      |> Enum.reduce({:ok, []}, fn
+                        data, {:ok, items} ->
+                          with(
+                            {:ok, item} <-
+                              case(data) do
+                                x when is_binary(x) ->
+                                  {:ok, x}
+
+                                x ->
+                                  {:error, {:decode, {:invalid_string, x}, [nil]}}
+                              end
+                          ) do
+                            {:ok, [item | items]}
+                          end
+
+                        _, error ->
+                          error
+                      end)
+                  ) do
+                    {:ok, %{resources: resources, scopes: scopes}}
+                  end,
+                {:ok, im} <-
+                  with(
+                    {:ok, resources} <-
+                      Slack.ObjsResources.decode(body["info"]["im"]["resources"]),
+                    {:ok, scopes} <-
+                      body["info"]["im"]["scopes"]
+                      |> Enum.reverse()
+                      |> Enum.reduce({:ok, []}, fn
+                        data, {:ok, items} ->
+                          with(
+                            {:ok, item} <-
+                              case(data) do
+                                x when is_binary(x) ->
+                                  {:ok, x}
+
+                                x ->
+                                  {:error, {:decode, {:invalid_string, x}, [nil]}}
+                              end
+                          ) do
+                            {:ok, [item | items]}
+                          end
+
+                        _, error ->
+                          error
+                      end)
+                  ) do
+                    {:ok, %{resources: resources, scopes: scopes}}
+                  end,
+                {:ok, mpim} <-
+                  with(
+                    {:ok, resources} <-
+                      Slack.ObjsResources.decode(body["info"]["mpim"]["resources"]),
+                    {:ok, scopes} <-
+                      body["info"]["mpim"]["scopes"]
+                      |> Enum.reverse()
+                      |> Enum.reduce({:ok, []}, fn
+                        data, {:ok, items} ->
+                          with(
+                            {:ok, item} <-
+                              case(data) do
+                                x when is_binary(x) ->
+                                  {:ok, x}
+
+                                x ->
+                                  {:error, {:decode, {:invalid_string, x}, [nil]}}
+                              end
+                          ) do
+                            {:ok, [item | items]}
+                          end
+
+                        _, error ->
+                          error
+                      end)
+                  ) do
+                    {:ok, %{resources: resources, scopes: scopes}}
+                  end,
+                {:ok, team} <-
+                  with(
+                    {:ok, resources} <-
+                      Slack.ObjsResources.decode(body["info"]["team"]["resources"]),
+                    {:ok, scopes} <-
+                      body["info"]["team"]["scopes"]
+                      |> Enum.reverse()
+                      |> Enum.reduce({:ok, []}, fn
+                        data, {:ok, items} ->
+                          with(
+                            {:ok, item} <-
+                              case(data) do
+                                x when is_binary(x) ->
+                                  {:ok, x}
+
+                                x ->
+                                  {:error, {:decode, {:invalid_string, x}, [nil]}}
+                              end
+                          ) do
+                            {:ok, [item | items]}
+                          end
+
+                        _, error ->
+                          error
+                      end)
+                  ) do
+                    {:ok, %{resources: resources, scopes: scopes}}
+                  end
+              ) do
+                {:ok,
+                 %{
+                   app_home: app_home,
+                   channel: channel,
+                   group: group,
+                   im: im,
+                   mpim: mpim,
+                   team: team
+                 }}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{info: info, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4822,10 +10738,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -4859,10 +10802,74 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], users: Enum.map(body["users"], fn item -> item end)}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, users} <-
+              body["users"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
+          ) do
+            {:ok, %{ok: ok, users: users}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5075,15 +11082,78 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             channels: Enum.map(body["channels"], fn item -> {:TODO, :OneOfDecode} end),
-             ok: body["ok"],
-             response_metadata: %{next_cursor: body["response_metadata"]["next_cursor"]}
-           }}
+          with(
+            {:ok, channels} <-
+              body["channels"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- {:TODO, :OneOfDecode}) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, response_metadata} <-
+              with(
+                {:ok, next_cursor} <-
+                  case(body["response_metadata"]["next_cursor"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["next_cursor"]}}
+                  end
+              ) do
+                {:ok, %{next_cursor: next_cursor}}
+              end
+          ) do
+            {:ok, %{channels: channels, ok: ok, response_metadata: response_metadata}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5107,10 +11177,37 @@ defmodule(Slack) do
     def(admin_usergroups_add_teams(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.usergroups.addTeams")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5134,10 +11231,37 @@ defmodule(Slack) do
     def(admin_users_session_reset(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.users.session.reset")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5161,10 +11285,37 @@ defmodule(Slack) do
     def(admin_users_assign(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.users.assign")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5279,16 +11430,75 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             cache_ts: body["cache_ts"],
-             members: Enum.map(body["members"], fn item -> {:TODO, :OneOfDecode} end),
-             ok: body["ok"],
-             response_metadata: {:TODO, :OneOfDecode}
-           }}
+          with(
+            {:ok, cache_ts} <-
+              case(body["cache_ts"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["cache_ts"]}}
+              end,
+            {:ok, members} <-
+              body["members"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- {:TODO, :OneOfDecode}) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, response_metadata} <- {:TODO, :OneOfDecode}
+          ) do
+            {:ok,
+             %{cache_ts: cache_ts, members: members, ok: ok, response_metadata: response_metadata}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5312,10 +11522,37 @@ defmodule(Slack) do
     def(admin_teams_settings_set_icon(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.teams.settings.setIcon")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5339,10 +11576,37 @@ defmodule(Slack) do
     def(admin_usergroups_add_channels(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.usergroups.addChannels")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5539,17 +11803,71 @@ defmodule(Slack) do
     def(conversations_set_topic(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.setTopic")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{channel: {:TODO, :OneOfDecode}, ok: body["ok"]}}
+          with(
+            {:ok, channel} <- {:TODO, :OneOfDecode},
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5573,10 +11891,45 @@ defmodule(Slack) do
     def(admin_conversations_invite(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.conversations.invite")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5609,10 +11962,53 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5643,10 +12039,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5679,17 +12102,70 @@ defmodule(Slack) do
     def(conversations_kick(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.kick")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5713,10 +12189,37 @@ defmodule(Slack) do
     def(admin_apps_approve(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.apps.approve")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5767,29 +12270,164 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             logins:
-               Enum.map(body["logins"], fn item ->
-                 %{
-                   count: item["count"],
-                   country: item["country"],
-                   date_first: item["date_first"],
-                   date_last: item["date_last"],
-                   ip: item["ip"],
-                   isp: item["isp"],
-                   region: item["region"],
-                   user_agent: item["user_agent"],
-                   user_id: item["user_id"],
-                   username: item["username"]
-                 }
-               end),
-             ok: body["ok"],
-             paging: Slack.ObjsPaging.decode(body["paging"])
-           }}
+          with(
+            {:ok, logins} <-
+              body["logins"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      with(
+                        {:ok, count} <-
+                          case(data["count"]) do
+                            x when is_integer(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_integer, x}, ["count"]}}
+                          end,
+                        {:ok, country} <-
+                          case(data["country"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["country"]}}
+                          end,
+                        {:ok, date_first} <-
+                          case(data["date_first"]) do
+                            x when is_integer(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_integer, x}, ["date_first"]}}
+                          end,
+                        {:ok, date_last} <-
+                          case(data["date_last"]) do
+                            x when is_integer(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_integer, x}, ["date_last"]}}
+                          end,
+                        {:ok, ip} <-
+                          case(data["ip"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["ip"]}}
+                          end,
+                        {:ok, isp} <-
+                          case(data["isp"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["isp"]}}
+                          end,
+                        {:ok, region} <-
+                          case(data["region"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["region"]}}
+                          end,
+                        {:ok, user_agent} <-
+                          case(data["user_agent"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["user_agent"]}}
+                          end,
+                        {:ok, user_id} <-
+                          case(data["user_id"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                          end,
+                        {:ok, username} <-
+                          case(data["username"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["username"]}}
+                          end
+                      ) do
+                        {:ok,
+                         %{
+                           count: count,
+                           country: country,
+                           date_first: date_first,
+                           date_last: date_last,
+                           ip: ip,
+                           isp: isp,
+                           region: region,
+                           user_agent: user_agent,
+                           user_id: user_id,
+                           username: username
+                         }}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, paging} <- Slack.ObjsPaging.decode(body["paging"])
+          ) do
+            {:ok, %{logins: logins, ok: ok, paging: paging}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -5815,10 +12453,53 @@ defmodule(Slack) do
     def(users_delete_photo(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/users.deletePhoto")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6021,16 +12702,70 @@ defmodule(Slack) do
     def(conversations_open(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.open")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             already_open: body["already_open"],
-             channel: {:TODO, :OneOfDecode},
-             no_op: body["no_op"],
-             ok: body["ok"]
-           }}
+          with(
+            {:ok, already_open} <-
+              case(body["already_open"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["already_open"]}}
+              end,
+            {:ok, channel} <- {:TODO, :OneOfDecode},
+            {:ok, no_op} <-
+              case(body["no_op"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["no_op"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{already_open: already_open, channel: channel, no_op: no_op, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6054,10 +12789,37 @@ defmodule(Slack) do
     def(admin_invite_requests_approve(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.inviteRequests.approve")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6081,10 +12843,37 @@ defmodule(Slack) do
     def(admin_emoji_rename(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.emoji.rename")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6122,10 +12911,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6161,10 +12977,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6188,10 +13031,37 @@ defmodule(Slack) do
     def(files_remote_remove(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/files.remote.remove")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6233,51 +13103,168 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             prefs: %{
-               can_thread: %{
-                 type:
-                   case(body["prefs"]["can_thread"]["type"]) do
-                     nil ->
-                       nil
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
 
-                     _ ->
-                       Enum.map(body["prefs"]["can_thread"]["type"], fn item -> item end)
-                   end,
-                 user:
-                   case(body["prefs"]["can_thread"]["user"]) do
-                     nil ->
-                       nil
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, prefs} <-
+              with(
+                {:ok, can_thread} <-
+                  with(
+                    {:ok, type} <-
+                      case(body["prefs"]["can_thread"]["type"]) do
+                        nil ->
+                          nil
 
-                     _ ->
-                       Enum.map(body["prefs"]["can_thread"]["user"], fn item -> item end)
-                   end
-               },
-               who_can_post: %{
-                 type:
-                   case(body["prefs"]["who_can_post"]["type"]) do
-                     nil ->
-                       nil
+                        _ ->
+                          body["prefs"]["can_thread"]["type"]
+                          |> Enum.reverse()
+                          |> Enum.reduce({:ok, []}, fn
+                            data, {:ok, items} ->
+                              with(
+                                {:ok, item} <-
+                                  case(data) do
+                                    x when is_binary(x) ->
+                                      {:ok, x}
 
-                     _ ->
-                       Enum.map(body["prefs"]["who_can_post"]["type"], fn item -> item end)
-                   end,
-                 user:
-                   case(body["prefs"]["who_can_post"]["user"]) do
-                     nil ->
-                       nil
+                                    x ->
+                                      {:error, {:decode, {:invalid_string, x}, [nil]}}
+                                  end
+                              ) do
+                                {:ok, [item | items]}
+                              end
 
-                     _ ->
-                       Enum.map(body["prefs"]["who_can_post"]["user"], fn item -> item end)
-                   end
-               }
-             }
-           }}
+                            _, error ->
+                              error
+                          end)
+                      end,
+                    {:ok, user} <-
+                      case(body["prefs"]["can_thread"]["user"]) do
+                        nil ->
+                          nil
+
+                        _ ->
+                          body["prefs"]["can_thread"]["user"]
+                          |> Enum.reverse()
+                          |> Enum.reduce({:ok, []}, fn
+                            data, {:ok, items} ->
+                              with(
+                                {:ok, item} <-
+                                  case(data) do
+                                    x when is_binary(x) ->
+                                      {:ok, x}
+
+                                    x ->
+                                      {:error, {:decode, {:invalid_string, x}, [nil]}}
+                                  end
+                              ) do
+                                {:ok, [item | items]}
+                              end
+
+                            _, error ->
+                              error
+                          end)
+                      end
+                  ) do
+                    {:ok, %{type: type, user: user}}
+                  end,
+                {:ok, who_can_post} <-
+                  with(
+                    {:ok, type} <-
+                      case(body["prefs"]["who_can_post"]["type"]) do
+                        nil ->
+                          nil
+
+                        _ ->
+                          body["prefs"]["who_can_post"]["type"]
+                          |> Enum.reverse()
+                          |> Enum.reduce({:ok, []}, fn
+                            data, {:ok, items} ->
+                              with(
+                                {:ok, item} <-
+                                  case(data) do
+                                    x when is_binary(x) ->
+                                      {:ok, x}
+
+                                    x ->
+                                      {:error, {:decode, {:invalid_string, x}, [nil]}}
+                                  end
+                              ) do
+                                {:ok, [item | items]}
+                              end
+
+                            _, error ->
+                              error
+                          end)
+                      end,
+                    {:ok, user} <-
+                      case(body["prefs"]["who_can_post"]["user"]) do
+                        nil ->
+                          nil
+
+                        _ ->
+                          body["prefs"]["who_can_post"]["user"]
+                          |> Enum.reverse()
+                          |> Enum.reduce({:ok, []}, fn
+                            data, {:ok, items} ->
+                              with(
+                                {:ok, item} <-
+                                  case(data) do
+                                    x when is_binary(x) ->
+                                      {:ok, x}
+
+                                    x ->
+                                      {:error, {:decode, {:invalid_string, x}, [nil]}}
+                                  end
+                              ) do
+                                {:ok, [item | items]}
+                              end
+
+                            _, error ->
+                              error
+                          end)
+                      end
+                  ) do
+                    {:ok, %{type: type, user: user}}
+                  end
+              ) do
+                {:ok, %{can_thread: can_thread, who_can_post: who_can_post}}
+              end
+          ) do
+            {:ok, %{ok: ok, prefs: prefs}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6301,10 +13288,45 @@ defmodule(Slack) do
     def(admin_conversations_disconnect_shared(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.conversations.disconnectShared")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6328,10 +13350,45 @@ defmodule(Slack) do
     def(admin_conversations_unarchive(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.conversations.unarchive")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6357,10 +13414,53 @@ defmodule(Slack) do
     def(reactions_remove(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/reactions.remove")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6386,10 +13486,53 @@ defmodule(Slack) do
     def(files_comments_delete(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/files.comments.delete")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6438,14 +13581,57 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             channels: Enum.map(body["channels"], fn item -> Slack.ObjsChannel.decode(item) end),
-             next_cursor: body["next_cursor"]
-           }}
+          with(
+            {:ok, channels} <-
+              body["channels"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- Slack.ObjsChannel.decode(data)) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, next_cursor} <-
+              case(body["next_cursor"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["next_cursor"]}}
+              end
+          ) do
+            {:ok, %{channels: channels, next_cursor: next_cursor}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6469,10 +13655,37 @@ defmodule(Slack) do
     def(admin_teams_create(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.teams.create")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6496,10 +13709,37 @@ defmodule(Slack) do
     def(admin_conversations_set_teams(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.conversations.setTeams")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6532,10 +13772,53 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6593,24 +13876,136 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             response_metadata: %{next_cursor: body["response_metadata"]["next_cursor"]},
-             scheduled_messages:
-               Enum.map(body["scheduled_messages"], fn item ->
-                 %{
-                   channel_id: item["channel_id"],
-                   date_created: item["date_created"],
-                   id: item["id"],
-                   post_at: item["post_at"],
-                   text: item["text"]
-                 }
-               end)
-           }}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, response_metadata} <-
+              with(
+                {:ok, next_cursor} <-
+                  case(body["response_metadata"]["next_cursor"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["next_cursor"]}}
+                  end
+              ) do
+                {:ok, %{next_cursor: next_cursor}}
+              end,
+            {:ok, scheduled_messages} <-
+              body["scheduled_messages"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      with(
+                        {:ok, channel_id} <-
+                          case(data["channel_id"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["defs_channel_id"]}}
+                          end,
+                        {:ok, date_created} <-
+                          case(data["date_created"]) do
+                            x when is_integer(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_integer, x}, ["date_created"]}}
+                          end,
+                        {:ok, id} <-
+                          case(data["id"]) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["id"]}}
+                          end,
+                        {:ok, post_at} <-
+                          case(data["post_at"]) do
+                            x when is_integer(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_integer, x}, ["post_at"]}}
+                          end,
+                        {:ok, text} <-
+                          case(data["text"]) do
+                            x when is_nil(x) or is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["text"]}}
+                          end
+                      ) do
+                        {:ok,
+                         %{
+                           channel_id: channel_id,
+                           date_created: date_created,
+                           id: id,
+                           post_at: post_at,
+                           text: text
+                         }}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
+          ) do
+            {:ok,
+             %{
+               ok: ok,
+               response_metadata: response_metadata,
+               scheduled_messages: scheduled_messages
+             }}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6634,10 +14029,37 @@ defmodule(Slack) do
     def(admin_invite_requests_deny(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.inviteRequests.deny")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6661,10 +14083,37 @@ defmodule(Slack) do
     def(calls_add(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/calls.add")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6688,10 +14137,37 @@ defmodule(Slack) do
     def(admin_users_set_admin(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.users.setAdmin")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6717,10 +14193,54 @@ defmodule(Slack) do
     def(usergroups_disable(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/usergroups.disable")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], usergroup: Slack.ObjsSubteam.decode(body["usergroup"])}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, usergroup} <- Slack.ObjsSubteam.decode(body["usergroup"])
+          ) do
+            {:ok, %{ok: ok, usergroup: usergroup}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6765,10 +14285,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6799,10 +14346,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6833,10 +14407,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6869,10 +14470,53 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6905,17 +14549,70 @@ defmodule(Slack) do
     def(conversations_archive(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.archive")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6939,10 +14636,37 @@ defmodule(Slack) do
     def(admin_users_remove(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.users.remove")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -6973,10 +14697,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7002,10 +14753,53 @@ defmodule(Slack) do
     def(users_set_presence(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/users.setPresence")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7036,10 +14830,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7063,10 +14884,37 @@ defmodule(Slack) do
     def(admin_users_set_expiration(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.users.setExpiration")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7099,10 +14947,42 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, {:TODO, :OneOfDecode}}
+          {:TODO, :OneOfDecode}
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7128,10 +15008,54 @@ defmodule(Slack) do
     def(usergroups_enable(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/usergroups.enable")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], usergroup: Slack.ObjsSubteam.decode(body["usergroup"])}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, usergroup} <- Slack.ObjsSubteam.decode(body["usergroup"])
+          ) do
+            {:ok, %{ok: ok, usergroup: usergroup}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7162,10 +15086,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7213,32 +15164,173 @@ defmodule(Slack) do
     def(users_set_photo(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/users.setPhoto")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             profile: %{
-               avatar_hash: body["profile"]["avatar_hash"],
-               image_1024: body["profile"]["image_1024"],
-               image_192: body["profile"]["image_192"],
-               image_24: body["profile"]["image_24"],
-               image_32: body["profile"]["image_32"],
-               image_48: body["profile"]["image_48"],
-               image_512: body["profile"]["image_512"],
-               image_72: body["profile"]["image_72"],
-               image_original: body["profile"]["image_original"]
-             }
-           }}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, profile} <-
+              with(
+                {:ok, avatar_hash} <-
+                  case(body["profile"]["avatar_hash"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["avatar_hash"]}}
+                  end,
+                {:ok, image_1024} <-
+                  case(body["profile"]["image_1024"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["image_1024"]}}
+                  end,
+                {:ok, image_192} <-
+                  case(body["profile"]["image_192"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["image_192"]}}
+                  end,
+                {:ok, image_24} <-
+                  case(body["profile"]["image_24"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["image_24"]}}
+                  end,
+                {:ok, image_32} <-
+                  case(body["profile"]["image_32"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["image_32"]}}
+                  end,
+                {:ok, image_48} <-
+                  case(body["profile"]["image_48"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["image_48"]}}
+                  end,
+                {:ok, image_512} <-
+                  case(body["profile"]["image_512"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["image_512"]}}
+                  end,
+                {:ok, image_72} <-
+                  case(body["profile"]["image_72"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["image_72"]}}
+                  end,
+                {:ok, image_original} <-
+                  case(body["profile"]["image_original"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["image_original"]}}
+                  end
+              ) do
+                {:ok,
+                 %{
+                   avatar_hash: avatar_hash,
+                   image_1024: image_1024,
+                   image_192: image_192,
+                   image_24: image_24,
+                   image_32: image_32,
+                   image_48: image_48,
+                   image_512: image_512,
+                   image_72: image_72,
+                   image_original: image_original
+                 }}
+              end
+          ) do
+            {:ok, %{ok: ok, profile: profile}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             debug_step: body["debug_step"],
-             dims: body["dims"],
-             error: body["error"],
-             ok: body["ok"],
-             time_ident: body["time_ident"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, debug_step} <-
+                  case(body["debug_step"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["debug_step"]}}
+                  end,
+                {:ok, dims} <-
+                  case(body["dims"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["dims"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, time_ident} <-
+                  case(body["time_ident"]) do
+                    x when is_nil(x) or is_integer(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_integer, x}, ["time_ident"]}}
+                  end
+              ) do
+                {:ok,
+                 %{
+                   callstack: callstack,
+                   debug_step: debug_step,
+                   dims: dims,
+                   error: error,
+                   ok: ok,
+                   time_ident: time_ident
+                 }}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7262,10 +15354,37 @@ defmodule(Slack) do
     def(calls_update(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/calls.update")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7306,24 +15425,107 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             enterprise_id: body["enterprise_id"],
-             invalid_user_ids:
-               case(body["invalid_user_ids"]) do
-                 nil ->
-                   nil
+          with(
+            {:ok, enterprise_id} <-
+              case(body["enterprise_id"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
 
-                 _ ->
-                   Enum.map(body["invalid_user_ids"], fn item -> item end)
-               end,
-             ok: body["ok"],
-             team_id: body["team_id"],
-             user_id_map: %{}
-           }}
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["enterprise_id"]}}
+              end,
+            {:ok, invalid_user_ids} <-
+              case(body["invalid_user_ids"]) do
+                nil ->
+                  nil
+
+                _ ->
+                  body["invalid_user_ids"]
+                  |> Enum.reverse()
+                  |> Enum.reduce({:ok, []}, fn
+                    data, {:ok, items} ->
+                      with(
+                        {:ok, item} <-
+                          case(data) do
+                            x when is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, [nil]}}
+                          end
+                      ) do
+                        {:ok, [item | items]}
+                      end
+
+                    _, error ->
+                      error
+                  end)
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, team_id} <-
+              case(body["team_id"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+              end,
+            {:ok, user_id_map} <-
+              with do
+                {:ok, %{}}
+              end
+          ) do
+            {:ok,
+             %{
+               enterprise_id: enterprise_id,
+               invalid_user_ids: invalid_user_ids,
+               ok: ok,
+               team_id: team_id,
+               user_id_map: user_id_map
+             }}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7349,10 +15551,54 @@ defmodule(Slack) do
     def(usergroups_update(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/usergroups.update")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], usergroup: Slack.ObjsSubteam.decode(body["usergroup"])}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, usergroup} <- Slack.ObjsSubteam.decode(body["usergroup"])
+          ) do
+            {:ok, %{ok: ok, usergroup: usergroup}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7378,10 +15624,53 @@ defmodule(Slack) do
     def(stars_add(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/stars.add")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7414,10 +15703,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7443,10 +15759,37 @@ defmodule(Slack) do
         Tesla.request(client, method: :post, url: "/admin.conversations.restrictAccess.addGroup")
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7470,10 +15813,37 @@ defmodule(Slack) do
     def(admin_emoji_add_alias(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.emoji.addAlias")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7499,10 +15869,54 @@ defmodule(Slack) do
     def(files_revoke_public_url(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/files.revokePublicURL")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{file: Slack.ObjsFile.decode(body["file"]), ok: body["ok"]}}
+          with(
+            {:ok, file} <- Slack.ObjsFile.decode(body["file"]),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{file: file, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7526,10 +15940,45 @@ defmodule(Slack) do
     def(admin_conversations_archive(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.conversations.archive")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7561,10 +16010,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7607,10 +16083,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7641,10 +16144,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7687,15 +16217,65 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             usergroups:
-               Enum.map(body["usergroups"], fn item -> Slack.ObjsSubteam.decode(item) end)
-           }}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, usergroups} <-
+              body["usergroups"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- Slack.ObjsSubteam.decode(data)) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
+          ) do
+            {:ok, %{ok: ok, usergroups: usergroups}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7719,10 +16299,37 @@ defmodule(Slack) do
     def(admin_emoji_add(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.emoji.add")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7755,19 +16362,70 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             profile: %{
-               fields:
-                 Enum.map(body["profile"]["fields"], fn item ->
-                   Slack.ObjsTeamProfileField.decode(item)
-                 end)
-             }
-           }}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, profile} <-
+              with(
+                {:ok, fields} <-
+                  body["profile"]["fields"]
+                  |> Enum.reverse()
+                  |> Enum.reduce({:ok, []}, fn
+                    data, {:ok, items} ->
+                      with({:ok, item} <- Slack.ObjsTeamProfileField.decode(data)) do
+                        {:ok, [item | items]}
+                      end
+
+                    _, error ->
+                      error
+                  end)
+              ) do
+                {:ok, %{fields: fields}}
+              end
+          ) do
+            {:ok, %{ok: ok, profile: profile}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7791,10 +16449,37 @@ defmodule(Slack) do
     def(files_remote_add(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/files.remote.add")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7826,16 +16511,70 @@ defmodule(Slack) do
     def(users_profile_set(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/users.profile.set")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             email_pending: body["email_pending"],
-             ok: body["ok"],
-             profile: Slack.ObjsUserProfile.decode(body["profile"]),
-             username: body["username"]
-           }}
+          with(
+            {:ok, email_pending} <-
+              case(body["email_pending"]) do
+                x when is_nil(x) or is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["email_pending"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, profile} <- Slack.ObjsUserProfile.decode(body["profile"]),
+            {:ok, username} <-
+              case(body["username"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["username"]}}
+              end
+          ) do
+            {:ok, %{email_pending: email_pending, ok: ok, profile: profile, username: username}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7933,10 +16672,54 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], user: {:TODO, :OneOfDecode}}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, user} <- {:TODO, :OneOfDecode}
+          ) do
+            {:ok, %{ok: ok, user: user}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -7989,15 +16772,66 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             files: Enum.map(body["files"], fn item -> Slack.ObjsFile.decode(item) end),
-             ok: body["ok"],
-             paging: Slack.ObjsPaging.decode(body["paging"])
-           }}
+          with(
+            {:ok, files} <-
+              body["files"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- Slack.ObjsFile.decode(data)) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, paging} <- Slack.ObjsPaging.decode(body["paging"])
+          ) do
+            {:ok, %{files: files, ok: ok, paging: paging}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8029,10 +16863,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8075,10 +16936,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8109,10 +16997,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8155,10 +17070,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8182,10 +17124,37 @@ defmodule(Slack) do
     def(files_remote_update(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/files.remote.update")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8216,10 +17185,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8252,21 +17248,92 @@ defmodule(Slack) do
     def(chat_update(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/chat.update")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             channel: body["channel"],
-             message: %{
-               attachments: body["message"]["attachments"],
-               blocks: Slack.Blocks.decode(body["message"]["blocks"]),
-               text: body["message"]["text"]
-             },
-             ok: body["ok"],
-             text: body["text"],
-             ts: body["ts"]
-           }}
+          with(
+            {:ok, channel} <-
+              case(body["channel"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["channel"]}}
+              end,
+            {:ok, message} <-
+              with(
+                {:ok, attachments} <- {:ok, body["message"]["attachments"]},
+                {:ok, blocks} <- Slack.Blocks.decode(body["message"]["blocks"]),
+                {:ok, text} <-
+                  case(body["message"]["text"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["text"]}}
+                  end
+              ) do
+                {:ok, %{attachments: attachments, blocks: blocks, text: text}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, text} <-
+              case(body["text"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["text"]}}
+              end,
+            {:ok, ts} <-
+              case(body["ts"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["ts"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, message: message, ok: ok, text: text, ts: ts}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8297,10 +17364,45 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8324,10 +17426,37 @@ defmodule(Slack) do
     def(calls_end(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/calls.end")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8353,10 +17482,53 @@ defmodule(Slack) do
     def(dnd_end_dnd(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/dnd.endDnd")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8387,10 +17559,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8414,10 +17613,45 @@ defmodule(Slack) do
     def(admin_conversations_convert_to_private(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.conversations.convertToPrivate")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8448,10 +17682,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8669,22 +17930,95 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             channels: Enum.map(body["channels"], fn item -> {:TODO, :OneOfDecode} end),
-             ok: body["ok"],
-             response_metadata: %{next_cursor: body["response_metadata"]["next_cursor"]}
-           }}
+          with(
+            {:ok, channels} <-
+              body["channels"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- {:TODO, :OneOfDecode}) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, response_metadata} <-
+              with(
+                {:ok, next_cursor} <-
+                  case(body["response_metadata"]["next_cursor"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["next_cursor"]}}
+                  end
+              ) do
+                {:ok, %{next_cursor: next_cursor}}
+              end
+          ) do
+            {:ok, %{channels: channels, ok: ok, response_metadata: response_metadata}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8747,16 +18081,67 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             items: Enum.map(body["items"], fn item -> {:TODO, :OneOfDecode} end),
-             ok: body["ok"],
-             paging: Slack.ObjsPaging.decode(body["paging"]),
-             response_metadata: {:TODO, :OneOfDecode}
-           }}
+          with(
+            {:ok, items} <-
+              body["items"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- {:TODO, :OneOfDecode}) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, paging} <- Slack.ObjsPaging.decode(body["paging"]),
+            {:ok, response_metadata} <- {:TODO, :OneOfDecode}
+          ) do
+            {:ok, %{items: items, ok: ok, paging: paging, response_metadata: response_metadata}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8854,10 +18239,54 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], user: {:TODO, :OneOfDecode}}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, user} <- {:TODO, :OneOfDecode}
+          ) do
+            {:ok, %{ok: ok, user: user}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8883,10 +18312,53 @@ defmodule(Slack) do
     def(users_set_active(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/users.setActive")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8912,10 +18384,45 @@ defmodule(Slack) do
         Tesla.request(client, method: :post, url: "/admin.conversations.setConversationPrefs")
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -8939,10 +18446,37 @@ defmodule(Slack) do
     def(admin_users_set_owner(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.users.setOwner")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9002,19 +18536,82 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             comments: body["comments"],
-             content_html: body["content_html"],
-             editor: body["editor"],
-             file: Slack.ObjsFile.decode(body["file"]),
-             ok: body["ok"],
-             paging: Slack.ObjsPaging.decode(body["paging"]),
-             response_metadata: {:TODO, :OneOfDecode}
-           }}
+          with(
+            {:ok, comments} <- {:ok, body["comments"]},
+            {:ok, content_html} <-
+              case(body["content_html"]) do
+                x when is_nil(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_null, x}, ["content_html"]}}
+              end,
+            {:ok, editor} <-
+              case(body["editor"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+              end,
+            {:ok, file} <- Slack.ObjsFile.decode(body["file"]),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, paging} <- Slack.ObjsPaging.decode(body["paging"]),
+            {:ok, response_metadata} <- {:TODO, :OneOfDecode}
+          ) do
+            {:ok,
+             %{
+               comments: comments,
+               content_html: content_html,
+               editor: editor,
+               file: file,
+               ok: ok,
+               paging: paging,
+               response_metadata: response_metadata
+             }}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9040,10 +18637,53 @@ defmodule(Slack) do
     def(chat_delete_scheduled_message(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/chat.deleteScheduledMessage")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9085,19 +18725,102 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             auto_away: body["auto_away"],
-             connection_count: body["connection_count"],
-             last_activity: body["last_activity"],
-             manual_away: body["manual_away"],
-             ok: body["ok"],
-             online: body["online"],
-             presence: body["presence"]
-           }}
+          with(
+            {:ok, auto_away} <-
+              case(body["auto_away"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["auto_away"]}}
+              end,
+            {:ok, connection_count} <-
+              case(body["connection_count"]) do
+                x when is_nil(x) or is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["connection_count"]}}
+              end,
+            {:ok, last_activity} <-
+              case(body["last_activity"]) do
+                x when is_nil(x) or is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["last_activity"]}}
+              end,
+            {:ok, manual_away} <-
+              case(body["manual_away"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["manual_away"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, online} <-
+              case(body["online"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["online"]}}
+              end,
+            {:ok, presence} <-
+              case(body["presence"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["presence"]}}
+              end
+          ) do
+            {:ok,
+             %{
+               auto_away: auto_away,
+               connection_count: connection_count,
+               last_activity: last_activity,
+               manual_away: manual_away,
+               ok: ok,
+               online: online,
+               presence: presence
+             }}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9139,19 +18862,110 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             dnd_enabled: body["dnd_enabled"],
-             next_dnd_end_ts: body["next_dnd_end_ts"],
-             next_dnd_start_ts: body["next_dnd_start_ts"],
-             ok: body["ok"],
-             snooze_enabled: body["snooze_enabled"],
-             snooze_endtime: body["snooze_endtime"],
-             snooze_remaining: body["snooze_remaining"]
-           }}
+          with(
+            {:ok, dnd_enabled} <-
+              case(body["dnd_enabled"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["dnd_enabled"]}}
+              end,
+            {:ok, next_dnd_end_ts} <-
+              case(body["next_dnd_end_ts"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["next_dnd_end_ts"]}}
+              end,
+            {:ok, next_dnd_start_ts} <-
+              case(body["next_dnd_start_ts"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["next_dnd_start_ts"]}}
+              end,
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, snooze_enabled} <-
+              case(body["snooze_enabled"]) do
+                x when is_nil(x) or is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["snooze_enabled"]}}
+              end,
+            {:ok, snooze_endtime} <-
+              case(body["snooze_endtime"]) do
+                x when is_nil(x) or is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["snooze_endtime"]}}
+              end,
+            {:ok, snooze_remaining} <-
+              case(body["snooze_remaining"]) do
+                x when is_nil(x) or is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["snooze_remaining"]}}
+              end
+          ) do
+            {:ok,
+             %{
+               dnd_enabled: dnd_enabled,
+               next_dnd_end_ts: next_dnd_end_ts,
+               next_dnd_start_ts: next_dnd_start_ts,
+               ok: ok,
+               snooze_enabled: snooze_enabled,
+               snooze_endtime: snooze_endtime,
+               snooze_remaining: snooze_remaining
+             }}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9177,10 +18991,53 @@ defmodule(Slack) do
     def(stars_remove(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/stars.remove")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9204,10 +19061,45 @@ defmodule(Slack) do
     def(admin_conversations_delete(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.conversations.delete")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9405,18 +19297,86 @@ defmodule(Slack) do
     def(conversations_create(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/conversations.create")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{channel: {:TODO, :OneOfDecode}, ok: body["ok"]}}
+          with(
+            {:ok, channel} <- {:TODO, :OneOfDecode},
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             detail: body["detail"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, detail} <-
+                  case(body["detail"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["detail"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{
+                   callstack: callstack,
+                   detail: detail,
+                   error: error,
+                   needed: needed,
+                   ok: ok,
+                   provided: provided
+                 }}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9440,10 +19400,37 @@ defmodule(Slack) do
     def(admin_users_invite(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.users.invite")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9474,10 +19461,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9503,10 +19517,54 @@ defmodule(Slack) do
     def(usergroups_create(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/usergroups.create")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], usergroup: Slack.ObjsSubteam.decode(body["usergroup"])}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, usergroup} <- Slack.ObjsSubteam.decode(body["usergroup"])
+          ) do
+            {:ok, %{ok: ok, usergroup: usergroup}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9530,10 +19588,37 @@ defmodule(Slack) do
     def(admin_users_session_invalidate(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.users.session.invalidate")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9564,10 +19649,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9593,10 +19705,54 @@ defmodule(Slack) do
     def(reminders_add(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/reminders.add")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], reminder: Slack.ObjsReminder.decode(body["reminder"])}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, reminder} <- Slack.ObjsReminder.decode(body["reminder"])
+          ) do
+            {:ok, %{ok: ok, reminder: reminder}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9628,16 +19784,83 @@ defmodule(Slack) do
     def(dnd_set_snooze(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/dnd.setSnooze")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             snooze_enabled: body["snooze_enabled"],
-             snooze_endtime: body["snooze_endtime"],
-             snooze_remaining: body["snooze_remaining"]
-           }}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, snooze_enabled} <-
+              case(body["snooze_enabled"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["snooze_enabled"]}}
+              end,
+            {:ok, snooze_endtime} <-
+              case(body["snooze_endtime"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["snooze_endtime"]}}
+              end,
+            {:ok, snooze_remaining} <-
+              case(body["snooze_remaining"]) do
+                x when is_integer(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_integer, x}, ["snooze_remaining"]}}
+              end
+          ) do
+            {:ok,
+             %{
+               ok: ok,
+               snooze_enabled: snooze_enabled,
+               snooze_endtime: snooze_endtime,
+               snooze_remaining: snooze_remaining
+             }}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9668,10 +19891,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9695,10 +19945,37 @@ defmodule(Slack) do
     def(admin_apps_restrict(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.apps.restrict")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9724,10 +20001,53 @@ defmodule(Slack) do
     def(files_delete(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/files.delete")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9760,15 +20080,65 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             reminders:
-               Enum.map(body["reminders"], fn item -> Slack.ObjsReminder.decode(item) end)
-           }}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, reminders} <-
+              body["reminders"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with({:ok, item} <- Slack.ObjsReminder.decode(data)) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
+          ) do
+            {:ok, %{ok: ok, reminders: reminders}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -9982,17 +20352,71 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{channel: {:TODO, :OneOfDecode}, ok: body["ok"]}}
+          with(
+            {:ok, channel} <- {:TODO, :OneOfDecode},
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error,
-           %{
-             callstack: body["callstack"],
-             error: body["error"],
-             needed: body["needed"],
-             ok: body["ok"],
-             provided: body["provided"]
-           }}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, needed} <-
+                  case(body["needed"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["needed"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end,
+                {:ok, provided} <-
+                  case(body["provided"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["provided"]}}
+                  end
+              ) do
+                {:ok,
+                 %{callstack: callstack, error: error, needed: needed, ok: ok, provided: provided}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10036,20 +20460,111 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             self: %{id: body["self"]["id"], name: body["self"]["name"]},
-             team: %{
-               domain: body["team"]["domain"],
-               id: body["team"]["id"],
-               name: body["team"]["name"]
-             },
-             url: body["url"]
-           }}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, self} <-
+              with(
+                {:ok, id} <-
+                  case(body["self"]["id"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_user_id"]}}
+                  end,
+                {:ok, name} <-
+                  case(body["self"]["name"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["name"]}}
+                  end
+              ) do
+                {:ok, %{id: id, name: name}}
+              end,
+            {:ok, team} <-
+              with(
+                {:ok, domain} <-
+                  case(body["team"]["domain"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["domain"]}}
+                  end,
+                {:ok, id} <-
+                  case(body["team"]["id"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["defs_team"]}}
+                  end,
+                {:ok, name} <-
+                  case(body["team"]["name"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["name"]}}
+                  end
+              ) do
+                {:ok, %{domain: domain, id: id, name: name}}
+              end,
+            {:ok, url} <-
+              case(body["url"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["url"]}}
+              end
+          ) do
+            {:ok, %{ok: ok, self: self, team: team, url: url}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10075,16 +20590,70 @@ defmodule(Slack) do
     def(chat_post_message(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/chat.postMessage")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             channel: body["channel"],
-             message: Slack.ObjsMessage.decode(body["message"]),
-             ok: body["ok"],
-             ts: body["ts"]
-           }}
+          with(
+            {:ok, channel} <-
+              case(body["channel"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_channel"]}}
+              end,
+            {:ok, message} <- Slack.ObjsMessage.decode(body["message"]),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, ts} <-
+              case(body["ts"]) do
+                x when is_binary(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_string, x}, ["defs_ts"]}}
+              end
+          ) do
+            {:ok, %{channel: channel, message: message, ok: ok, ts: ts}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10122,16 +20691,100 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok,
-           %{
-             ok: body["ok"],
-             resources:
-               Enum.map(body["resources"], fn item -> %{id: item["id"], type: item["type"]} end),
-             response_metadata: %{next_cursor: body["response_metadata"]["next_cursor"]}
-           }}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, resources} <-
+              body["resources"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      with(
+                        {:ok, id} <-
+                          case(data["id"]) do
+                            x when is_nil(x) or is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["id"]}}
+                          end,
+                        {:ok, type} <-
+                          case(data["type"]) do
+                            x when is_nil(x) or is_binary(x) ->
+                              {:ok, x}
+
+                            x ->
+                              {:error, {:decode, {:invalid_string, x}, ["type"]}}
+                          end
+                      ) do
+                        {:ok, %{id: id, type: type}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end),
+            {:ok, response_metadata} <-
+              with(
+                {:ok, next_cursor} <-
+                  case(body["response_metadata"]["next_cursor"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["next_cursor"]}}
+                  end
+              ) do
+                {:ok, %{next_cursor: next_cursor}}
+              end
+          ) do
+            {:ok, %{ok: ok, resources: resources, response_metadata: response_metadata}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10155,10 +20808,37 @@ defmodule(Slack) do
     def(calls_participants_remove(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/calls.participants.remove")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10182,10 +20862,37 @@ defmodule(Slack) do
     def(admin_emoji_remove(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.emoji.remove")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10216,10 +20923,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10251,10 +20985,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10280,10 +21041,53 @@ defmodule(Slack) do
     def(reminders_complete(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/reminders.complete")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10309,10 +21113,54 @@ defmodule(Slack) do
     def(files_upload(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/files.upload")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{file: Slack.ObjsFile.decode(body["file"]), ok: body["ok"]}}
+          with(
+            {:ok, file} <- Slack.ObjsFile.decode(body["file"]),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{file: file, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10343,10 +21191,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10372,10 +21247,54 @@ defmodule(Slack) do
     def(usergroups_users_update(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/usergroups.users.update")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"], usergroup: Slack.ObjsSubteam.decode(body["usergroup"])}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end,
+            {:ok, usergroup} <- Slack.ObjsSubteam.decode(body["usergroup"])
+          ) do
+            {:ok, %{ok: ok, usergroup: usergroup}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10422,10 +21341,44 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{}}
+          with do
+            {:ok, %{}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10449,10 +21402,37 @@ defmodule(Slack) do
     def(admin_usergroups_remove_channels(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.usergroups.removeChannels")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10476,10 +21456,37 @@ defmodule(Slack) do
     def(calls_participants_add(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/calls.participants.add")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10505,10 +21512,53 @@ defmodule(Slack) do
     def(pins_add(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/pins.add")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10534,10 +21584,54 @@ defmodule(Slack) do
     def(files_shared_public_url(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/files.sharedPublicURL")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{file: Slack.ObjsFile.decode(body["file"]), ok: body["ok"]}}
+          with(
+            {:ok, file} <- Slack.ObjsFile.decode(body["file"]),
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{file: file, ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{callstack: body["callstack"], error: body["error"], ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, callstack} <-
+                  case(body["callstack"]) do
+                    x when is_nil(x) or is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["callstack"]}}
+                  end,
+                {:ok, error} <-
+                  case(body["error"]) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, ["error"]}}
+                  end,
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{callstack: callstack, error: error, ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10561,10 +21655,37 @@ defmodule(Slack) do
     def(admin_teams_settings_set_description(client \\ new())) do
       case(Tesla.request(client, method: :post, url: "/admin.teams.settings.setDescription")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10609,10 +21730,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -10644,10 +21792,37 @@ defmodule(Slack) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, %{ok: body["ok"]}}
+          with(
+            {:ok, ok} <-
+              case(body["ok"]) do
+                x when is_boolean(x) ->
+                  {:ok, x}
+
+                x ->
+                  {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_true"]}}
+              end
+          ) do
+            {:ok, %{ok: ok}}
+          end
 
         {:ok, %{body: body}} ->
-          {:error, %{ok: body["ok"]}}
+          with(
+            {:ok, data} <-
+              with(
+                {:ok, ok} <-
+                  case(body["ok"]) do
+                    x when is_boolean(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_boolean, x}, ["defs_ok_false"]}}
+                  end
+              ) do
+                {:ok, %{ok: ok}}
+              end
+          ) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}

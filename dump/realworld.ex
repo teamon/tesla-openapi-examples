@@ -39,18 +39,114 @@ defmodule(Realworld) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        author: Realworld.Profile.decode(data["author"]),
-        body: data["body"],
-        created_at: data["createdAt"],
-        description: data["description"],
-        favorited: data["favorited"],
-        favorites_count: data["favoritesCount"],
-        slug: data["slug"],
-        tag_list: Enum.map(data["tagList"], fn item -> item end),
-        title: data["title"],
-        updated_at: data["updatedAt"]
-      }
+      with(
+        {:ok, author} <- Realworld.Profile.decode(data["author"]),
+        {:ok, body} <-
+          case(data["body"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["body"]}}
+          end,
+        {:ok, created_at} <-
+          case(data["createdAt"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["createdAt"]}}
+          end,
+        {:ok, description} <-
+          case(data["description"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["description"]}}
+          end,
+        {:ok, favorited} <-
+          case(data["favorited"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["favorited"]}}
+          end,
+        {:ok, favorites_count} <-
+          case(data["favoritesCount"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["favoritesCount"]}}
+          end,
+        {:ok, slug} <-
+          case(data["slug"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["slug"]}}
+          end,
+        {:ok, tag_list} <-
+          data["tagList"]
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with(
+                {:ok, item} <-
+                  case(data) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, [nil]}}
+                  end
+              ) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end),
+        {:ok, title} <-
+          case(data["title"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["title"]}}
+          end,
+        {:ok, updated_at} <-
+          case(data["updatedAt"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["updatedAt"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           author: author,
+           body: body,
+           created_at: created_at,
+           description: description,
+           favorited: favorited,
+           favorites_count: favorites_count,
+           slug: slug,
+           tag_list: tag_list,
+           title: title,
+           updated_at: updated_at
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["Article" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -91,13 +187,56 @@ defmodule(Realworld) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        author: Realworld.Profile.decode(data["author"]),
-        body: data["body"],
-        created_at: data["createdAt"],
-        id: data["id"],
-        updated_at: data["updatedAt"]
-      }
+      with(
+        {:ok, author} <- Realworld.Profile.decode(data["author"]),
+        {:ok, body} <-
+          case(data["body"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["body"]}}
+          end,
+        {:ok, created_at} <-
+          case(data["createdAt"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["createdAt"]}}
+          end,
+        {:ok, id} <-
+          case(data["id"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["id"]}}
+          end,
+        {:ok, updated_at} <-
+          case(data["updatedAt"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["updatedAt"]}}
+          end
+      ) do
+        {:ok,
+         %__MODULE__{
+           author: author,
+           body: body,
+           created_at: created_at,
+           id: id,
+           updated_at: updated_at
+         }}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["Comment" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -119,12 +258,58 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{errors: %{body: [binary]}}
     @doc false
     def(decode(data)) do
-      %__MODULE__{errors: %{body: Enum.map(data["errors"]["body"], fn item -> item end)}}
+      with(
+        {:ok, errors} <-
+          with(
+            {:ok, body} <-
+              data["errors"]["body"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, [nil]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
+          ) do
+            {:ok, %{body: body}}
+          end
+      ) do
+        {:ok, %__MODULE__{errors: errors}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["GenericErrorModel" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
     def(encode(data)) do
-      %{"errors" => %{body: Enum.map(data.errors["body"], fn item -> item end)}}
+      %{
+        "errors" => %{
+          "body" =>
+            case(data.errors.body) do
+              nil ->
+                nil
+
+              _ ->
+                Enum.map(data.errors.body, fn item -> item end)
+            end
+        }
+      }
     end
   end
 
@@ -135,7 +320,32 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{email: binary, password: binary}
     @doc false
     def(decode(data)) do
-      %__MODULE__{email: data["email"], password: data["password"]}
+      with(
+        {:ok, email} <-
+          case(data["email"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["email"]}}
+          end,
+        {:ok, password} <-
+          case(data["password"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["password"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{email: email, password: password}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["LoginUser" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -151,7 +361,15 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{user: Realworld.LoginUser.t()}
     @doc false
     def(decode(data)) do
-      %__MODULE__{user: Realworld.LoginUser.decode(data["user"])}
+      with({:ok, user} <- Realworld.LoginUser.decode(data["user"])) do
+        {:ok, %__MODULE__{user: user}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["LoginUserRequest" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -167,10 +385,36 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{articles: [Realworld.Article.t()], articles_count: integer}
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        articles: Enum.map(data["articles"], fn item -> Realworld.Article.decode(item) end),
-        articles_count: data["articlesCount"]
-      }
+      with(
+        {:ok, articles} <-
+          data["articles"]
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with({:ok, item} <- Realworld.Article.decode(data)) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end),
+        {:ok, articles_count} <-
+          case(data["articlesCount"]) do
+            x when is_integer(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_integer, x}, ["articlesCount"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{articles: articles, articles_count: articles_count}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["MultipleArticlesResponse" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -196,9 +440,28 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{comments: [Realworld.Comment.t()]}
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        comments: Enum.map(data["comments"], fn item -> Realworld.Comment.decode(item) end)
-      }
+      with(
+        {:ok, comments} <-
+          data["comments"]
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with({:ok, item} <- Realworld.Comment.decode(data)) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end)
+      ) do
+        {:ok, %__MODULE__{comments: comments}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["MultipleCommentsResponse" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -229,19 +492,67 @@ defmodule(Realworld) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        body: data["body"],
-        description: data["description"],
-        tag_list:
+      with(
+        {:ok, body} <-
+          case(data["body"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["body"]}}
+          end,
+        {:ok, description} <-
+          case(data["description"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["description"]}}
+          end,
+        {:ok, tag_list} <-
           case(data["tagList"]) do
             nil ->
               nil
 
             _ ->
-              Enum.map(data["tagList"], fn item -> item end)
+              data["tagList"]
+              |> Enum.reverse()
+              |> Enum.reduce({:ok, []}, fn
+                data, {:ok, items} ->
+                  with(
+                    {:ok, item} <-
+                      case(data) do
+                        x when is_binary(x) ->
+                          {:ok, x}
+
+                        x ->
+                          {:error, {:decode, {:invalid_string, x}, [nil]}}
+                      end
+                  ) do
+                    {:ok, [item | items]}
+                  end
+
+                _, error ->
+                  error
+              end)
           end,
-        title: data["title"]
-      }
+        {:ok, title} <-
+          case(data["title"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["title"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{body: body, description: description, tag_list: tag_list, title: title}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["NewArticle" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -269,7 +580,15 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{article: Realworld.NewArticle.t()}
     @doc false
     def(decode(data)) do
-      %__MODULE__{article: Realworld.NewArticle.decode(data["article"])}
+      with({:ok, article} <- Realworld.NewArticle.decode(data["article"])) do
+        {:ok, %__MODULE__{article: article}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["NewArticleRequest" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -285,7 +604,24 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{body: binary}
     @doc false
     def(decode(data)) do
-      %__MODULE__{body: data["body"]}
+      with(
+        {:ok, body} <-
+          case(data["body"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["body"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{body: body}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["NewComment" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -301,7 +637,15 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{comment: Realworld.NewComment.t()}
     @doc false
     def(decode(data)) do
-      %__MODULE__{comment: Realworld.NewComment.decode(data["comment"])}
+      with({:ok, comment} <- Realworld.NewComment.decode(data["comment"])) do
+        {:ok, %__MODULE__{comment: comment}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["NewCommentRequest" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -317,7 +661,40 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{email: binary, password: binary, username: binary}
     @doc false
     def(decode(data)) do
-      %__MODULE__{email: data["email"], password: data["password"], username: data["username"]}
+      with(
+        {:ok, email} <-
+          case(data["email"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["email"]}}
+          end,
+        {:ok, password} <-
+          case(data["password"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["password"]}}
+          end,
+        {:ok, username} <-
+          case(data["username"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["username"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{email: email, password: password, username: username}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["NewUser" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -333,7 +710,15 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{user: Realworld.NewUser.t()}
     @doc false
     def(decode(data)) do
-      %__MODULE__{user: Realworld.NewUser.decode(data["user"])}
+      with({:ok, user} <- Realworld.NewUser.decode(data["user"])) do
+        {:ok, %__MODULE__{user: user}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["NewUserRequest" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -349,12 +734,48 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{bio: binary, following: boolean, image: binary, username: binary}
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        bio: data["bio"],
-        following: data["following"],
-        image: data["image"],
-        username: data["username"]
-      }
+      with(
+        {:ok, bio} <-
+          case(data["bio"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["bio"]}}
+          end,
+        {:ok, following} <-
+          case(data["following"]) do
+            x when is_boolean(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_boolean, x}, ["following"]}}
+          end,
+        {:ok, image} <-
+          case(data["image"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image"]}}
+          end,
+        {:ok, username} <-
+          case(data["username"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["username"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{bio: bio, following: following, image: image, username: username}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["Profile" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -375,7 +796,15 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{profile: Realworld.Profile.t()}
     @doc false
     def(decode(data)) do
-      %__MODULE__{profile: Realworld.Profile.decode(data["profile"])}
+      with({:ok, profile} <- Realworld.Profile.decode(data["profile"])) do
+        {:ok, %__MODULE__{profile: profile}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["ProfileResponse" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -391,7 +820,15 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{article: Realworld.Article.t()}
     @doc false
     def(decode(data)) do
-      %__MODULE__{article: Realworld.Article.decode(data["article"])}
+      with({:ok, article} <- Realworld.Article.decode(data["article"])) do
+        {:ok, %__MODULE__{article: article}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["SingleArticleResponse" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -407,7 +844,15 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{comment: Realworld.Comment.t()}
     @doc false
     def(decode(data)) do
-      %__MODULE__{comment: Realworld.Comment.decode(data["comment"])}
+      with({:ok, comment} <- Realworld.Comment.decode(data["comment"])) do
+        {:ok, %__MODULE__{comment: comment}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["SingleCommentResponse" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -423,7 +868,37 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{tags: [binary]}
     @doc false
     def(decode(data)) do
-      %__MODULE__{tags: Enum.map(data["tags"], fn item -> item end)}
+      with(
+        {:ok, tags} <-
+          data["tags"]
+          |> Enum.reverse()
+          |> Enum.reduce({:ok, []}, fn
+            data, {:ok, items} ->
+              with(
+                {:ok, item} <-
+                  case(data) do
+                    x when is_binary(x) ->
+                      {:ok, x}
+
+                    x ->
+                      {:error, {:decode, {:invalid_string, x}, [nil]}}
+                  end
+              ) do
+                {:ok, [item | items]}
+              end
+
+            _, error ->
+              error
+          end)
+      ) do
+        {:ok, %__MODULE__{tags: tags}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["TagsResponse" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -448,7 +923,40 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{body: binary | nil, description: binary | nil, title: binary | nil}
     @doc false
     def(decode(data)) do
-      %__MODULE__{body: data["body"], description: data["description"], title: data["title"]}
+      with(
+        {:ok, body} <-
+          case(data["body"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["body"]}}
+          end,
+        {:ok, description} <-
+          case(data["description"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["description"]}}
+          end,
+        {:ok, title} <-
+          case(data["title"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["title"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{body: body, description: description, title: title}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["UpdateArticle" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -464,7 +972,15 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{article: Realworld.UpdateArticle.t()}
     @doc false
     def(decode(data)) do
-      %__MODULE__{article: Realworld.UpdateArticle.decode(data["article"])}
+      with({:ok, article} <- Realworld.UpdateArticle.decode(data["article"])) do
+        {:ok, %__MODULE__{article: article}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["UpdateArticleRequest" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -487,13 +1003,56 @@ defmodule(Realworld) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        bio: data["bio"],
-        email: data["email"],
-        image: data["image"],
-        token: data["token"],
-        username: data["username"]
-      }
+      with(
+        {:ok, bio} <-
+          case(data["bio"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["bio"]}}
+          end,
+        {:ok, email} <-
+          case(data["email"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["email"]}}
+          end,
+        {:ok, image} <-
+          case(data["image"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image"]}}
+          end,
+        {:ok, token} <-
+          case(data["token"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["token"]}}
+          end,
+        {:ok, username} <-
+          case(data["username"]) do
+            x when is_nil(x) or is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["username"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{bio: bio, email: email, image: image, token: token, username: username}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["UpdateUser" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -515,7 +1074,15 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{user: Realworld.UpdateUser.t()}
     @doc false
     def(decode(data)) do
-      %__MODULE__{user: Realworld.UpdateUser.decode(data["user"])}
+      with({:ok, user} <- Realworld.UpdateUser.decode(data["user"])) do
+        {:ok, %__MODULE__{user: user}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["UpdateUserRequest" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -538,13 +1105,56 @@ defmodule(Realworld) do
           }
     @doc false
     def(decode(data)) do
-      %__MODULE__{
-        bio: data["bio"],
-        email: data["email"],
-        image: data["image"],
-        token: data["token"],
-        username: data["username"]
-      }
+      with(
+        {:ok, bio} <-
+          case(data["bio"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["bio"]}}
+          end,
+        {:ok, email} <-
+          case(data["email"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["email"]}}
+          end,
+        {:ok, image} <-
+          case(data["image"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["image"]}}
+          end,
+        {:ok, token} <-
+          case(data["token"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["token"]}}
+          end,
+        {:ok, username} <-
+          case(data["username"]) do
+            x when is_binary(x) ->
+              {:ok, x}
+
+            x ->
+              {:error, {:decode, {:invalid_string, x}, ["username"]}}
+          end
+      ) do
+        {:ok, %__MODULE__{bio: bio, email: email, image: image, token: token, username: username}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["User" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -566,7 +1176,15 @@ defmodule(Realworld) do
     @type t :: %__MODULE__{user: Realworld.User.t()}
     @doc false
     def(decode(data)) do
-      %__MODULE__{user: Realworld.User.decode(data["user"])}
+      with({:ok, user} <- Realworld.User.decode(data["user"])) do
+        {:ok, %__MODULE__{user: user}}
+      else
+        {:error, {:decode, reason, trace}} ->
+          {:error, {:decode, reason, ["UserResponse" | trace]}}
+
+        error ->
+          error
+      end
     end
 
     @doc false
@@ -611,13 +1229,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.MultipleArticlesResponse.decode(body)}
+          Realworld.MultipleArticlesResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -650,13 +1270,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 201, body: body}} ->
-          {:ok, Realworld.SingleArticleResponse.decode(body)}
+          Realworld.SingleArticleResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -690,13 +1312,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.MultipleArticlesResponse.decode(body)}
+          Realworld.MultipleArticlesResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -726,13 +1350,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: _any}} ->
-          :ok
+          {:ok, nil}
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -764,10 +1390,12 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.SingleArticleResponse.decode(body)}
+          Realworld.SingleArticleResponse.decode(body)
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -801,13 +1429,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.SingleArticleResponse.decode(body)}
+          Realworld.SingleArticleResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -840,13 +1470,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.MultipleCommentsResponse.decode(body)}
+          Realworld.MultipleCommentsResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -880,13 +1512,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.SingleCommentResponse.decode(body)}
+          Realworld.SingleCommentResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -916,13 +1550,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: _any}} ->
-          :ok
+          {:ok, nil}
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -955,13 +1591,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.SingleArticleResponse.decode(body)}
+          Realworld.SingleArticleResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -994,13 +1632,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.SingleArticleResponse.decode(body)}
+          Realworld.SingleArticleResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -1033,13 +1673,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.ProfileResponse.decode(body)}
+          Realworld.ProfileResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -1072,13 +1714,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.ProfileResponse.decode(body)}
+          Realworld.ProfileResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -1111,13 +1755,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.ProfileResponse.decode(body)}
+          Realworld.ProfileResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -1144,13 +1790,15 @@ defmodule(Realworld) do
     def(get_current_user(client \\ new())) do
       case(Tesla.request(client, method: :get, url: "/user")) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.UserResponse.decode(body)}
+          Realworld.UserResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -1183,13 +1831,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.UserResponse.decode(body)}
+          Realworld.UserResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -1221,10 +1871,12 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 201, body: body}} ->
-          {:ok, Realworld.UserResponse.decode(body)}
+          Realworld.UserResponse.decode(body)
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
@@ -1257,13 +1909,15 @@ defmodule(Realworld) do
         )
       ) do
         {:ok, %{status: 200, body: body}} ->
-          {:ok, Realworld.UserResponse.decode(body)}
+          Realworld.UserResponse.decode(body)
 
         {:ok, %{status: 401, body: _any}} ->
           {:error, 401}
 
         {:ok, %{status: 422, body: body}} ->
-          {:error, Realworld.GenericErrorModel.decode(body)}
+          with({:ok, data} <- Realworld.GenericErrorModel.decode(body)) do
+            {:error, data}
+          end
 
         {:error, error} ->
           {:error, error}
