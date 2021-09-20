@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.25.2">
+    <meta name="project" content="examples v0.1.0">
+
+    <title>Docusign.EnvelopeRecipientTabs — examples v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-37545fd2f35b96531434.css" />
+
+    <script src="dist/sidebar_items-0af471601d.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/app-f97730d45ef67f3e6188.js"></script>
+
+
+  </head>
+  <body data-type="modules">
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <span class="icon-search" aria-hidden="true" title="Submit search"></span>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
+    </button>
+    <label class="search-label">
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectDetails">
+      <a href="api-reference.html" class="sidebar-projectName">
+examples
+      </a>
+      <strong class="sidebar-projectVersion">
+        v0.1.0
+      </strong>
+    </div>
+
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+      <h1>
+Docusign.EnvelopeRecipientTabs <small class="app-vsn">(examples v0.1.0)</small>
+
+      </h1>
+
+
+        <section id="moduledoc">
+
+        </section>
+
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:t/0">t()</a>
+
+  </div>
+
+</div>
+
+  </div>
+
+        </section>
+
+
+        <section id="types" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+Types
+          </h1>
+          <div class="types-list">
+<section class="detail" id="t:t/0">
+
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature">t()</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>t() :: %Docusign.EnvelopeRecipientTabs{
+  approve_tabs: [<a href="Docusign.Approve.html#t:t/0">Docusign.Approve.t</a>()] | nil,
+  checkbox_tabs: [<a href="Docusign.Checkbox.html#t:t/0">Docusign.Checkbox.t</a>()] | nil,
+  comment_thread_tabs: [<a href="Docusign.CommentThread.html#t:t/0">Docusign.CommentThread.t</a>()] | nil,
+  commission_county_tabs: [<a href="Docusign.CommissionCounty.html#t:t/0">Docusign.CommissionCounty.t</a>()] | nil,
+  commission_expiration_tabs: [<a href="Docusign.CommissionExpiration.html#t:t/0">Docusign.CommissionExpiration.t</a>()] | nil,
+  commission_number_tabs: [<a href="Docusign.CommissionNumber.html#t:t/0">Docusign.CommissionNumber.t</a>()] | nil,
+  commission_state_tabs: [<a href="Docusign.CommissionState.html#t:t/0">Docusign.CommissionState.t</a>()] | nil,
+  company_tabs: [<a href="Docusign.Company.html#t:t/0">Docusign.Company.t</a>()] | nil,
+  currency_tabs: [<a href="Docusign.Currency.html#t:t/0">Docusign.Currency.t</a>()] | nil,
+  date_signed_tabs: [<a href="Docusign.DateSigned.html#t:t/0">Docusign.DateSigned.t</a>()] | nil,
+  date_tabs: [<a href="Docusign.Date.html#t:t/0">Docusign.Date.t</a>()] | nil,
+  decline_tabs: [<a href="Docusign.Decline.html#t:t/0">Docusign.Decline.t</a>()] | nil,
+  draw_tabs: [<a href="Docusign.Draw.html#t:t/0">Docusign.Draw.t</a>()] | nil,
+  email_address_tabs: [<a href="Docusign.EmailAddress.html#t:t/0">Docusign.EmailAddress.t</a>()] | nil,
+  email_tabs: [<a href="Docusign.Email.html#t:t/0">Docusign.Email.t</a>()] | nil,
+  envelope_id_tabs: [<a href="Docusign.EnvelopeId.html#t:t/0">Docusign.EnvelopeId.t</a>()] | nil,
+  first_name_tabs: [<a href="Docusign.FirstName.html#t:t/0">Docusign.FirstName.t</a>()] | nil,
+  formula_tabs: [<a href="Docusign.FormulaTab.html#t:t/0">Docusign.FormulaTab.t</a>()] | nil,
+  full_name_tabs: [<a href="Docusign.FullName.html#t:t/0">Docusign.FullName.t</a>()] | nil,
+  initial_here_tabs: [<a href="Docusign.InitialHere.html#t:t/0">Docusign.InitialHere.t</a>()] | nil,
+  last_name_tabs: [<a href="Docusign.LastName.html#t:t/0">Docusign.LastName.t</a>()] | nil,
+  list_tabs: [<a href="Docusign.List.html#t:t/0">Docusign.List.t</a>()] | nil,
+  notarize_tabs: [<a href="Docusign.Notarize.html#t:t/0">Docusign.Notarize.t</a>()] | nil,
+  notary_seal_tabs: [<a href="Docusign.NotarySeal.html#t:t/0">Docusign.NotarySeal.t</a>()] | nil,
+  note_tabs: [<a href="Docusign.Note.html#t:t/0">Docusign.Note.t</a>()] | nil,
+  number_tabs: [<a href="Docusign.Number.html#t:t/0">Docusign.Number.t</a>()] | nil,
+  phone_number_tabs: [<a href="Docusign.PhoneNumber.html#t:t/0">Docusign.PhoneNumber.t</a>()] | nil,
+  poly_line_overlay_tabs: [<a href="Docusign.PolyLineOverlay.html#t:t/0">Docusign.PolyLineOverlay.t</a>()] | nil,
+  prefill_tabs: <a href="Docusign.PrefillTabs.html#t:t/0">Docusign.PrefillTabs.t</a>() | nil,
+  radio_group_tabs: [<a href="Docusign.RadioGroup.html#t:t/0">Docusign.RadioGroup.t</a>()] | nil,
+  sign_here_tabs: [<a href="Docusign.SignHere.html#t:t/0">Docusign.SignHere.t</a>()] | nil,
+  signer_attachment_tabs: [<a href="Docusign.SignerAttachment.html#t:t/0">Docusign.SignerAttachment.t</a>()] | nil,
+  smart_section_tabs: [<a href="Docusign.SmartSection.html#t:t/0">Docusign.SmartSection.t</a>()] | nil,
+  ssn_tabs: [<a href="Docusign.Ssn.html#t:t/0">Docusign.Ssn.t</a>()] | nil,
+  tab_groups: [<a href="Docusign.TabGroup.html#t:t/0">Docusign.TabGroup.t</a>()] | nil,
+  text_tabs: [<a href="Docusign.Text.html#t:t/0">Docusign.Text.t</a>()] | nil,
+  title_tabs: [<a href="Docusign.Title.html#t:t/0">Docusign.Title.t</a>()] | nil,
+  view_tabs: [<a href="Docusign.View.html#t:t/0">Docusign.View.t</a>()] | nil,
+  zip_tabs: [<a href="Docusign.Zip.html#t:t/0">Docusign.Zip.t</a>()] | nil
+}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+          </div>
+        </section>
+
+      <footer class="footer">
+
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.25.2) for the
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
+          </span>
+          <span class="line">
+            Designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+        </p>
+        <p>
+
+            <a href="api-reference.html" title="API reference" class="line footer-button">API Reference</a>
+
+          <button class="line footer-button display-shortcuts-help">
+            Display keyboard shortcuts
+          </button>
+          <button class="line footer-button night-mode-toggle">
+            Toggle night mode
+          </button>
+          <button class="line footer-button display-quick-switch">
+            Go to a HexDocs package
+          </button>
+          <button class="line footer-button tooltips-toggle">
+            <span class="tooltips-option-disable">Disable tooltips</span>
+            <span class="tooltips-option-enable">Enable tooltips</span>
+          </button>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>

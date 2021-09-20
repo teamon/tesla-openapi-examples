@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.25.2">
+    <meta name="project" content="examples v0.1.0">
+
+    <title>Docusign — examples v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-37545fd2f35b96531434.css" />
+
+    <script src="dist/sidebar_items-0af471601d.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/app-f97730d45ef67f3e6188.js"></script>
+
+
+  </head>
+  <body data-type="modules">
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <span class="icon-search" aria-hidden="true" title="Submit search"></span>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
+    </button>
+    <label class="search-label">
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectDetails">
+      <a href="api-reference.html" class="sidebar-projectName">
+examples
+      </a>
+      <strong class="sidebar-projectVersion">
+        v0.1.0
+      </strong>
+    </div>
+
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+      <h1>
+Docusign <small class="app-vsn">(examples v0.1.0)</small>
+
+      </h1>
+
+
+        <section id="moduledoc">
+<p>DocuSign REST API</p><p>The DocuSign REST API provides you with a powerful, convenient, and simple Web services API for interacting with DocuSign.</p><p>Version v2.1</p>
+        </section>
+
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#envelopes__get_envelope/4">envelopes__get_envelope(client \\ new(), account_id, envelope_id, query \\ [])</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Gets the status of a single envelope.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#envelopes__post_envelopes/4">envelopes__post_envelopes(client \\ new(), account_id, envelope_definition, query \\ [])</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Creates an envelope.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/0">new()</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>See <a href="#new/2"><code class="inline">new/2</code></a>.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/2">new(middleware, adapter)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get new API client instance</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#views__post_envelope_recipient_view/4">views__post_envelope_recipient_view(client \\ new(), account_id, envelope_id, recipient_view_request)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Returns a URL to the recipient view UI.</p></div>
+
+</div>
+
+  </div>
+
+        </section>
+
+
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+Functions
+          </h1>
+          <div class="functions-list">
+<section class="detail" id="envelopes__get_envelope/4">
+
+    <span id="envelopes__get_envelope/2"></span>
+
+    <span id="envelopes__get_envelope/3"></span>
+
+  <div class="detail-header">
+    <a href="#envelopes__get_envelope/4" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">envelopes__get_envelope(client \\ new(), account_id, envelope_id, query \\ [])</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>envelopes__get_envelope(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(), [opt]) ::
+  {:ok, <a href="Docusign.Envelope.html#t:t/0">Docusign.Envelope.t</a>()}
+  | {:error, <a href="Docusign.ErrorDetails.html#t:t/0">Docusign.ErrorDetails.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
+when opt: {:advanced_update, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()} | {:include, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}</pre>
+
+      </div>
+
+<p>Gets the status of a single envelope.</p><p>Retrieves the overall status for the specified envelope.
+To get the status of a list of envelopes, use
+<a href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/">Envelope: listStatusChanges </a>.</p><h3 id="envelopes__get_envelope/4-related-topics" class="section-heading">
+  <a href="#envelopes__get_envelope/4-related-topics" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Related topics
+</h3>
+<ul><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/get-envelope-information/">How to get envelope information</a></li></ul><h3 id="envelopes__get_envelope/4-query-parameters" class="section-heading">
+  <a href="#envelopes__get_envelope/4-query-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Query parameters
+</h3>
+<ul><li><p><code class="inline">advanced_update</code>: When <strong>true</strong>, envelope information can be added or modified.</p></li><li><p><code class="inline">include</code>: Specifies additional information about the envelope to return. Enter a comma-separated list, such as <code class="inline">tabs,recipients</code>. Valid values are:</p></li><li><p><code class="inline">custom_fields</code>: The custom fields associated with the envelope.</p></li><li><p><code class="inline">documents</code>: The documents associated with the envelope.</p></li><li><p><code class="inline">attachments</code>: The attachments associated with the envelope.</p></li><li><p><code class="inline">extensions</code>: Information about the email settings associated with the envelope.</p></li><li><p><code class="inline">folders</code>: The folder where the envelope exists.</p></li><li><p><code class="inline">recipients</code>: The recipients associated with the envelope.</p></li><li><p><code class="inline">powerform</code>: The PowerForms associated with the envelope.</p></li><li><p><code class="inline">tabs</code>: The tabs associated with the envelope.</p></li><li><p><code class="inline">payment_tabs</code>: The payment tabs associated with the envelope.</p></li></ul>
+  </section>
+</section>
+<section class="detail" id="envelopes__post_envelopes/4">
+
+    <span id="envelopes__post_envelopes/2"></span>
+
+    <span id="envelopes__post_envelopes/3"></span>
+
+  <div class="detail-header">
+    <a href="#envelopes__post_envelopes/4" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">envelopes__post_envelopes(client \\ new(), account_id, envelope_definition, query \\ [])</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>envelopes__post_envelopes(
+  <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+  <a href="Docusign.EnvelopeDefinition.html#t:t/0">Docusign.EnvelopeDefinition.t</a>(),
+  [opt]
+) ::
+  {:ok, <a href="Docusign.EnvelopeSummary.html#t:t/0">Docusign.EnvelopeSummary.t</a>()}
+  | {:error, <a href="Docusign.ErrorDetails.html#t:t/0">Docusign.ErrorDetails.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}
+when opt:
+       {:cdse_mode, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
+       | {:change_routing_order, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
+       | {:completed_documents_only, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}
+       | {:merge_roles_on_draft, <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()}</pre>
+
+      </div>
+
+<p>Creates an envelope.</p><p>Creates and sends an envelope or creates a draft envelope.
+Envelopes are fundamental resources in the DocuSign platform.</p><p>With this method you can:</p><ul><li>Create and send an envelope
+with <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/" title="">documents</a>, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/" title="">recipients</a>, and <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/" title="">tabs</a>.</li><li><a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/">Create and send an envelope from a template</a>.</li><li><a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/composite/">Create and send an envelope from
+a combination of documents and templates</a>.</li><li>Create a draft envelope.</li></ul><p>When you use this method
+to create and send an envelope
+in a single request,
+the following parameters in the request body (an <a href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/#definition__envelopedefinition" title=""><code class="inline">envelopeDefinition</code></a> object) are required:</p><table><thead><tr><th style="text-align: left;">Parameter</th><th style="text-align: left;">Description</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">status</code></td><td style="text-align: left;">Set to <code class="inline">sent</code> to send the envelope to recipients.&lt;br&gt;Set to <code class="inline">created</code> (or don't set at all) to save the envelope as a draft.</td></tr><tr><td style="text-align: left;"><code class="inline">emailSubject</code></td><td style="text-align: left;">The subject of the email used to send the envelope.</td></tr><tr><td style="text-align: left;"><code class="inline">documents</code></td><td style="text-align: left;">The <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/" title="">documents</a> to be signed.</td></tr><tr><td style="text-align: left;"><code class="inline">recipients</code></td><td style="text-align: left;">The email addresses of the envelope <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/" title="">recipients</a>.</td></tr></tbody></table><p>When you create an envelope by using a
+<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/composite/">composite template</a>,
+you should specify the envelope custom fields in the inline template.
+Any custom fields that you specify at the root level are ignored.</p><p>If the envelope has a workflow definition
+and the <code class="inline">workflowStatus</code> is <code class="inline">paused</code>,
+the envelope will not be sent immediately,
+even if the envelope's <code class="inline">status</code> is <code class="inline">sent</code>.</p><h3 id="envelopes__post_envelopes/4-related-topics" class="section-heading">
+  <a href="#envelopes__post_envelopes/4-related-topics" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Related topics
+</h3>
+<p>There are many ways to use envelopes.
+You can create and send an envelope
+with a single API request,
+or you can use several API requests
+to create, populate, and send envelopes.</p><table><thead><tr><th style="text-align: left;">See:</th><th style="text-align: left;">To learn about:</th></tr></thead><tbody><tr><td style="text-align: left;"><a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/" title="">Envelopes</a></td><td style="text-align: left;">Envelopes, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/" title="">adding documents</a>, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/" title="">tracking</a>, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/" title="">locking</a>, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/" title="">deleting</a>, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/" title="">templates</a></td></tr><tr><td style="text-align: left;"><a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/" title="">Documents</a></td><td style="text-align: left;">Documents, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/" title="">attachments</a>, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/" title="">supplemental documents</a>, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/" title="">authoritative copies</a>, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/documents/" title="">purging</a></td></tr><tr><td style="text-align: left;"><a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/" title="">Recipients</a></td><td style="text-align: left;">Recipients, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/" title="">recipient types</a>, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/recipients/" title="">recipient status</a></td></tr><tr><td style="text-align: left;"><a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/" title="">Tabs</a></td><td style="text-align: left;">Tabs, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/" title="">anchoring tabs</a>,   <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/custom-tabs/" title="">custom tabs</a>, <a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/payment/" title="">payments</a></td></tr></tbody></table><p>The following how-to articles show how to
+configure this method's
+<a href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/#definition__envelopedefinition" title=""><code class="inline">envelopeDefinition</code></a> request body
+to perform common tasks.</p><p>Requesting signatures</p><ul><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-email-remote/">How to request a signature by email</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-template-remote/">How to request a signature by email using a template</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-sms/">How to request a signature by SMS delivery</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-composite-template-embedded/">How to request a signature using a composite template</a></li></ul><p>Requiring authentication</p><ul><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/require-access-code-recipient/">How to require access code authentication for a recipient</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/sms-auth/">How to require SMS authentication for a recipient</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/phone-auth/">How to require phone authentication for a recipient</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/knowledge-based-authentication/">How to require knowledge-based authentication (KBA) for a recipient</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/id-verification/">How to require ID verification (IDV) for a recipient</a></li></ul><p>Sending envelopes</p><ul><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/embedded-sending/">How to send an envelope via your app</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/bulk-send-envelopes/">How to bulk-send envelopes</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/request-a-payment/">How to send a request for payment</a></li></ul><p>Setting tab values</p><ul><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/set-envelope-tab-values/">How to set envelope tab values</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/set-template-tab-values/">How to set tab values in a template</a></li></ul><p>Applying brands</p><ul><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/apply-brand-to-envelope/">How to apply a brand to an envelope</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/apply-brand-and-template-to-envelope/">How to apply a brand and template to an envelope</a></li></ul><p>Documents, conditional recipients, pausing a workflow</p><ul><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/send-binary/">How to attach documents via binary transfer</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/use-conditional-recipients/">How to use conditional recipients</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/pause-workflow/">How to pause a signature workflow</a></li></ul><h3 id="envelopes__post_envelopes/4-query-parameters" class="section-heading">
+  <a href="#envelopes__post_envelopes/4-query-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Query parameters
+</h3>
+<ul><li><p><code class="inline">cdse_mode</code>: Reserved for DocuSign.</p></li><li><p><code class="inline">change_routing_order</code>: When true, users can define the routing order of recipients while sending documents for signature.</p></li><li><p><code class="inline">completed_documents_only</code>: Reserved for DocuSign.</p></li><li><p><code class="inline">merge_roles_on_draft</code>: When set to <strong>true</strong>, template roles will be merged, and empty recipients will be removed. This parameter applies when you create a draft envelope with multiple templates. (To create a draft envelope, the <code class="inline">status</code> field is set to <code class="inline">created</code>.)</p></li></ul><p><strong>Note</strong>: DocuSign recommends that this parameter should be set to <strong>true</strong> whenever you create a draft envelope with multiple templates.</p>
+  </section>
+</section>
+<section class="detail" id="new/0">
+
+  <div class="detail-header">
+    <a href="#new/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">new()</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>new() :: <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()</pre>
+
+      </div>
+
+<p>See <a href="#new/2"><code class="inline">new/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="new/2">
+
+  <div class="detail-header">
+    <a href="#new/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">new(middleware, adapter)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>new([<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:middleware/0">Tesla.Client.middleware</a>()], <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:adapter/0">Tesla.Client.adapter</a>()) :: <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()</pre>
+
+      </div>
+
+<p>Get new API client instance</p>
+  </section>
+</section>
+<section class="detail" id="views__post_envelope_recipient_view/4">
+
+    <span id="views__post_envelope_recipient_view/3"></span>
+
+  <div class="detail-header">
+    <a href="#views__post_envelope_recipient_view/4" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">views__post_envelope_recipient_view(client \\ new(), account_id, envelope_id, recipient_view_request)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>views__post_envelope_recipient_view(
+  <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+  <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>(),
+  <a href="Docusign.RecipientViewRequest.html#t:t/0">Docusign.RecipientViewRequest.t</a>()
+) ::
+  {:ok, <a href="Docusign.EnvelopeViews.html#t:t/0">Docusign.EnvelopeViews.t</a>()}
+  | {:error, <a href="Docusign.ErrorDetails.html#t:t/0">Docusign.ErrorDetails.t</a>()}
+  | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Returns a URL to the recipient view UI.</p><p>Returns a URL that enables you to
+<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/embedding/">embed the recipient view</a>
+of the
+DocuSign UI in your applications. If the recipient is a signer,
+then the view will provide the signing ceremony.</p><p>This method is only used with envelopes in the <code class="inline">sent</code> status.</p><p>Due to screen space issues,
+do not use an <code class="inline">&lt;iframe&gt;</code> for embedded operations on mobile devices.
+For iOS devices, DocuSign recommends using a WebView.</p><h2 id="views__post_envelope_recipient_view/4-authentication" class="section-heading">
+  <a href="#views__post_envelope_recipient_view/4-authentication" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Authentication
+</h2>
+<p>Your application is responsible for authenticating the identity
+of the recipient or signer when you use this method. Use the
+following parameters to record how the recipient
+was authenticated.</p><ul><li><code class="inline">assertionId</code></li><li><code class="inline">authenticationInstant</code></li><li><code class="inline">authenticationMethod</code></li><li><code class="inline">clientUserId</code></li><li><code class="inline">securityDomain</code></li></ul><p>At a minimum, <code class="inline">authenticationMethod</code> and <code class="inline">clientUserId</code> are
+required. The information that you provide is included in the
+envelope's certificate of completion.</p><h2 id="views__post_envelope_recipient_view/4-redirects" class="section-heading">
+  <a href="#views__post_envelope_recipient_view/4-redirects" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Redirects
+</h2>
+<p>After the signer completes or ends the signing ceremony, DocuSign
+redirects the user's browser back to your app via the
+<code class="inline">returnUrl</code> that you supply.</p><p><strong>Note</strong>: The user may be redirected through various DocuSign
+subdomains, depending on the region of the account sending the
+envelope. Please consult the <strong>Allowlists for DocuSign eSignature service</strong>
+section in <a href="https://www.docusign.com/trust/security/esignature">Security for DocuSign eSignature</a>
+when setting up your allowlists.</p><h3 id="views__post_envelope_recipient_view/4-the-event-status-parameter" class="section-heading">
+  <a href="#views__post_envelope_recipient_view/4-the-event-status-parameter" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  The event status parameter
+</h3>
+<p>DocuSign appends an <code class="inline">event</code> query parameter to the <code class="inline">returnUrl</code> with the
+outcome of the signing ceremony. Your app can use this event
+parameter to determine the next step for the envelope.
+Do not fetch the envelope status by using
+<a href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/get/">Envelopes: get</a>
+or a similar method because doing so could break
+the DocuSign rule against polling.</p><p><strong>Note</strong>: Because a user can cancel redirection, close their
+browser after signing, or spoof the landing URL, the
+<code class="inline">returnUrl</code> should not be the single source of truth for envelope
+status for your integration.</p><h2 id="views__post_envelope_recipient_view/4-the-url-is-time-limited" class="section-heading">
+  <a href="#views__post_envelope_recipient_view/4-the-url-is-time-limited" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  The URL is time-limited
+</h2>
+<p>The URL returned in this method's response is valid for one use,
+and you must use or display it within a couple of minutes after
+it is generated. After the recipient is redirected to the
+recipient view, they must interact with the DocuSign system
+periodically or their session will time out.</p><p>Because the URL is time-limited, it should not be stored or sent
+through email. After you receive it, immediately redirect the
+user's browser to the URL.</p><p>If you want to invite someone to an embedded signing session via
+email, the email invitation's URL must be to your application.
+When invoked, your app should request a <code class="inline">recipientView</code> URL from
+DocuSign and then redirect the signer to that URL.</p><h2 id="views__post_envelope_recipient_view/4-maintaining-state" class="section-heading">
+  <a href="#views__post_envelope_recipient_view/4-maintaining-state" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Maintaining State
+</h2>
+<p>After the recipient completes the recipient view (or signing
+ceremony), they are redirected to your application. Your
+application can recover state information about the transaction
+by storing information in a cookie, or by including query
+parameters in the <code class="inline">returnUrl</code> field. For example.
+<code class="inline">https://myapp.example.com/docusign_return?myState=12345</code> When the
+user is redirected to your app, the <code class="inline">event</code> query parameter will
+be appended. In this example, prevent spoofing by not using a
+guessable value as the state value.</p><h3 id="views__post_envelope_recipient_view/4-revoking-the-url" class="section-heading">
+  <a href="#views__post_envelope_recipient_view/4-revoking-the-url" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Revoking the URL
+</h3>
+<p>You can revoke this URL by making
+a DELETE HTTP request to the URL
+with no request body.</p><h3 id="views__post_envelope_recipient_view/4-related-topics" class="section-heading">
+  <a href="#views__post_envelope_recipient_view/4-related-topics" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Related topics
+</h3>
+<ul><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-email-remote/">How to request a signature by email</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-in-app-embedded/">How to request a signature through your app</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/request-signature-composite-template-embedded/">How to request a signature using a composite template</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/embedded-sending/">How to send an envelope via your app</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/set-envelope-tab-values/">How to set envelope tab values</a></li><li><a href="https://developers.docusign.com/docs/esign-rest-api/how-to/set-template-tab-values/">How to set tab values in a template</a></li></ul>
+  </section>
+</section>
+
+          </div>
+        </section>
+
+      <footer class="footer">
+
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.25.2) for the
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
+          </span>
+          <span class="line">
+            Designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+        </p>
+        <p>
+
+            <a href="api-reference.html" title="API reference" class="line footer-button">API Reference</a>
+
+          <button class="line footer-button display-shortcuts-help">
+            Display keyboard shortcuts
+          </button>
+          <button class="line footer-button night-mode-toggle">
+            Toggle night mode
+          </button>
+          <button class="line footer-button display-quick-switch">
+            Go to a HexDocs package
+          </button>
+          <button class="line footer-button tooltips-toggle">
+            <span class="tooltips-option-disable">Disable tooltips</span>
+            <span class="tooltips-option-enable">Enable tooltips</span>
+          </button>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>

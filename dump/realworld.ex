@@ -861,61 +861,6 @@ defmodule(Realworld) do
     end
   end
 
-  defmodule(TagsResponse) do
-    @moduledoc "#{nil}
-    "
-    defstruct(tags: nil)
-    @type t :: %__MODULE__{tags: [binary]}
-    @doc false
-    def(decode(data)) do
-      with(
-        {:ok, tags} <-
-          data["tags"]
-          |> Enum.reverse()
-          |> Enum.reduce({:ok, []}, fn
-            data, {:ok, items} ->
-              with(
-                {:ok, item} <-
-                  case(data) do
-                    x when is_binary(x) ->
-                      {:ok, x}
-
-                    x ->
-                      {:error, {:decode, {:invalid_string, x}, [nil]}}
-                  end
-              ) do
-                {:ok, [item | items]}
-              end
-
-            _, error ->
-              error
-          end)
-      ) do
-        {:ok, %__MODULE__{tags: tags}}
-      else
-        {:error, {:decode, reason, trace}} ->
-          {:error, {:decode, reason, ["TagsResponse" | trace]}}
-
-        error ->
-          error
-      end
-    end
-
-    @doc false
-    def(encode(data)) do
-      %{
-        "tags" =>
-          case(data.tags) do
-            nil ->
-              nil
-
-            _ ->
-              Enum.map(data.tags, fn item -> item end)
-          end
-      }
-    end
-  end
-
   defmodule(UpdateArticle) do
     @moduledoc "#{nil}
     "

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.25.2">
+    <meta name="project" content="examples v0.1.0">
+
+    <title>Docusign.CarbonCopy — examples v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-37545fd2f35b96531434.css" />
+
+    <script src="dist/sidebar_items-0af471601d.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/app-f97730d45ef67f3e6188.js"></script>
+
+
+  </head>
+  <body data-type="modules">
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <span class="icon-search" aria-hidden="true" title="Submit search"></span>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
+    </button>
+    <label class="search-label">
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectDetails">
+      <a href="api-reference.html" class="sidebar-projectName">
+examples
+      </a>
+      <strong class="sidebar-projectVersion">
+        v0.1.0
+      </strong>
+    </div>
+
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+      <h1>
+Docusign.CarbonCopy <small class="app-vsn">(examples v0.1.0)</small>
+
+      </h1>
+
+
+        <section id="moduledoc">
+
+        </section>
+
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:t/0">t()</a>
+
+  </div>
+
+</div>
+
+  </div>
+
+        </section>
+
+
+        <section id="types" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+Types
+          </h1>
+          <div class="types-list">
+<section class="detail" id="t:t/0">
+
+  <div class="detail-header">
+    <a href="#t:t/0" class="detail-link" title="Link to this type">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this type</span>
+    </a>
+    <h1 class="signature">t()</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>t() :: %Docusign.CarbonCopy{
+  access_code: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  access_code_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  add_access_code_to_email: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  additional_notifications:
+    [<a href="Docusign.RecipientAdditionalNotification.html#t:t/0">Docusign.RecipientAdditionalNotification.t</a>()] | nil,
+  agent_can_edit_email: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  agent_can_edit_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  allow_system_override_for_locked_recipient: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  auto_responded_reason: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  client_user_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  completed_count: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  custom_fields: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
+  declined_date_time: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  declined_reason: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  delivered_date_time: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  delivery_method: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  delivery_method_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  designator_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  designator_id_guid: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  document_visibility: [<a href="Docusign.DocumentVisibility.html#t:t/0">Docusign.DocumentVisibility.t</a>()] | nil,
+  email: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  email_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  email_notification: <a href="Docusign.RecipientEmailNotification.html#t:t/0">Docusign.RecipientEmailNotification.t</a>() | nil,
+  embedded_recipient_start_url: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  error_details: <a href="Docusign.ErrorDetails.html#t:t/0">Docusign.ErrorDetails.t</a>() | nil,
+  excluded_documents: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()] | nil,
+  fax_number: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  fax_number_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  first_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  first_name_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  full_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  full_name_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  id_check_configuration_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  id_check_configuration_name_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  id_check_information_input: <a href="Docusign.IdCheckInformationInput.html#t:t/0">Docusign.IdCheckInformationInput.t</a>() | nil,
+  identity_verification: <a href="Docusign.RecipientIdentityVerification.html#t:t/0">Docusign.RecipientIdentityVerification.t</a>() | nil,
+  inherit_email_notification_configuration: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  last_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  last_name_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  linked_account_configuration_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  locked_recipient_phone_auth_editable: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  locked_recipient_sms_editable: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  name_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  note: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  note_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  phone_authentication: <a href="Docusign.RecipientPhoneAuthentication.html#t:t/0">Docusign.RecipientPhoneAuthentication.t</a>() | nil,
+  phone_number: <a href="Docusign.RecipientPhoneNumber.html#t:t/0">Docusign.RecipientPhoneNumber.t</a>() | nil,
+  proof_file: <a href="Docusign.RecipientProofFile.html#t:t/0">Docusign.RecipientProofFile.t</a>() | nil,
+  recipient_attachments: [<a href="Docusign.RecipientAttachment.html#t:t/0">Docusign.RecipientAttachment.t</a>()] | nil,
+  recipient_authentication_status: <a href="Docusign.AuthenticationStatus.html#t:t/0">Docusign.AuthenticationStatus.t</a>() | nil,
+  recipient_feature_metadata: [<a href="Docusign.FeatureAvailableMetadata.html#t:t/0">Docusign.FeatureAvailableMetadata.t</a>()] | nil,
+  recipient_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  recipient_id_guid: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  recipient_type: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  recipient_type_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  require_id_lookup: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  require_id_lookup_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  role_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  routing_order: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  routing_order_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  sent_date_time: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  signed_date_time: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  signing_group_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  signing_group_id_metadata: <a href="Docusign.PropertyMetadata.html#t:t/0">Docusign.PropertyMetadata.t</a>() | nil,
+  signing_group_name: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  signing_group_users: [<a href="Docusign.UserInfo.html#t:t/0">Docusign.UserInfo.t</a>()] | nil,
+  sms_authentication: <a href="Docusign.RecipientSMSAuthentication.html#t:t/0">Docusign.RecipientSMSAuthentication.t</a>() | nil,
+  social_authentications: [<a href="Docusign.SocialAuthentication.html#t:t/0">Docusign.SocialAuthentication.t</a>()] | nil,
+  status: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  status_code: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  suppress_emails: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  tabs: <a href="Docusign.EnvelopeRecipientTabs.html#t:t/0">Docusign.EnvelopeRecipientTabs.t</a>() | nil,
+  template_locked: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  template_required: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  total_tab_count: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  user_id: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil
+}</pre>
+
+      </div>
+
+
+  </section>
+</section>
+
+          </div>
+        </section>
+
+      <footer class="footer">
+
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.25.2) for the
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
+          </span>
+          <span class="line">
+            Designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+        </p>
+        <p>
+
+            <a href="api-reference.html" title="API reference" class="line footer-button">API Reference</a>
+
+          <button class="line footer-button display-shortcuts-help">
+            Display keyboard shortcuts
+          </button>
+          <button class="line footer-button night-mode-toggle">
+            Toggle night mode
+          </button>
+          <button class="line footer-button display-quick-switch">
+            Go to a HexDocs package
+          </button>
+          <button class="line footer-button tooltips-toggle">
+            <span class="tooltips-option-disable">Disable tooltips</span>
+            <span class="tooltips-option-enable">Enable tooltips</span>
+          </button>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>

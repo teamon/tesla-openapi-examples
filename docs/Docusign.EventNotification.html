@@ -7,10 +7,10 @@
     <meta name="generator" content="ExDoc v0.25.2">
     <meta name="project" content="examples v0.1.0">
 
-    <title>Realworld.TagsResponse — examples v0.1.0</title>
+    <title>Docusign.EventNotification — examples v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-37545fd2f35b96531434.css" />
 
-    <script src="dist/sidebar_items-a45beda601.js"></script>
+    <script src="dist/sidebar_items-0af471601d.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -80,7 +80,7 @@ examples
     <div id="content" class="content-inner">
 
       <h1>
-Realworld.TagsResponse <small class="app-vsn">(examples v0.1.0)</small>
+Docusign.EventNotification <small class="app-vsn">(examples v0.1.0)</small>
 
       </h1>
 
@@ -142,7 +142,25 @@ Types
       <h2>Specs</h2>
       <div class="specs">
 
-          <pre>t() :: %Realworld.TagsResponse{tags: [<a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>()]}</pre>
+          <pre>t() :: %Docusign.EventNotification{
+  envelope_events: [<a href="Docusign.EnvelopeEvent.html#t:t/0">Docusign.EnvelopeEvent.t</a>()] | nil,
+  event_data: <a href="Docusign.ConnectEventData.html#t:t/0">Docusign.ConnectEventData.t</a>() | nil,
+  include_certificate_of_completion: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  include_certificate_with_soap: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  include_document_fields: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  include_documents: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  include_envelope_void_reason: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  include_hmac: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  include_sender_account_as_custom_field: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  include_time_zone: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  logging_enabled: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  recipient_events: [<a href="Docusign.RecipientEvent.html#t:t/0">Docusign.RecipientEvent.t</a>()] | nil,
+  require_acknowledgment: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  sign_message_with_x509_cert: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  soap_name_space: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  url: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil,
+  use_soap_interface: <a href="https://hexdocs.pm/elixir/typespecs.html#built-in-types">binary</a>() | nil
+}</pre>
 
       </div>
 

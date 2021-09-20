@@ -1,4 +1,4 @@
-SPECS = petstore.json slack.json realworld.json
+SPECS = petstore.json slack.json realworld.json docusign.json
 TARGETS = ${patsubst %,priv/specs/%,$(SPECS)}
 
 all: $(TARGETS)
@@ -11,3 +11,6 @@ priv/specs/slack.json:
 
 priv/specs/realworld.json:
 	curl -sL https://raw.githubusercontent.com/gothinkster/realworld/main/api/swagger.json > $@
+
+priv/specs/docusign.json:
+	curl -sL https://raw.githubusercontent.com/docusign/OpenAPI-Specifications/master/esignature.rest.swagger-v2.1.json > $@
