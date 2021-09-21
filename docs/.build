@@ -155,6 +155,7 @@ Petstore.Error.html
 Petstore.Pet.html
 Petstore.Pets.html
 Petstore.html
+Plaid.html
 Realworld.Article.html
 Realworld.Comment.html
 Realworld.GenericErrorModel.html
@@ -209,7 +210,7 @@ dist/html/fonts/icomoon.eot
 dist/html/fonts/icomoon.svg
 dist/html/fonts/icomoon.ttf
 dist/html/fonts/icomoon.woff
-dist/search_items-022775e939.js
-dist/sidebar_items-0af471601d.js
+dist/search_items-1f1cf683f4.js
+dist/sidebar_items-6d16f6e557.js
 index.html
 search.html

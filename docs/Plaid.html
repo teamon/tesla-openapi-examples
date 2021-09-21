@@ -1,0 +1,3497 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.25.2">
+    <meta name="project" content="examples v0.1.0">
+
+    <title>Plaid — examples v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-37545fd2f35b96531434.css" />
+
+    <script src="dist/sidebar_items-6d16f6e557.js"></script>
+
+      <script src="docs_config.js"></script>
+
+    <script async src="dist/app-f97730d45ef67f3e6188.js"></script>
+
+
+  </head>
+  <body data-type="modules">
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
+
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button" aria-label="Submit Search">
+      <span class="icon-search" aria-hidden="true" title="Submit search"></span>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
+      <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
+    </button>
+    <label class="search-label">
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectDetails">
+      <a href="api-reference.html" class="sidebar-projectName">
+examples
+      </a>
+      <strong class="sidebar-projectVersion">
+        v0.1.0
+      </strong>
+    </div>
+
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list-link" href="#full-list">Modules</a></li>
+
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+      <h1>
+Plaid <small class="app-vsn">(examples v0.1.0)</small>
+
+      </h1>
+
+
+        <section id="moduledoc">
+<p>The Plaid API</p><p>The Plaid REST API. Please see <a href="https://plaid.com/docs/api">https://plaid.com/docs/api</a> for more details.</p><p>Version 2020-09-14_1.33.0</p>
+        </section>
+
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#accounts_balance_get/1">accounts_balance_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve real-time balance data</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#accounts_get/1">accounts_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve accounts</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#application_get/1">application_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve information about a Plaid application</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#asset_report_audit_copy_create/1">asset_report_audit_copy_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create Asset Report Audit Copy</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#asset_report_audit_copy_get/1">asset_report_audit_copy_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve an Asset Report Audit Copy</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#asset_report_audit_copy_remove/1">asset_report_audit_copy_remove(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Remove Asset Report Audit Copy</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#asset_report_create/1">asset_report_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create an Asset Report</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#asset_report_filter/1">asset_report_filter(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Filter Asset Report</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#asset_report_get/1">asset_report_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve an Asset Report</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#asset_report_pdf_get/1">asset_report_pdf_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve a PDF Asset Report</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#asset_report_refresh/1">asset_report_refresh(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Refresh an Asset Report</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#asset_report_remove/1">asset_report_remove(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Delete an Asset Report</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#auth_get/1">auth_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve auth data</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bank_transfer_balance_get/1">bank_transfer_balance_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get balance of your Bank Transfer account</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bank_transfer_cancel/1">bank_transfer_cancel(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Cancel a bank transfer</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bank_transfer_create/1">bank_transfer_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a bank transfer</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bank_transfer_event_list/1">bank_transfer_event_list(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>List bank transfer events</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bank_transfer_event_sync/1">bank_transfer_event_sync(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Sync bank transfer events</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bank_transfer_get/1">bank_transfer_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve a bank transfer</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bank_transfer_list/1">bank_transfer_list(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>List bank transfers</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bank_transfer_migrate_account/1">bank_transfer_migrate_account(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Migrate account into Bank Transfers</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bank_transfer_sweep_get/1">bank_transfer_sweep_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve a sweep</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#bank_transfer_sweep_list/1">bank_transfer_sweep_list(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>List sweeps</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#categories_get/1">categories_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get Categories</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#create_payment_token/1">create_payment_token(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create payment token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#deposit_switch_alt_create/1">deposit_switch_alt_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a deposit switch without using Plaid Exchange</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#deposit_switch_create/1">deposit_switch_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a deposit switch</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#deposit_switch_get/1">deposit_switch_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve a deposit switch</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#deposit_switch_token_create/1">deposit_switch_token_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a deposit switch token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#employers_search/1">employers_search(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Search employer database</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#identity_get/1">identity_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve identity data</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#income_verification_create/1">income_verification_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create an income verification instance</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#income_verification_documents_download/1">income_verification_documents_download(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Download the original documents used for income verification</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#income_verification_paystub_get/1">income_verification_paystub_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>(Deprecated) Retrieve information from a single paystub used for income verification</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#income_verification_paystubs_get/1">income_verification_paystubs_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve information from the paystubs used for income verification</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#income_verification_precheck/1">income_verification_precheck(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Check a user's eligibility for the income verification product</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#income_verification_refresh/1">income_verification_refresh(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Refresh an income verification</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#income_verification_summary_get/1">income_verification_summary_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve a summary of information derived from income verification</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#income_verification_taxforms_get/1">income_verification_taxforms_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve information from the tax documents used for income verification</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#institutions_get/1">institutions_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get details of all supported institutions</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#institutions_get_by_id/1">institutions_get_by_id(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get details of an institution</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#institutions_search/1">institutions_search(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Search institutions</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#investments_holdings_get/1">investments_holdings_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get Investment holdings</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#investments_transactions_get/1">investments_transactions_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get investment transactions</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#item_access_token_invalidate/1">item_access_token_invalidate(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Invalidate access_token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#item_application_list/1">item_application_list(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>List a user’s connected applications</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#item_application_scopes_update/1">item_application_scopes_update(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Update the scopes of access for a particular application</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#item_create_public_token/1">item_create_public_token(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create public token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#item_get/1">item_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve an Item</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#item_import/1">item_import(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Import Item</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#item_public_token_exchange/1">item_public_token_exchange(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Exchange public token for an access token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#item_remove/1">item_remove(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Remove an Item</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#item_webhook_update/1">item_webhook_update(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Update Webhook URL</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#liabilities_get/1">liabilities_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve Liabilities data</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#link_token_create/1">link_token_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create Link Token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#link_token_get/1">link_token_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get Link Token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/0">new()</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>See <a href="#new/2"><code class="inline">new/2</code></a>.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#new/2">new(middleware, adapter)</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get new API client instance</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#payment_initiation_payment_create/1">payment_initiation_payment_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a payment</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#payment_initiation_payment_get/1">payment_initiation_payment_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get payment details</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#payment_initiation_payment_list/1">payment_initiation_payment_list(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>List payments</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#payment_initiation_payment_reverse/1">payment_initiation_payment_reverse(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Reverse an existing payment</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#payment_initiation_recipient_create/1">payment_initiation_recipient_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create payment recipient</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#payment_initiation_recipient_get/1">payment_initiation_recipient_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get payment recipient</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#payment_initiation_recipient_list/1">payment_initiation_recipient_list(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>List payment recipients</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#processor_apex_processor_token_create/1">processor_apex_processor_token_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create Apex bank account token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#processor_auth_get/1">processor_auth_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve Auth data</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#processor_balance_get/1">processor_balance_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve Balance data</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#processor_bank_transfer_create/1">processor_bank_transfer_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a bank transfer as a processor</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#processor_identity_get/1">processor_identity_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve Identity data</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#processor_stripe_bank_account_token_create/1">processor_stripe_bank_account_token_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create Stripe bank account token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#processor_token_create/1">processor_token_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create processor token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sandbox_bank_transfer_fire_webhook/1">sandbox_bank_transfer_fire_webhook(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Manually fire a Bank Transfer webhook</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sandbox_bank_transfer_simulate/1">sandbox_bank_transfer_simulate(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Simulate a bank transfer event in Sandbox</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sandbox_income_fire_webhook/1">sandbox_income_fire_webhook(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Manually fire an Income webhook</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sandbox_item_fire_webhook/1">sandbox_item_fire_webhook(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Fire a test webhook</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sandbox_item_reset_login/1">sandbox_item_reset_login(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Force a Sandbox Item into an error state</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sandbox_item_set_verification_status/1">sandbox_item_set_verification_status(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Set verification status for Sandbox account</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sandbox_oauth_select_accounts/1">sandbox_oauth_select_accounts(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Save the selected accounts when connecting to the Platypus Oauth institution</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sandbox_processor_token_create/1">sandbox_processor_token_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a test Item and processor token</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sandbox_public_token_create/1">sandbox_public_token_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a test Item</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sandbox_transfer_simulate/1">sandbox_transfer_simulate(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Simulate a transfer event in Sandbox</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#signal_decision_report/1">signal_decision_report(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Report whether you initiated an ACH transaction</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#signal_evaluate/1">signal_evaluate(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Evaluate a planned ACH transaction</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#signal_return_report/1">signal_return_report(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Report a return for an ACH transaction</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#transactions_get/1">transactions_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get transaction data</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#transactions_refresh/1">transactions_refresh(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Refresh transaction data</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#transfer_authorization_create/1">transfer_authorization_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a transfer authorization</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#transfer_cancel/1">transfer_cancel(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Cancel a transfer</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#transfer_create/1">transfer_create(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Create a transfer</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#transfer_event_list/1">transfer_event_list(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>List transfer events</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#transfer_event_sync/1">transfer_event_sync(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Sync transfer events</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#transfer_get/1">transfer_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Retrieve a transfer</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#transfer_list/1">transfer_list(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>List transfers</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#webhook_verification_key_get/1">webhook_verification_key_get(client \\ new())</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Get webhook verification key</p></div>
+
+</div>
+
+  </div>
+
+        </section>
+
+
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+Functions
+          </h1>
+          <div class="functions-list">
+<section class="detail" id="accounts_balance_get/1">
+
+    <span id="accounts_balance_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#accounts_balance_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">accounts_balance_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>accounts_balance_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve real-time balance data</p><p>The <code class="inline">/accounts/balance/get</code> endpoint returns the real-time balance for each of an Item's accounts. While other endpoints may return a balance object, only <code class="inline">/accounts/balance/get</code> forces the available and current balance fields to be refreshed rather than cached. This endpoint can be used for existing Items that were added via any of Plaid’s other products. This endpoint can be used as long as Link has been initialized with any other product, <code class="inline">balance</code> itself is not a product that can be used to initialize Link.</p>
+  </section>
+</section>
+<section class="detail" id="accounts_get/1">
+
+    <span id="accounts_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#accounts_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">accounts_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>accounts_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve accounts</p><p>The <code class="inline">/accounts/get</code>  endpoint can be used to retrieve information for any linked Item. Note that some information is nullable. Plaid will only return active bank accounts, i.e. accounts that are not closed and are capable of carrying a balance.</p><p>This endpoint retrieves cached information, rather than extracting fresh information from the institution. As a result, balances returned may not be up-to-date; for realtime balance information, use <code class="inline">/accounts/balance/get</code> instead.</p>
+  </section>
+</section>
+<section class="detail" id="application_get/1">
+
+    <span id="application_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#application_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">application_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>application_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve information about a Plaid application</p><p>Allows financial institutions to retrieve information about Plaid clients for the purpose of building control-tower experiences</p>
+  </section>
+</section>
+<section class="detail" id="asset_report_audit_copy_create/1">
+
+    <span id="asset_report_audit_copy_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#asset_report_audit_copy_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">asset_report_audit_copy_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>asset_report_audit_copy_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create Asset Report Audit Copy</p><p>Plaid can provide an Audit Copy of any Asset Report directly to a participating third party on your behalf. For example, Plaid can supply an Audit Copy directly to Fannie Mae on your behalf if you participate in the Day 1 Certainty™ program. An Audit Copy contains the same underlying data as the Asset Report.</p><p>To grant access to an Audit Copy, use the <code class="inline">/asset_report/audit_copy/create</code> endpoint to create an <code class="inline">audit_copy_token</code> and then pass that token to the third party who needs access. Each third party has its own <code class="inline">auditor_id</code>, for example <code class="inline">fannie_mae</code>. You’ll need to create a separate Audit Copy for each third party to whom you want to grant access to the Report.</p>
+  </section>
+</section>
+<section class="detail" id="asset_report_audit_copy_get/1">
+
+    <span id="asset_report_audit_copy_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#asset_report_audit_copy_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">asset_report_audit_copy_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>asset_report_audit_copy_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve an Asset Report Audit Copy</p><p><code class="inline">/asset_report/audit_copy/get</code> allows auditors to get a copy of an Asset Report that was previously shared via the <code class="inline">/asset_report/audit_copy/create</code> endpoint.  The caller of <code class="inline">/asset_report/audit_copy/create</code> must provide the <code class="inline">audit_copy_token</code> to the auditor.  This token can then be used to call <code class="inline">/asset_report/audit_copy/create</code>.</p>
+  </section>
+</section>
+<section class="detail" id="asset_report_audit_copy_remove/1">
+
+    <span id="asset_report_audit_copy_remove/0"></span>
+
+  <div class="detail-header">
+    <a href="#asset_report_audit_copy_remove/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">asset_report_audit_copy_remove(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>asset_report_audit_copy_remove(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Remove Asset Report Audit Copy</p><p>The <code class="inline">/asset_report/audit_copy/remove</code> endpoint allows you to remove an Audit Copy. Removing an Audit Copy invalidates the <code class="inline">audit_copy_token</code> associated with it, meaning both you and any third parties holding the token will no longer be able to use it to access Report data. Items associated with the Asset Report, the Asset Report itself and other Audit Copies of it are not affected and will remain accessible after removing the given Audit Copy.</p>
+  </section>
+</section>
+<section class="detail" id="asset_report_create/1">
+
+    <span id="asset_report_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#asset_report_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">asset_report_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>asset_report_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create an Asset Report</p><p>The <code class="inline">/asset_report/create</code> endpoint initiates the process of creating an Asset Report, which can then be retrieved by passing the <code class="inline">asset_report_token</code> return value to the <code class="inline">/asset_report/get</code> or <code class="inline">/asset_report/pdf/get</code> endpoints.</p><p>The Asset Report takes some time to be created and is not available immediately after calling <code class="inline">/asset_report/create</code>. When the Asset Report is ready to be retrieved using <code class="inline">/asset_report/get</code> or <code class="inline">/asset_report/pdf/get</code>, Plaid will fire a <code class="inline">PRODUCT_READY</code> webhook. For full details of the webhook schema, see <a href="https://plaid.com/docs/api/webhooks/#Assets-webhooks">Asset Report webhooks</a>.</p><p>The <code class="inline">/asset_report/create</code> endpoint creates an Asset Report at a moment in time. Asset Reports are immutable. To get an updated Asset Report, use the <code class="inline">/asset_report/refresh</code> endpoint.</p>
+  </section>
+</section>
+<section class="detail" id="asset_report_filter/1">
+
+    <span id="asset_report_filter/0"></span>
+
+  <div class="detail-header">
+    <a href="#asset_report_filter/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">asset_report_filter(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>asset_report_filter(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Filter Asset Report</p><p>By default, an Asset Report will contain all of the accounts on a given Item. In some cases, you may not want the Asset Report to contain all accounts. For example, you might have the end user choose which accounts are relevant in Link using the Account Select view, which you can enable in the dashboard. Or, you might always exclude certain account types or subtypes, which you can identify by using the <code class="inline">/accounts/get</code> endpoint. To narrow an Asset Report to only a subset of accounts, use the <code class="inline">/asset_report/filter</code> endpoint.</p><p>To exclude certain Accounts from an Asset Report, first use the <code class="inline">/asset_report/create</code> endpoint to create the report, then send the <code class="inline">asset_report_token</code> along with a list of <code class="inline">account_ids</code> to exclude to the <code class="inline">/asset_report/filter</code> endpoint, to create a new Asset Report which contains only a subset of the original Asset Report's data.</p><p>Because Asset Reports are immutable, calling <code class="inline">/asset_report/filter</code> does not alter the original Asset Report in any way; rather, <code class="inline">/asset_report/filter</code> creates a new Asset Report with a new token and id. Asset Reports created via <code class="inline">/asset_report/filter</code> do not contain new Asset data, and are not billed.</p><p>Plaid will fire a <a href="https://plaid.com/docs/api/webhooks"><code class="inline">PRODUCT_READY</code></a> webhook once generation of the filtered Asset Report has completed.</p>
+  </section>
+</section>
+<section class="detail" id="asset_report_get/1">
+
+    <span id="asset_report_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#asset_report_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">asset_report_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>asset_report_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve an Asset Report</p><p>The <code class="inline">/asset_report/get</code> endpoint retrieves the Asset Report in JSON format. Before calling <code class="inline">/asset_report/get</code>, you must first create the Asset Report using <code class="inline">/asset_report/create</code> (or filter an Asset Report using <code class="inline">/asset_report/filter</code>) and then wait for the <a href="https://plaid.com/docs/api/webhooks"><code class="inline">PRODUCT_READY</code></a> webhook to fire, indicating that the Report is ready to be retrieved.</p><p>By default, an Asset Report includes transaction descriptions as returned by the bank, as opposed to parsed and categorized by Plaid. You can also receive cleaned and categorized transactions, as well as additional insights like merchant name or location information. We call this an Asset Report with Insights. An Asset Report with Insights provides transaction category, location, and merchant information in addition to the transaction strings provided in a standard Asset Report.</p><p>To retrieve an Asset Report with Insights, call the <code class="inline">/asset_report/get</code> endpoint with <code class="inline">include_insights</code> set to <code class="inline">true</code>.</p>
+  </section>
+</section>
+<section class="detail" id="asset_report_pdf_get/1">
+
+    <span id="asset_report_pdf_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#asset_report_pdf_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">asset_report_pdf_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>asset_report_pdf_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve a PDF Asset Report</p><p>The <code class="inline">/asset_report/pdf/get</code> endpoint retrieves the Asset Report in PDF format. Before calling <code class="inline">/asset_report/pdf/get</code>, you must first create the Asset Report using <code class="inline">/asset_report/create</code> (or filter an Asset Report using <code class="inline">/asset_report/filter</code>) and then wait for the <a href="https://plaid.com/docs/api/webhooks"><code class="inline">PRODUCT_READY</code></a> webhook to fire, indicating that the Report is ready to be retrieved.</p><p>The response to <code class="inline">/asset_report/pdf/get</code> is the PDF binary data. The <code class="inline">request_id</code>  is returned in the <code class="inline">Plaid-Request-ID</code> header.</p><p><a href="https://plaid.com/documents/sample-asset-report.pdf">View a sample PDF Asset Report</a>.</p>
+  </section>
+</section>
+<section class="detail" id="asset_report_refresh/1">
+
+    <span id="asset_report_refresh/0"></span>
+
+  <div class="detail-header">
+    <a href="#asset_report_refresh/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">asset_report_refresh(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>asset_report_refresh(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Refresh an Asset Report</p><p>An Asset Report is an immutable snapshot of a user's assets. In order to &quot;refresh&quot; an Asset Report you created previously, you can use the <code class="inline">/asset_report/refresh</code> endpoint to create a new Asset Report based on the old one, but with the most recent data available.</p><p>The new Asset Report will contain the same Items as the original Report, as well as the same filters applied by any call to <code class="inline">/asset_report/filter</code>. By default, the new Asset Report will also use the same parameters you submitted with your original <code class="inline">/asset_report/create</code> request, but the original <code class="inline">days_requested</code> value and the values of any parameters in the <code class="inline">options</code> object can be overridden with new values. To change these arguments, simply supply new values for them in your request to <code class="inline">/asset_report/refresh</code>. Submit an empty string (&quot;&quot;) for any previously-populated fields you would like set as empty.</p>
+  </section>
+</section>
+<section class="detail" id="asset_report_remove/1">
+
+    <span id="asset_report_remove/0"></span>
+
+  <div class="detail-header">
+    <a href="#asset_report_remove/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">asset_report_remove(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>asset_report_remove(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Delete an Asset Report</p><p>The <code class="inline">/item/remove</code> endpoint allows you to invalidate an <code class="inline">access_token</code>, meaning you will not be able to create new Asset Reports with it. Removing an Item does not affect any Asset Reports or Audit Copies you have already created, which will remain accessible until you remove them specifically.</p><p>The <code class="inline">/asset_report/remove</code> endpoint allows you to remove an Asset Report. Removing an Asset Report invalidates its <code class="inline">asset_report_token</code>, meaning you will no longer be able to use it to access Report data or create new Audit Copies. Removing an Asset Report does not affect the underlying Items, but does invalidate any <code class="inline">audit_copy_tokens</code> associated with the Asset Report.</p>
+  </section>
+</section>
+<section class="detail" id="auth_get/1">
+
+    <span id="auth_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#auth_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">auth_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>auth_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve auth data</p><p>The <code class="inline">/auth/get</code> endpoint returns the bank account and bank identification numbers (such as routing numbers, for US accounts) associated with an Item's checking and savings accounts, along with high-level account data and balances when available.</p><p>Note: This request may take some time to complete if <code class="inline">auth</code> was not specified as an initial product when creating the Item. This is because Plaid must communicate directly with the institution to retrieve the data.</p><p>Also note that <code class="inline">/auth/get</code> will not return data for any new accounts opened after the Item was created. To obtain data for new accounts, create a new Item.</p>
+  </section>
+</section>
+<section class="detail" id="bank_transfer_balance_get/1">
+
+    <span id="bank_transfer_balance_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#bank_transfer_balance_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">bank_transfer_balance_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>bank_transfer_balance_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get balance of your Bank Transfer account</p><p>Use the <code class="inline">/bank_transfer/balance/get</code> endpoint to see the available balance in your bank transfer account. Debit transfers increase this balance once their status is posted. Credit transfers decrease this balance when they are created.</p><p>The transactable balance shows the amount in your account that you are able to use for transfers, and is essentially your available balance minus your minimum balance.</p><p>Note that this endpoint can only be used with FBO accounts, when using Bank Transfers in the Full Service configuration. It cannot be used on your own account when using Bank Transfers in the BTS Platform configuration.</p>
+  </section>
+</section>
+<section class="detail" id="bank_transfer_cancel/1">
+
+    <span id="bank_transfer_cancel/0"></span>
+
+  <div class="detail-header">
+    <a href="#bank_transfer_cancel/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">bank_transfer_cancel(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>bank_transfer_cancel(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Cancel a bank transfer</p><p>Use the <code class="inline">/bank_transfer/cancel</code> endpoint to cancel a bank transfer.  A transfer is eligible for cancelation if the <code class="inline">cancellable</code> property returned by <code class="inline">/bank_transfer/get</code> is <code class="inline">true</code>.</p>
+  </section>
+</section>
+<section class="detail" id="bank_transfer_create/1">
+
+    <span id="bank_transfer_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#bank_transfer_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">bank_transfer_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>bank_transfer_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a bank transfer</p><p>Use the <code class="inline">/bank_transfer/create</code> endpoint to initiate a new bank transfer.</p>
+  </section>
+</section>
+<section class="detail" id="bank_transfer_event_list/1">
+
+    <span id="bank_transfer_event_list/0"></span>
+
+  <div class="detail-header">
+    <a href="#bank_transfer_event_list/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">bank_transfer_event_list(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>bank_transfer_event_list(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>List bank transfer events</p><p>Use the <code class="inline">/bank_transfer/event/list</code> endpoint to get a list of bank transfer events based on specified filter criteria.</p>
+  </section>
+</section>
+<section class="detail" id="bank_transfer_event_sync/1">
+
+    <span id="bank_transfer_event_sync/0"></span>
+
+  <div class="detail-header">
+    <a href="#bank_transfer_event_sync/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">bank_transfer_event_sync(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>bank_transfer_event_sync(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Sync bank transfer events</p><p><code class="inline">/bank_transfer/event/sync</code> allows you to request up to the next 25 bank transfer events that happened after a specific <code class="inline">event_id</code>. Use the <code class="inline">/bank_transfer/event/sync</code> endpoint to guarantee you have seen all bank transfer events.</p>
+  </section>
+</section>
+<section class="detail" id="bank_transfer_get/1">
+
+    <span id="bank_transfer_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#bank_transfer_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">bank_transfer_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>bank_transfer_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve a bank transfer</p><p>The <code class="inline">/bank_transfer/get</code> fetches information about the bank transfer corresponding to the given <code class="inline">bank_transfer_id</code>.</p>
+  </section>
+</section>
+<section class="detail" id="bank_transfer_list/1">
+
+    <span id="bank_transfer_list/0"></span>
+
+  <div class="detail-header">
+    <a href="#bank_transfer_list/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">bank_transfer_list(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>bank_transfer_list(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>List bank transfers</p><p>Use the <code class="inline">/bank_transfer/list</code> endpoint to see a list of all your bank transfers and their statuses. Results are paginated; use the <code class="inline">count</code> and <code class="inline">offset</code> query parameters to retrieve the desired bank transfers.</p>
+  </section>
+</section>
+<section class="detail" id="bank_transfer_migrate_account/1">
+
+    <span id="bank_transfer_migrate_account/0"></span>
+
+  <div class="detail-header">
+    <a href="#bank_transfer_migrate_account/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">bank_transfer_migrate_account(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>bank_transfer_migrate_account(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Migrate account into Bank Transfers</p><p>As an alternative to adding Items via Link, you can also use the <code class="inline">/bank_transfer/migrate_account</code> endpoint to migrate known account and routing numbers to Plaid Items.  Note that Items created in this way are not compatible with endpoints for other products, such as <code class="inline">/accounts/balance/get</code>, and can only be used with Bank Transfer endpoints.  If you require access to other endpoints, create the Item through Link instead.  Access to <code class="inline">/bank_transfer/migrate_account</code> is not enabled by default; to obtain access, contact your Plaid Account Manager.</p>
+  </section>
+</section>
+<section class="detail" id="bank_transfer_sweep_get/1">
+
+    <span id="bank_transfer_sweep_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#bank_transfer_sweep_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">bank_transfer_sweep_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>bank_transfer_sweep_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve a sweep</p><p>The <code class="inline">/bank_transfer/sweep/get</code> endpoint fetches information about the sweep corresponding to the given <code class="inline">sweep_id</code>.</p>
+  </section>
+</section>
+<section class="detail" id="bank_transfer_sweep_list/1">
+
+    <span id="bank_transfer_sweep_list/0"></span>
+
+  <div class="detail-header">
+    <a href="#bank_transfer_sweep_list/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">bank_transfer_sweep_list(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>bank_transfer_sweep_list(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>List sweeps</p><p>The <code class="inline">/bank_transfer/sweep/list</code> endpoint fetches information about the sweeps matching the given filters.</p>
+  </section>
+</section>
+<section class="detail" id="categories_get/1">
+
+    <span id="categories_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#categories_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">categories_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>categories_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get Categories</p><p>Send a request to the <code class="inline">/categories/get</code>  endpoint to get detailed information on categories returned by Plaid. This endpoint does not require authentication.</p>
+  </section>
+</section>
+<section class="detail" id="create_payment_token/1">
+
+    <span id="create_payment_token/0"></span>
+
+  <div class="detail-header">
+    <a href="#create_payment_token/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">create_payment_token(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>create_payment_token(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create payment token</p><p>The <code class="inline">/payment_initiation/payment/token/create</code> endpoint has been deprecated. New Plaid customers will be unable to use this endpoint, and existing customers are encouraged to migrate to the newer, <code class="inline">link_token</code>-based flow. The recommended flow is to provide the <code class="inline">payment_id</code> to <code class="inline">/link/token/create</code>, which returns a <code class="inline">link_token</code> used to initialize Link.</p><p>The <code class="inline">/payment_initiation/payment/token/create</code> is used to create a <code class="inline">payment_token</code>, which can then be used in Link initialization to enter a payment initiation flow. You can only use a <code class="inline">payment_token</code> once. If this attempt fails, the end user aborts the flow, or the token expires, you will need to create a new payment token. Creating a new payment token does not require end user input.</p>
+  </section>
+</section>
+<section class="detail" id="deposit_switch_alt_create/1">
+
+    <span id="deposit_switch_alt_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#deposit_switch_alt_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">deposit_switch_alt_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>deposit_switch_alt_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a deposit switch without using Plaid Exchange</p><p>This endpoint provides an alternative to <code class="inline">/deposit_switch/create</code> for customers who have not yet fully integrated with Plaid Exchange. Like <code class="inline">/deposit_switch/create</code>, it creates a deposit switch entity that will be persisted throughout the lifecycle of the switch.</p>
+  </section>
+</section>
+<section class="detail" id="deposit_switch_create/1">
+
+    <span id="deposit_switch_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#deposit_switch_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">deposit_switch_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>deposit_switch_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a deposit switch</p><p>This endpoint creates a deposit switch entity that will be persisted throughout the lifecycle of the switch.</p>
+  </section>
+</section>
+<section class="detail" id="deposit_switch_get/1">
+
+    <span id="deposit_switch_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#deposit_switch_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">deposit_switch_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>deposit_switch_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve a deposit switch</p><p>This endpoint returns information related to how the user has configured their payroll allocation and the state of the switch. You can use this information to build logic related to the user's direct deposit allocation preferences.</p>
+  </section>
+</section>
+<section class="detail" id="deposit_switch_token_create/1">
+
+    <span id="deposit_switch_token_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#deposit_switch_token_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">deposit_switch_token_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>deposit_switch_token_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a deposit switch token</p><p>In order for the end user to take action, you will need to create a public token representing the deposit switch. This token is used to initialize Link. It can be used one time and expires after 30 minutes.</p>
+  </section>
+</section>
+<section class="detail" id="employers_search/1">
+
+    <span id="employers_search/0"></span>
+
+  <div class="detail-header">
+    <a href="#employers_search/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">employers_search(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>employers_search(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Search employer database</p><p><code class="inline">/employers/search</code> allows you the ability to search Plaid’s database of known employers, for use with Deposit Switch. You can use this endpoint to look up a user's employer in order to confirm that they are supported. Users with non-supported employers can then be routed out of the Deposit Switch flow.</p><p>The data in the employer database is currently limited. As the Deposit Switch and Income products progress through their respective beta periods, more employers are being regularly added. Because the employer database is frequently updated, we recommend that you do not cache or store data from this endpoint for more than a day.</p>
+  </section>
+</section>
+<section class="detail" id="identity_get/1">
+
+    <span id="identity_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#identity_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">identity_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>identity_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve identity data</p><p>The <code class="inline">/identity/get</code> endpoint allows you to retrieve various account holder information on file with the financial institution, including names, emails, phone numbers, and addresses. Only name data is guaranteed to be returned; other fields will be empty arrays if not provided by the institution.</p><p>Note: This request may take some time to complete if identity was not specified as an initial product when creating the Item. This is because Plaid must communicate directly with the institution to retrieve the data.</p>
+  </section>
+</section>
+<section class="detail" id="income_verification_create/1">
+
+    <span id="income_verification_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#income_verification_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">income_verification_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>income_verification_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create an income verification instance</p><p><code class="inline">/income/verification/create</code> begins the income verification process by returning an <code class="inline">income_verification_id</code>. You can then provide the <code class="inline">income_verification_id</code> to <code class="inline">/link/token/create</code> under the <code class="inline">income_verification</code> parameter in order to create a Link instance that will prompt the user to go through the income verification flow. Plaid will fire an <code class="inline">INCOME</code> webhook once the user completes the Payroll Income flow, or when the uploaded documents in the Document Income flow have finished processing. </p>
+  </section>
+</section>
+<section class="detail" id="income_verification_documents_download/1">
+
+    <span id="income_verification_documents_download/0"></span>
+
+  <div class="detail-header">
+    <a href="#income_verification_documents_download/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">income_verification_documents_download(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>income_verification_documents_download(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Download the original documents used for income verification</p><p><code class="inline">/income/verification/documents/download</code> provides the ability to download the source paystub PDF that the end user uploaded via Paystub Import.</p><p>The response to <code class="inline">/income/verification/documents/download</code> is a ZIP file in binary data. The <code class="inline">request_id</code>  is returned in the <code class="inline">Plaid-Request-ID</code> header.</p><p>For Payroll Income, the most recent file available for download with the payroll provider will also be available from this endpoint.</p>
+  </section>
+</section>
+<section class="detail" id="income_verification_paystub_get/1">
+
+    <span id="income_verification_paystub_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#income_verification_paystub_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">income_verification_paystub_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>income_verification_paystub_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>(Deprecated) Retrieve information from a single paystub used for income verification</p>
+  </section>
+</section>
+<section class="detail" id="income_verification_paystubs_get/1">
+
+    <span id="income_verification_paystubs_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#income_verification_paystubs_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">income_verification_paystubs_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>income_verification_paystubs_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve information from the paystubs used for income verification</p><p><code class="inline">/income/verification/paystubs/get</code> returns the information collected from the paystubs that were used to verify an end user's income. It can be called once the status of the verification has been set to <code class="inline">VERIFICATION_STATUS_PROCESSING_COMPLETE</code>, as reported by the <code class="inline">INCOME: verification_status</code> webhook. Attempting to call the endpoint before verification has been completed will result in an error.</p>
+  </section>
+</section>
+<section class="detail" id="income_verification_precheck/1">
+
+    <span id="income_verification_precheck/0"></span>
+
+  <div class="detail-header">
+    <a href="#income_verification_precheck/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">income_verification_precheck(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>income_verification_precheck(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Check a user's eligibility for the income verification product</p><p><code class="inline">/income/verification/precheck</code> returns whether a given user is supportable by the income product</p>
+  </section>
+</section>
+<section class="detail" id="income_verification_refresh/1">
+
+    <span id="income_verification_refresh/0"></span>
+
+  <div class="detail-header">
+    <a href="#income_verification_refresh/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">income_verification_refresh(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>income_verification_refresh(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Refresh an income verification</p><p><code class="inline">/income/verification/refresh</code> refreshes a given income verification.</p>
+  </section>
+</section>
+<section class="detail" id="income_verification_summary_get/1">
+
+    <span id="income_verification_summary_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#income_verification_summary_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">income_verification_summary_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>income_verification_summary_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve a summary of information derived from income verification</p><p><code class="inline">/income/verification/summary/get</code> returns a verification summary for the income that was verified for an end user. It can be called once the status of the verification has been set to <code class="inline">VERIFICATION_STATUS_PROCESSING_COMPLETE</code>, as reported by the <code class="inline">INCOME: verification_status</code> webhook. Attempting to call the endpoint before verification has been completed will result in an error.</p>
+  </section>
+</section>
+<section class="detail" id="income_verification_taxforms_get/1">
+
+    <span id="income_verification_taxforms_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#income_verification_taxforms_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">income_verification_taxforms_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>income_verification_taxforms_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve information from the tax documents used for income verification</p><p><code class="inline">/income/verification/taxforms/get</code> returns the information collected from taxforms that were used to verify an end user's. It can be called once the status of the verification has been set to <code class="inline">VERIFICATION_STATUS_PROCESSING_COMPLETE</code>, as reported by the <code class="inline">INCOME: verification_status</code> webhook. Attempting to call the endpoint before verification has been completed will result in an error.</p>
+  </section>
+</section>
+<section class="detail" id="institutions_get/1">
+
+    <span id="institutions_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#institutions_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">institutions_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>institutions_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get details of all supported institutions</p><p>Returns a JSON response containing details on all financial institutions currently supported by Plaid. Because Plaid supports thousands of institutions, results are paginated.</p><p>If there is no overlap between an institution’s enabled products and a client’s enabled products, then the institution will be filtered out from the response. As a result, the number of institutions returned may not match the count specified in the call.</p>
+  </section>
+</section>
+<section class="detail" id="institutions_get_by_id/1">
+
+    <span id="institutions_get_by_id/0"></span>
+
+  <div class="detail-header">
+    <a href="#institutions_get_by_id/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">institutions_get_by_id(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>institutions_get_by_id(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get details of an institution</p><p>Returns a JSON response containing details on a specified financial institution currently supported by Plaid.</p>
+  </section>
+</section>
+<section class="detail" id="institutions_search/1">
+
+    <span id="institutions_search/0"></span>
+
+  <div class="detail-header">
+    <a href="#institutions_search/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">institutions_search(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>institutions_search(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Search institutions</p><p>Returns a JSON response containing details for institutions that match the query parameters, up to a maximum of ten institutions per query.</p>
+  </section>
+</section>
+<section class="detail" id="investments_holdings_get/1">
+
+    <span id="investments_holdings_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#investments_holdings_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">investments_holdings_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>investments_holdings_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get Investment holdings</p><p>The <code class="inline">/investments/holdings/get</code> endpoint allows developers to receive user-authorized stock position data for <code class="inline">investment</code>-type accounts.</p>
+  </section>
+</section>
+<section class="detail" id="investments_transactions_get/1">
+
+    <span id="investments_transactions_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#investments_transactions_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">investments_transactions_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>investments_transactions_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get investment transactions</p><p>The <code class="inline">/investments/transactions/get</code> endpoint allows developers to retrieve user-authorized transaction data for investment accounts.</p><p>Transactions are returned in reverse-chronological order, and the sequence of transaction ordering is stable and will not shift.</p><p>Due to the potentially large number of investment transactions associated with an Item, results are paginated. Manipulate the count and offset parameters in conjunction with the <code class="inline">total_investment_transactions</code> response body field to fetch all available investment transactions.</p>
+  </section>
+</section>
+<section class="detail" id="item_access_token_invalidate/1">
+
+    <span id="item_access_token_invalidate/0"></span>
+
+  <div class="detail-header">
+    <a href="#item_access_token_invalidate/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">item_access_token_invalidate(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>item_access_token_invalidate(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Invalidate access_token</p><p>By default, the <code class="inline">access_token</code> associated with an Item does not expire and should be stored in a persistent, secure manner.</p><p>You can use the <code class="inline">/item/access_token/invalidate</code> endpoint to rotate the <code class="inline">access_token</code> associated with an Item. The endpoint returns a new <code class="inline">access_token</code> and immediately invalidates the previous <code class="inline">access_token</code>.</p>
+  </section>
+</section>
+<section class="detail" id="item_application_list/1">
+
+    <span id="item_application_list/0"></span>
+
+  <div class="detail-header">
+    <a href="#item_application_list/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">item_application_list(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>item_application_list(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>List a user’s connected applications</p><p>List a user’s connected applications</p>
+  </section>
+</section>
+<section class="detail" id="item_application_scopes_update/1">
+
+    <span id="item_application_scopes_update/0"></span>
+
+  <div class="detail-header">
+    <a href="#item_application_scopes_update/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">item_application_scopes_update(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>item_application_scopes_update(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Update the scopes of access for a particular application</p><p>Enable consumers to update product access on selected accounts for an application.</p>
+  </section>
+</section>
+<section class="detail" id="item_create_public_token/1">
+
+    <span id="item_create_public_token/0"></span>
+
+  <div class="detail-header">
+    <a href="#item_create_public_token/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">item_create_public_token(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>item_create_public_token(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create public token</p><p>Note: As of July 2020, the <code class="inline">/item/public_token/create</code> endpoint is deprecated. Instead, use <code class="inline">/link/token/create</code> with an <code class="inline">access_token</code> to create a Link token for use with <a href="https://plaid.com/docs/link/update-mode">update mode</a>.</p><p>If you need your user to take action to restore or resolve an error associated with an Item, generate a public token with the <code class="inline">/item/public_token/create</code> endpoint and then initialize Link with that <code class="inline">public_token</code>.</p><p>A <code class="inline">public_token</code> is one-time use and expires after 30 minutes. You use a <code class="inline">public_token</code> to initialize Link in <a href="https://plaid.com/docs/link/update-mode">update mode</a> for a particular Item. You can generate a <code class="inline">public_token</code> for an Item even if you did not use Link to create the Item originally.</p><p>The <code class="inline">/item/public_token/create</code> endpoint is <strong>not</strong> used to create your initial <code class="inline">public_token</code>. If you have not already received an <code class="inline">access_token</code> for a specific Item, use Link to obtain your <code class="inline">public_token</code> instead. See the <a href="https://plaid.com/docs/quickstart">Quickstart</a> for more information.</p>
+  </section>
+</section>
+<section class="detail" id="item_get/1">
+
+    <span id="item_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#item_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">item_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>item_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve an Item</p><p>Returns information about the status of an Item.</p>
+  </section>
+</section>
+<section class="detail" id="item_import/1">
+
+    <span id="item_import/0"></span>
+
+  <div class="detail-header">
+    <a href="#item_import/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">item_import(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>item_import(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Import Item</p><p><code class="inline">/item/import</code> creates an Item via your Plaid Exchange Integration and returns an <code class="inline">access_token</code>. As part of an <code class="inline">/item/import</code> request, you will include a User ID (<code class="inline">user_auth.user_id</code>) and Authentication Token (<code class="inline">user_auth.auth_token</code>) that enable data aggregation through your Plaid Exchange API endpoints. These authentication principals are to be chosen by you.</p><p>Upon creating an Item via <code class="inline">/item/import</code>, Plaid will automatically begin an extraction of that Item through the Plaid Exchange infrastructure you have already integrated. This will automatically generate the Plaid native account ID for the account the user will switch their direct deposit to (<code class="inline">target_account_id</code>).</p>
+  </section>
+</section>
+<section class="detail" id="item_public_token_exchange/1">
+
+    <span id="item_public_token_exchange/0"></span>
+
+  <div class="detail-header">
+    <a href="#item_public_token_exchange/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">item_public_token_exchange(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>item_public_token_exchange(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Exchange public token for an access token</p><p>Exchange a Link <code class="inline">public_token</code> for an API <code class="inline">access_token</code>. Link hands off the <code class="inline">public_token</code> client-side via the <code class="inline">onSuccess</code> callback once a user has successfully created an Item. The <code class="inline">public_token</code> is ephemeral and expires after 30 minutes.</p><p>The response also includes an <code class="inline">item_id</code> that should be stored with the <code class="inline">access_token</code>. The <code class="inline">item_id</code> is used to identify an Item in a webhook. The <code class="inline">item_id</code> can also be retrieved by making an <code class="inline">/item/get</code> request.</p>
+  </section>
+</section>
+<section class="detail" id="item_remove/1">
+
+    <span id="item_remove/0"></span>
+
+  <div class="detail-header">
+    <a href="#item_remove/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">item_remove(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>item_remove(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Remove an Item</p><p>The <code class="inline">/item/remove</code>  endpoint allows you to remove an Item. Once removed, the <code class="inline">access_token</code>  associated with the Item is no longer valid and cannot be used to access any data that was associated with the Item.</p><p>Note that in the Development environment, issuing an <code class="inline">/item/remove</code>  request will not decrement your live credential count. To increase your credential account in Development, contact Support.</p><p>Also note that for certain OAuth-based institutions, an Item removed via <code class="inline">/item/remove</code> may still show as an active connection in the institution's OAuth permission manager.</p>
+  </section>
+</section>
+<section class="detail" id="item_webhook_update/1">
+
+    <span id="item_webhook_update/0"></span>
+
+  <div class="detail-header">
+    <a href="#item_webhook_update/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">item_webhook_update(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>item_webhook_update(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Update Webhook URL</p><p>The POST <code class="inline">/item/webhook/update</code> allows you to update the webhook URL associated with an Item. This request triggers a <a href="https://plaid.com/docs/api/webhooks/#item-webhook-url-updated"><code class="inline">WEBHOOK_UPDATE_ACKNOWLEDGED</code></a> webhook to the newly specified webhook URL.</p>
+  </section>
+</section>
+<section class="detail" id="liabilities_get/1">
+
+    <span id="liabilities_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#liabilities_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">liabilities_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>liabilities_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve Liabilities data</p><p>The <code class="inline">/liabilities/get</code> endpoint returns various details about an Item with loan or credit accounts. Liabilities data is available primarily for US financial institutions, with some limited coverage of Canadian institutions. Currently supported account types are account type <code class="inline">credit</code> with account subtype <code class="inline">credit card</code> or <code class="inline">paypal</code>, and account type <code class="inline">loan</code> with account subtype <code class="inline">student</code> or <code class="inline">mortgage</code>. To limit accounts listed in Link to types and subtypes supported by Liabilities, you can use the <code class="inline">account_filters</code> parameter when <a href="https://plaid.com/docs/api/tokens/#linktokencreate">creating a Link token</a>.</p><p>The types of information returned by Liabilities can include balances and due dates, loan terms, and account details such as original loan amount and guarantor. Data is refreshed approximately once per day; the latest data can be retrieved by calling <code class="inline">/liabilities/get</code>.</p><p>Note: This request may take some time to complete if <code class="inline">liabilities</code> was not specified as an initial product when creating the Item. This is because Plaid must communicate directly with the institution to retrieve the additional data.</p>
+  </section>
+</section>
+<section class="detail" id="link_token_create/1">
+
+    <span id="link_token_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#link_token_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">link_token_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>link_token_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create Link Token</p><p>The <code class="inline">/link/token/create</code> endpoint creates a <code class="inline">link_token</code>, which is required as a parameter when initializing Link. Once Link has been initialized, it returns a <code class="inline">public_token</code>, which can then be exchanged for an <code class="inline">access_token</code> via <code class="inline">/item/public_token/exchange</code> as part of the main Link flow.</p><p>A <code class="inline">link_token</code> generated by <code class="inline">/link/token/create</code> is also used to initialize other Link flows, such as the update mode flow for tokens with expired credentials, or the Payment Initiation (Europe) flow.</p>
+  </section>
+</section>
+<section class="detail" id="link_token_get/1">
+
+    <span id="link_token_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#link_token_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">link_token_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>link_token_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get Link Token</p><p>The <code class="inline">/link/token/get</code> endpoint gets information about a previously-created <code class="inline">link_token</code> using the
+<code class="inline">/link/token/create</code> endpoint. It can be useful for debugging purposes.</p>
+  </section>
+</section>
+<section class="detail" id="new/0">
+
+  <div class="detail-header">
+    <a href="#new/0" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">new()</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>new() :: <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()</pre>
+
+      </div>
+
+<p>See <a href="#new/2"><code class="inline">new/2</code></a>.</p>
+  </section>
+</section>
+<section class="detail" id="new/2">
+
+  <div class="detail-header">
+    <a href="#new/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">new(middleware, adapter)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>new([<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:middleware/0">Tesla.Client.middleware</a>()], <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:adapter/0">Tesla.Client.adapter</a>()) :: <a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()</pre>
+
+      </div>
+
+<p>Get new API client instance</p>
+  </section>
+</section>
+<section class="detail" id="payment_initiation_payment_create/1">
+
+    <span id="payment_initiation_payment_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#payment_initiation_payment_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">payment_initiation_payment_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>payment_initiation_payment_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a payment</p><p>After creating a payment recipient, you can use the <code class="inline">/payment_initiation/payment/create</code> endpoint to create a payment to that recipient.  Payments can be one-time or standing order (recurring) and can be denominated in either EUR or GBP.  If making domestic GBP-denominated payments, your recipient must have been created with BACS numbers. In general, EUR-denominated payments will be sent via SEPA Credit Transfer and GBP-denominated payments will be sent via the Faster Payments network, but the payment network used will be determined by the institution. Payments sent via Faster Payments will typically arrive immediately, while payments sent via SEPA Credit Transfer will typically arrive in one business day.</p><p>Standing orders (recurring payments) must be denominated in GBP and can only be sent to recipients in the UK. Once created, standing order payments cannot be modified or canceled via the API. An end user can cancel or modify a standing order directly on their banking application or website, or by contacting the bank. Standing orders will follow the payment rules of the underlying rails (Faster Payments in UK). Payments can be sent Monday to Friday, excluding bank holidays. If the pre-arranged date falls on a weekend or bank holiday, the payment is made on the next working day. It is not possible to guarantee the exact time the payment will reach the recipient’s account, although at least 90% of standing order payments are sent by 6am.</p><p>In the Development environment, payments must be below 5 GBP / EUR. For details on any payment limits in Production, contact your Plaid Account Manager.</p>
+  </section>
+</section>
+<section class="detail" id="payment_initiation_payment_get/1">
+
+    <span id="payment_initiation_payment_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#payment_initiation_payment_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">payment_initiation_payment_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>payment_initiation_payment_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get payment details</p><p>The <code class="inline">/payment_initiation/payment/get</code> endpoint can be used to check the status of a payment, as well as to receive basic information such as recipient and payment amount. In the case of standing orders, the <code class="inline">/payment_initiation/payment/get</code> endpoint will provide information about the status of the overall standing order itself; the API cannot be used to retrieve payment status for individual payments within a standing order.</p>
+  </section>
+</section>
+<section class="detail" id="payment_initiation_payment_list/1">
+
+    <span id="payment_initiation_payment_list/0"></span>
+
+  <div class="detail-header">
+    <a href="#payment_initiation_payment_list/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">payment_initiation_payment_list(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>payment_initiation_payment_list(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>List payments</p><p>The <code class="inline">/payment_initiation/payment/list</code> endpoint can be used to retrieve all created payments. By default, the 10 most recent payments are returned. You can request more payments and paginate through the results using the optional <code class="inline">count</code> and <code class="inline">cursor</code> parameters.</p>
+  </section>
+</section>
+<section class="detail" id="payment_initiation_payment_reverse/1">
+
+    <span id="payment_initiation_payment_reverse/0"></span>
+
+  <div class="detail-header">
+    <a href="#payment_initiation_payment_reverse/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">payment_initiation_payment_reverse(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>payment_initiation_payment_reverse(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Reverse an existing payment</p><p>Reverse a previously initiated payment.</p><p>A payment can only be reversed once and will be refunded to the original sender's account.</p>
+  </section>
+</section>
+<section class="detail" id="payment_initiation_recipient_create/1">
+
+    <span id="payment_initiation_recipient_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#payment_initiation_recipient_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">payment_initiation_recipient_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>payment_initiation_recipient_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create payment recipient</p><p>Create a payment recipient for payment initiation.  The recipient must be in Europe, within a country that is a member of the Single Euro Payment Area (SEPA).  For a standing order (recurring) payment, the recipient must be in the UK.</p><p>The endpoint is idempotent: if a developer has already made a request with the same payment details, Plaid will return the same <code class="inline">recipient_id</code>.</p>
+  </section>
+</section>
+<section class="detail" id="payment_initiation_recipient_get/1">
+
+    <span id="payment_initiation_recipient_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#payment_initiation_recipient_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">payment_initiation_recipient_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>payment_initiation_recipient_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get payment recipient</p><p>Get details about a payment recipient you have previously created.</p>
+  </section>
+</section>
+<section class="detail" id="payment_initiation_recipient_list/1">
+
+    <span id="payment_initiation_recipient_list/0"></span>
+
+  <div class="detail-header">
+    <a href="#payment_initiation_recipient_list/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">payment_initiation_recipient_list(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>payment_initiation_recipient_list(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>List payment recipients</p><p>The <code class="inline">/payment_initiation/recipient/list</code> endpoint list the payment recipients that you have previously created.</p>
+  </section>
+</section>
+<section class="detail" id="processor_apex_processor_token_create/1">
+
+    <span id="processor_apex_processor_token_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#processor_apex_processor_token_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">processor_apex_processor_token_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>processor_apex_processor_token_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create Apex bank account token</p><p>Used to create a token suitable for sending to Apex to enable Plaid-Apex integrations.</p>
+  </section>
+</section>
+<section class="detail" id="processor_auth_get/1">
+
+    <span id="processor_auth_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#processor_auth_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">processor_auth_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>processor_auth_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve Auth data</p><p>The <code class="inline">/processor/auth/get</code> endpoint returns the bank account and bank identification number (such as the routing number, for US accounts), for a checking or savings account that's associated with a given <code class="inline">processor_token</code>. The endpoint also returns high-level account data and balances when available.</p>
+  </section>
+</section>
+<section class="detail" id="processor_balance_get/1">
+
+    <span id="processor_balance_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#processor_balance_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">processor_balance_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>processor_balance_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve Balance data</p><p>The <code class="inline">/processor/balance/get</code> endpoint returns the real-time balance for each of an Item's accounts. While other endpoints may return a balance object, only <code class="inline">/processor/balance/get</code> forces the available and current balance fields to be refreshed rather than cached. </p>
+  </section>
+</section>
+<section class="detail" id="processor_bank_transfer_create/1">
+
+    <span id="processor_bank_transfer_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#processor_bank_transfer_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">processor_bank_transfer_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>processor_bank_transfer_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a bank transfer as a processor</p><p>Use the <code class="inline">/processor/bank_transfer/create</code> endpoint to initiate a new bank transfer as a processor</p>
+  </section>
+</section>
+<section class="detail" id="processor_identity_get/1">
+
+    <span id="processor_identity_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#processor_identity_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">processor_identity_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>processor_identity_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve Identity data</p><p>The <code class="inline">/processor/identity/get</code> endpoint allows you to retrieve various account holder information on file with the financial institution, including names, emails, phone numbers, and addresses.</p>
+  </section>
+</section>
+<section class="detail" id="processor_stripe_bank_account_token_create/1">
+
+    <span id="processor_stripe_bank_account_token_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#processor_stripe_bank_account_token_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">processor_stripe_bank_account_token_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>processor_stripe_bank_account_token_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create Stripe bank account token</p><p>Used to create a token suitable for sending to Stripe to enable Plaid-Stripe integrations. For a detailed guide on integrating Stripe, see <a href="https://plaid.com/docs/auth/partnerships/stripe/">Add Stripe to your app</a>.</p>
+  </section>
+</section>
+<section class="detail" id="processor_token_create/1">
+
+    <span id="processor_token_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#processor_token_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">processor_token_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>processor_token_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create processor token</p><p>Used to create a token suitable for sending to one of Plaid's partners to enable integrations. Note that Stripe partnerships use bank account tokens instead; see <code class="inline">/processor/stripe/bank_account_token/create</code> for creating tokens for use with Stripe integrations.</p>
+  </section>
+</section>
+<section class="detail" id="sandbox_bank_transfer_fire_webhook/1">
+
+    <span id="sandbox_bank_transfer_fire_webhook/0"></span>
+
+  <div class="detail-header">
+    <a href="#sandbox_bank_transfer_fire_webhook/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sandbox_bank_transfer_fire_webhook(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>sandbox_bank_transfer_fire_webhook(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Manually fire a Bank Transfer webhook</p><p>Use the <code class="inline">/sandbox/bank_transfer/fire_webhook</code> endpoint to manually trigger a Bank Transfers webhook in the Sandbox environment.</p>
+  </section>
+</section>
+<section class="detail" id="sandbox_bank_transfer_simulate/1">
+
+    <span id="sandbox_bank_transfer_simulate/0"></span>
+
+  <div class="detail-header">
+    <a href="#sandbox_bank_transfer_simulate/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sandbox_bank_transfer_simulate(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>sandbox_bank_transfer_simulate(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Simulate a bank transfer event in Sandbox</p><p>Use the <code class="inline">/sandbox/bank_transfer/simulate</code> endpoint to simulate a bank transfer event in the Sandbox environment.  Note that while an event will be simulated and will appear when using endpoints such as <code class="inline">/bank_transfer/event/sync</code> or <code class="inline">/bank_transfer/event/list</code>, no transactions will actually take place and funds will not move between accounts, even within the Sandbox.</p>
+  </section>
+</section>
+<section class="detail" id="sandbox_income_fire_webhook/1">
+
+    <span id="sandbox_income_fire_webhook/0"></span>
+
+  <div class="detail-header">
+    <a href="#sandbox_income_fire_webhook/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sandbox_income_fire_webhook(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>sandbox_income_fire_webhook(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Manually fire an Income webhook</p><p>Use the <code class="inline">/sandbox/income/fire_webhook</code> endpoint to manually trigger an Income webhook in the Sandbox environment.</p>
+  </section>
+</section>
+<section class="detail" id="sandbox_item_fire_webhook/1">
+
+    <span id="sandbox_item_fire_webhook/0"></span>
+
+  <div class="detail-header">
+    <a href="#sandbox_item_fire_webhook/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sandbox_item_fire_webhook(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>sandbox_item_fire_webhook(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Fire a test webhook</p><p>The <code class="inline">/sandbox/item/fire_webhook</code> endpoint is used to test that code correctly handles webhooks. Calling this endpoint triggers a Transactions <code class="inline">DEFAULT_UPDATE</code> webhook to be fired for a given Sandbox Item. If the Item does not support Transactions, a <code class="inline">SANDBOX_PRODUCT_NOT_ENABLED</code> error will result.</p>
+  </section>
+</section>
+<section class="detail" id="sandbox_item_reset_login/1">
+
+    <span id="sandbox_item_reset_login/0"></span>
+
+  <div class="detail-header">
+    <a href="#sandbox_item_reset_login/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sandbox_item_reset_login(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>sandbox_item_reset_login(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Force a Sandbox Item into an error state</p><p><code class="inline">/sandbox/item/reset_login/</code> forces an Item into an <code class="inline">ITEM_LOGIN_REQUIRED</code> state in order to simulate an Item whose login is no longer valid. This makes it easy to test Link's <a href="https://plaid.com/docs/link/update-mode">update mode</a> flow in the Sandbox environment.  After calling <code class="inline">/sandbox/item/reset_login</code>, You can then use Plaid Link update mode to restore the Item to a good state. An <code class="inline">ITEM_LOGIN_REQUIRED</code> webhook will also be fired after a call to this endpoint, if one is associated with the Item.</p><p>In the Sandbox, Items will transition to an <code class="inline">ITEM_LOGIN_REQUIRED</code> error state automatically after 30 days, even if this endpoint is not called.</p>
+  </section>
+</section>
+<section class="detail" id="sandbox_item_set_verification_status/1">
+
+    <span id="sandbox_item_set_verification_status/0"></span>
+
+  <div class="detail-header">
+    <a href="#sandbox_item_set_verification_status/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sandbox_item_set_verification_status(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>sandbox_item_set_verification_status(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Set verification status for Sandbox account</p><p>The <code class="inline">/sandbox/item/set_verification_status</code> endpoint can be used to change the verification status of an Item in in the Sandbox in order to simulate the Automated Micro-deposit flow.</p><p>Note that not all Plaid developer accounts are enabled for micro-deposit based verification by default. Your account must be enabled for this feature in order to test it in Sandbox. To enable this features or check your status, contact your account manager or <a href="https://dashboard.plaid.com/support/new/product-and-development/product-troubleshooting/request-product-access">submit a product access Support ticket</a>.</p><p>For more information on testing Automated Micro-deposits in Sandbox, see <a href="https://plaid.com/docs/auth/coverage/testing#">Auth full coverage testing</a>.</p>
+  </section>
+</section>
+<section class="detail" id="sandbox_oauth_select_accounts/1">
+
+    <span id="sandbox_oauth_select_accounts/0"></span>
+
+  <div class="detail-header">
+    <a href="#sandbox_oauth_select_accounts/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sandbox_oauth_select_accounts(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>sandbox_oauth_select_accounts(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Save the selected accounts when connecting to the Platypus Oauth institution</p>
+  </section>
+</section>
+<section class="detail" id="sandbox_processor_token_create/1">
+
+    <span id="sandbox_processor_token_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#sandbox_processor_token_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sandbox_processor_token_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>sandbox_processor_token_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a test Item and processor token</p><p>Use the <code class="inline">/sandbox/processor_token/create</code> endpoint to create a valid <code class="inline">processor_token</code> for an arbitrary institution ID and test credentials. The created <code class="inline">processor_token</code> corresponds to a new Sandbox Item. You can then use this <code class="inline">processor_token</code> with the <code class="inline">/processor/</code> API endpoints in Sandbox. You can also use <code class="inline">/sandbox/processor_token/create</code> with the <a href="https://plaid.com/docs/sandbox/user-custom"><code class="inline">user_custom</code> test username</a> to generate a test account with custom data.</p>
+  </section>
+</section>
+<section class="detail" id="sandbox_public_token_create/1">
+
+    <span id="sandbox_public_token_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#sandbox_public_token_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sandbox_public_token_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>sandbox_public_token_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a test Item</p><p>Use the <code class="inline">/sandbox/public_token/create</code>  endpoint to create a valid <code class="inline">public_token</code>  for an arbitrary institution ID, initial products, and test credentials. The created <code class="inline">public_token</code> maps to a new Sandbox Item. You can then call <code class="inline">/item/public_token/exchange</code> to exchange the <code class="inline">public_token</code> for an <code class="inline">access_token</code> and perform all API actions. <code class="inline">/sandbox/public_token/create</code> can also be used with the <a href="https://plaid.com/docs/sandbox/user-custom"><code class="inline">user_custom</code> test username</a> to generate a test account with custom data.</p>
+  </section>
+</section>
+<section class="detail" id="sandbox_transfer_simulate/1">
+
+    <span id="sandbox_transfer_simulate/0"></span>
+
+  <div class="detail-header">
+    <a href="#sandbox_transfer_simulate/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sandbox_transfer_simulate(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>sandbox_transfer_simulate(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Simulate a transfer event in Sandbox</p><p>Use the <code class="inline">/sandbox/transfer/simulate</code> endpoint to simulate a transfer event in the Sandbox environment.  Note that while an event will be simulated and will appear when using endpoints such as <code class="inline">/transfer/event/sync</code> or <code class="inline">/transfer/event/list</code>, no transactions will actually take place and funds will not move between accounts, even within the Sandbox.</p>
+  </section>
+</section>
+<section class="detail" id="signal_decision_report/1">
+
+    <span id="signal_decision_report/0"></span>
+
+  <div class="detail-header">
+    <a href="#signal_decision_report/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">signal_decision_report(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>signal_decision_report(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Report whether you initiated an ACH transaction</p><p>After calling <code class="inline">/signal/evaluate</code>, call <code class="inline">/signal/decision/report</code> to report whether the transaction was initiated. This endpoint will return an <code class="inline">INVALID_REQUEST</code> error if called a second time with a different value for <code class="inline">initiated</code>.</p>
+  </section>
+</section>
+<section class="detail" id="signal_evaluate/1">
+
+    <span id="signal_evaluate/0"></span>
+
+  <div class="detail-header">
+    <a href="#signal_evaluate/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">signal_evaluate(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>signal_evaluate(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Evaluate a planned ACH transaction</p><p>Use <code class="inline">/signal/evaluate</code> to evaluate a planned ACH transaction to get a return risk assessment (such as a risk score and risk tier) and additional risk signals.</p><p>In order to obtain a valid score for an ACH transaction, Plaid must have an access token for the account, and the Item must be healthy (receiving product updates) or have recently been in a healthy state. If the transaction does not meet eligibility requirements, an error will be returned corresponding to the underlying cause.</p>
+  </section>
+</section>
+<section class="detail" id="signal_return_report/1">
+
+    <span id="signal_return_report/0"></span>
+
+  <div class="detail-header">
+    <a href="#signal_return_report/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">signal_return_report(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>signal_return_report(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Report a return for an ACH transaction</p><p>Call the <code class="inline">/signal/return/report</code> endpoint to report a returned transaction that was previously sent to the <code class="inline">/signal/evaluate</code> endpoint. Your feedback will be used by the model to incorporate the latest risk trend in your portfolio.</p>
+  </section>
+</section>
+<section class="detail" id="transactions_get/1">
+
+    <span id="transactions_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#transactions_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">transactions_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>transactions_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get transaction data</p><p>The <code class="inline">/transactions/get</code> endpoint allows developers to receive user-authorized transaction data for credit, depository, and some loan-type accounts (only those with account subtype <code class="inline">student</code>; coverage may be limited). For transaction history from investments accounts, use the <a href="https://plaid.com/docs/api/products#investments">Investments endpoint</a> instead. Transaction data is standardized across financial institutions, and in many cases transactions are linked to a clean name, entity type, location, and category. Similarly, account data is standardized and returned with a clean name, number, balance, and other meta information where available.</p><p>Transactions are returned in reverse-chronological order, and the sequence of transaction ordering is stable and will not shift.  Transactions are not immutable and can also be removed altogether by the institution; a removed transaction will no longer appear in <code class="inline">/transactions/get</code>.  For more details, see <a href="https://plaid.com/docs/transactions/transactions-data/#pending-and-posted-transactions">Pending and posted transactions</a>.</p><p>Due to the potentially large number of transactions associated with an Item, results are paginated. Manipulate the <code class="inline">count</code> and <code class="inline">offset</code> parameters in conjunction with the <code class="inline">total_transactions</code> response body field to fetch all available transactions.</p><p>Data returned by <code class="inline">/transactions/get</code> will be the data available for the Item as of the most recent successful check for new transactions. Plaid typically checks for new data multiple times a day, but these checks may occur less frequently, such as once a day, depending on the institution. An Item's <code class="inline">status.transactions.last_successful_update</code> field will show the timestamp of the most recent successful update. To force Plaid to check for new transactions, you can use the <code class="inline">/transactions/refresh</code> endpoint.</p><p>Note that data may not be immediately available to <code class="inline">/transactions/get</code>. Plaid will begin to prepare transactions data upon Item link, if Link was initialized with <code class="inline">transactions</code>, or upon the first call to <code class="inline">/transactions/get</code>, if it wasn't. To be alerted when transaction data is ready to be fetched, listen for the <a href="https://plaid.com/docs/api/webhooks#transactions-initial_update"><code class="inline">INITIAL_UPDATE</code></a> and <a href="https://plaid.com/docs/api/webhooks#transactions-historical_update"><code class="inline">HISTORICAL_UPDATE</code></a> webhooks. If no transaction history is ready when <code class="inline">/transactions/get</code> is called, it will return a <code class="inline">PRODUCT_NOT_READY</code> error.</p>
+  </section>
+</section>
+<section class="detail" id="transactions_refresh/1">
+
+    <span id="transactions_refresh/0"></span>
+
+  <div class="detail-header">
+    <a href="#transactions_refresh/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">transactions_refresh(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>transactions_refresh(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Refresh transaction data</p><p><code class="inline">/transactions/refresh</code> is an optional endpoint for users of the Transactions product. It initiates an on-demand extraction to fetch the newest transactions for an Item. This on-demand extraction takes place in addition to the periodic extractions that automatically occur multiple times a day for any Transactions-enabled Item. If changes to transactions are discovered after calling <code class="inline">/transactions/refresh</code>, Plaid will fire a webhook: <a href="https://plaid.com/docs/api/webhooks#deleted-transactions-detected"><code class="inline">TRANSACTIONS_REMOVED</code></a> will be fired if any removed transactions are detected, and <a href="https://plaid.com/docs/api/webhooks#transactions-default_update"><code class="inline">DEFAULT_UPDATE</code></a> will be fired if any new transactions are detected. New transactions can be fetched by calling <code class="inline">/transactions/get</code>.</p><p>Access to <code class="inline">/transactions/refresh</code> in Production is specific to certain pricing plans. If you cannot access <code class="inline">/transactions/refresh</code> in Production, <a href="https://www.plaid.com/contact">contact Sales</a> for assistance.</p>
+  </section>
+</section>
+<section class="detail" id="transfer_authorization_create/1">
+
+    <span id="transfer_authorization_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#transfer_authorization_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">transfer_authorization_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>transfer_authorization_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) ::
+  :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a transfer authorization</p><p>Use the <code class="inline">/transfer/authorization/create</code> endpoint to determine transfer failure risk.</p><p>In Plaid's sandbox environment the decisions will be returned as follows:</p><ul><li><p>To approve a transfer, make an authorization request with an <code class="inline">amount</code> less than the available balance in the account.</p></li><li><p>To decline a transfer with the rationale code <code class="inline">NSF</code>, the available balance on the account must be less than the authorization <code class="inline">amount</code>. See <a href="https://plaid.com/docs/sandbox/user-custom/">Create Sandbox test data</a> for details on how to customize data in Sandbox.</p></li><li><p>To decline a transfer with the rationale code <code class="inline">RISK</code>, the available balance on the account must be exactly $0. See <a href="https://plaid.com/docs/sandbox/user-custom/">Create Sandbox test data</a> for details on how to customize data in Sandbox.</p></li><li><p>To permit a transfer with the rationale code <code class="inline">MANUALLY_VERIFIED_ITEM</code>, create an Item in Link through the <a href="https://plaid.com/docs/auth/coverage/testing/#testing-same-day-micro-deposits">Same Day Micro-deposits flow</a>.</p></li><li><p>To permit a transfer with the rationale code <code class="inline">LOGIN_REQUIRED</code>, <a href="https://plaid.com/docs/sandbox/#item_login_required">reset the login for an Item</a>.</p></li></ul><p>All username/password combinations other than the ones listed above will result in a decision of permitted and rationale code <code class="inline">ERROR</code>.</p>
+  </section>
+</section>
+<section class="detail" id="transfer_cancel/1">
+
+    <span id="transfer_cancel/0"></span>
+
+  <div class="detail-header">
+    <a href="#transfer_cancel/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">transfer_cancel(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>transfer_cancel(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Cancel a transfer</p><p>Use the <code class="inline">/transfer/cancel</code> endpoint to cancel a transfer.  A transfer is eligible for cancelation if the <code class="inline">cancellable</code> property returned by <code class="inline">/transfer/get</code> is <code class="inline">true</code>.</p>
+  </section>
+</section>
+<section class="detail" id="transfer_create/1">
+
+    <span id="transfer_create/0"></span>
+
+  <div class="detail-header">
+    <a href="#transfer_create/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">transfer_create(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>transfer_create(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Create a transfer</p><p>Use the <code class="inline">/transfer/create</code> endpoint to initiate a new transfer.</p>
+  </section>
+</section>
+<section class="detail" id="transfer_event_list/1">
+
+    <span id="transfer_event_list/0"></span>
+
+  <div class="detail-header">
+    <a href="#transfer_event_list/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">transfer_event_list(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>transfer_event_list(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>List transfer events</p><p>Use the <code class="inline">/transfer/event/list</code> endpoint to get a list of transfer events based on specified filter criteria.</p>
+  </section>
+</section>
+<section class="detail" id="transfer_event_sync/1">
+
+    <span id="transfer_event_sync/0"></span>
+
+  <div class="detail-header">
+    <a href="#transfer_event_sync/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">transfer_event_sync(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>transfer_event_sync(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Sync transfer events</p><p><code class="inline">/transfer/event/sync</code> allows you to request up to the next 25 transfer events that happened after a specific <code class="inline">event_id</code>. Use the <code class="inline">/transfer/event/sync</code> endpoint to guarantee you have seen all transfer events.</p>
+  </section>
+</section>
+<section class="detail" id="transfer_get/1">
+
+    <span id="transfer_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#transfer_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">transfer_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>transfer_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Retrieve a transfer</p><p>The <code class="inline">/transfer/get</code> fetches information about the transfer corresponding to the given <code class="inline">transfer_id</code>.</p>
+  </section>
+</section>
+<section class="detail" id="transfer_list/1">
+
+    <span id="transfer_list/0"></span>
+
+  <div class="detail-header">
+    <a href="#transfer_list/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">transfer_list(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>transfer_list(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | :error | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>List transfers</p><p>Use the <code class="inline">/transfer/list</code> endpoint to see a list of all your transfers and their statuses. Results are paginated; use the <code class="inline">count</code> and <code class="inline">offset</code> query parameters to retrieve the desired transfers.</p>
+  </section>
+</section>
+<section class="detail" id="webhook_verification_key_get/1">
+
+    <span id="webhook_verification_key_get/0"></span>
+
+  <div class="detail-header">
+    <a href="#webhook_verification_key_get/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">webhook_verification_key_get(client \\ new())</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+      <h2>Specs</h2>
+      <div class="specs">
+
+          <pre>webhook_verification_key_get(<a href="https://hexdocs.pm/tesla/1.4.3/Tesla.Client.html#t:t/0">Tesla.Client.t</a>()) :: :ok | {:error, <a href="https://hexdocs.pm/elixir/typespecs.html#basic-types">any</a>()}</pre>
+
+      </div>
+
+<p>Get webhook verification key</p><p>Plaid signs all outgoing webhooks and provides JSON Web Tokens (JWTs) so that you can verify the authenticity of any incoming webhooks to your application. A message signature is included in the <code class="inline">Plaid-Verification</code> header.</p><p>The <code class="inline">/webhook_verification_key/get</code> endpoint provides a JSON Web Key (JWK) that can be used to verify a JWT.</p>
+  </section>
+</section>
+
+          </div>
+        </section>
+
+      <footer class="footer">
+
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.25.2) for the
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
+          </span>
+          <span class="line">
+            Designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+        </p>
+        <p>
+
+            <a href="api-reference.html" title="API reference" class="line footer-button">API Reference</a>
+
+          <button class="line footer-button display-shortcuts-help">
+            Display keyboard shortcuts
+          </button>
+          <button class="line footer-button night-mode-toggle">
+            Toggle night mode
+          </button>
+          <button class="line footer-button display-quick-switch">
+            Go to a HexDocs package
+          </button>
+          <button class="line footer-button tooltips-toggle">
+            <span class="tooltips-option-disable">Disable tooltips</span>
+            <span class="tooltips-option-enable">Enable tooltips</span>
+          </button>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+
+
+  </body>
+</html>
